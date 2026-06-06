@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<!-- FINN VISUAL SYSTEM v3.3 — MASTER FORMAT for ALL surfaces. Canonical source: rebuild every surface from these tokens + component classes. No bespoke CSS. -->
+<!-- Locked Jun 5 2026. Supersedes v3.2. Phase 0 (tokens) + Phase 1 (8 components) complete. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>FINN Visual System v3.3 — Component Library</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================== TOKENS ============================== */
+:root{
+  /* surface ramp */
+  --bg:#090B0F; --bg2:#0D1015; --panel:#12161D; --panel2:#161B23; --elev:#1C222B;
+  --line:#242A34; --line2:#323945; --hair:rgba(255,255,255,0.045);
+  --ink:#E8EBEF; --ink2:#9AA2AD; --ink3:#646C77;
+  /* semantic roles (each: solid + dim 12-14%) */
+  --acc:#8B7CF6; --acc2:#ABA0FF; --accdim:rgba(139,124,246,0.14);   /* violet = action / conviction 5 */
+  --info:#5FAEF2; --infodim:rgba(95,174,242,0.12);                  /* info  = conviction 4 */
+  --warn:#E5A93C; --warndim:rgba(229,169,60,0.13);                  /* warn  = caution / conviction 3 */
+  --pos:#46D17F; --posdim:rgba(70,209,127,0.12);                    /* pos   = gain / opportunity */
+  --neg:#FB6F6F; --negdim:rgba(251,111,111,0.12);                   /* neg   = loss / alert */
+  --ms:#5EE6D0;  --msdim:rgba(94,230,208,0.12);                     /* teal  = market score (MS) */
+  /* radius */
+  --r-chip:6px; --r-ctrl:8px; --r-card:10px; --r-panel:14px;
+  /* type */
+  --sans:'IBM Plex Sans',-apple-system,sans-serif; --mono:'IBM Plex Mono',ui-monospace,monospace;
+  /* spacing base 4 */
+  --sp1:4px; --sp2:7px; --sp3:9px; --sp4:12px; --sp5:14px; --sp6:16px;
+}
+/* TYPE: display25 value17 title14 body12.5 label11 micro10 nano8.5 · weights 400/600/700 · numbers ALWAYS mono tabular */
+/* CASING: panel/section titles UPPER mono +.8 · stat/meta labels UPPER micro · command tokens lowercase mono · tickers UPPER mono · CTAs Sentence sans */
+/* STATES: hover=border-acc + bg accdim .15s · LIFT (translateY -2px) TILES ONLY · active=accdim + acc border + acc2 text · disabled=opacity .45 · input focus=border acc + 3px ring */
+/* ICONS: Tabler outline 1.75 · tile 22 · row icon-box 16 · inline 14 · section-header 13 · color acc2 unless status */
+
+*{box-sizing:border-box}
+body{font-family:var(--sans);background:var(--bg);background-image:radial-gradient(900px 500px at 82% -12%,rgba(139,124,246,0.10),transparent 60%);color:var(--ink);font-size:14px;margin:0;padding:28px;max-width:1000px;margin:0 auto}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.pos{color:var(--pos)} .neg{color:var(--neg)} .warnc{color:var(--warn)} .infoc{color:var(--info)}
+
+/* ===== CHROME ===== */
+.fv-chrome{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--panel2);border:1px solid var(--line);border-radius:var(--r-ctrl);padding:9px 12px}
+.fv-bc{font-family:var(--mono);font-size:11px;letter-spacing:.8px;color:var(--ink3);text-transform:uppercase}
+.fv-bc b{color:var(--acc2)}
+
+/* ===== PANEL + SECTION HEADER ===== */
+.fv-panel{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--r-panel);padding:15px}
+.fv-ph{display:flex;align-items:baseline;gap:9px;margin-bottom:13px;padding-bottom:9px;border-bottom:1px solid var(--line)}
+.fv-ph .num{font-family:var(--mono);font-size:11px;color:var(--acc2);font-weight:700}
+.fv-ph .ttl{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+.fv-ph .tag{font-family:var(--mono);font-size:10px;color:var(--ink3);margin-left:auto}
+
+/* ===== 1. BUTTON ===== */
+.fv-btn{font-family:var(--mono);font-size:12px;font-weight:600;border-radius:var(--r-ctrl);padding:7px 13px;cursor:pointer;border:1px solid transparent;transition:.15s}
+.fv-btn--primary{font-family:var(--sans);font-size:13px;background:var(--acc);border-color:var(--acc);color:#fff;padding:8px 15px}
+.fv-btn--primary:hover{background:#9d90f8;box-shadow:0 4px 14px rgba(139,124,246,.3)}
+.fv-btn--primary:active{background:#7a6be0}
+.fv-btn--secondary{background:var(--accdim);border-color:var(--acc);color:var(--acc2)}
+.fv-btn--secondary:hover{background:rgba(139,124,246,.24)}
+.fv-btn--tertiary{background:var(--panel);border-color:var(--line2);color:var(--ink2)}
+.fv-btn--tertiary:hover{border-color:var(--acc);color:var(--ink);background:var(--elev)}
+.fv-pill{font-family:var(--mono);font-size:10px;font-weight:600;border-radius:var(--r-chip);padding:5px 10px;cursor:pointer;border:1px solid transparent;background:var(--warndim);color:var(--warn)}
+.fv-btn[disabled],.fv-pill[disabled]{opacity:.45;pointer-events:none}
+/* casing: command-buttons lowercase mono (home/sync) or UPPER mono acronyms (GMF/GNF/EOD); CTAs sentence sans (Go ↗); one primary per view */
+
+/* ===== 2. INPUT ===== */
+.fv-field{font-family:var(--sans);font-size:13px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--r-ctrl);color:var(--ink);padding:10px 13px;width:100%;outline:none}
+.fv-field::placeholder{color:var(--ink3)}
+.fv-field:focus{border-color:var(--acc);box-shadow:0 0 0 3px rgba(139,124,246,.16)}
+.fv-group{display:flex;gap:8px}.fv-group .fv-field{flex:1}
+.fv-suggest{display:flex;align-items:center;gap:9px;background:var(--panel2);border:1px solid var(--line);border-radius:var(--r-ctrl);padding:8px 11px;font-size:12.5px;cursor:pointer}
+.fv-suggest.sel{border-color:var(--acc);background:var(--accdim)}
+.fv-suggest .si{font-family:var(--mono);color:var(--acc2)}
+.fv-suggest .sk{font-family:var(--mono);font-size:9.5px;color:var(--ink3);margin-left:auto;text-transform:uppercase;letter-spacing:.4px}
+
+/* ===== 3. TILE (lifts) ===== */
+.fv-tile{display:inline-flex;flex-direction:column;align-items:center;gap:6px;background:var(--panel2);border:1px solid var(--line);border-radius:var(--r-card);padding:13px 14px;position:relative;cursor:pointer;transition:.15s;min-width:96px}
+.fv-tile:hover{border-color:var(--acc);background:var(--accdim);transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.35)}
+.fv-tile.active{border-color:var(--acc);background:var(--accdim)}
+.fv-tile .tic{font-size:22px;color:var(--acc2)}
+.fv-tile .tn{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--ink)}  /* command = lowercase mono */
+.fv-tile .td{font-size:10px;color:var(--ink3)}
+.fv-tile .tb{position:absolute;top:6px;right:6px;font-family:var(--mono);font-size:8px;font-weight:700;padding:1px 5px;border-radius:5px}
+.fv-tb-live{background:var(--posdim);color:var(--pos)} .fv-tb-warn{background:var(--warndim);color:var(--warn)} .fv-tb-neg{background:var(--negdim);color:var(--neg)}
+.fv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(108px,1fr));gap:9px}
+
+/* ===== 4. ROW (leading + trailing slots; no lift) ===== */
+.fv-row{display:flex;align-items:center;gap:11px;background:var(--panel2);border:1px solid var(--line);border-radius:var(--r-ctrl);padding:9px 12px;cursor:pointer;transition:.15s}
+.fv-row:hover{border-color:var(--acc);background:var(--elev)}
+.fv-row.active{border-color:var(--acc);background:var(--accdim)}
+.fv-ic{width:32px;height:32px;border-radius:var(--r-ctrl);background:var(--panel);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--acc2);font-size:16px;flex:0 0 32px}
+.fv-row .em{font-size:15px;width:22px;text-align:center;flex:0 0 22px}
+.fv-row .nm{font-family:var(--mono);font-size:12.5px;font-weight:600;color:var(--ink)}  /* command rows lowercase mono */
+.fv-row .nt{font-size:10.5px;color:var(--ink3);margin-top:1px}
+.fv-row .body{flex:1;font-size:12px;color:var(--ink2)}  /* action rows = prose sentence sans */
+.fv-row .body b{color:var(--ink)}
+.fv-row .chev{margin-left:auto;color:var(--ink3);font-family:var(--mono)}
+.fv-row .rpill{font-family:var(--mono);font-size:10px;background:var(--panel);color:var(--ink2);border:1px solid var(--line2);padding:3px 8px;border-radius:var(--r-chip);margin-left:auto}
+.fv-row .cta{font-family:var(--sans);font-size:11.5px;font-weight:600;padding:5px 11px;border-radius:var(--r-ctrl);background:var(--accdim);border:1px solid var(--acc);color:var(--acc2);white-space:nowrap}
+
+/* ===== 5. CHIP + TAG ===== */
+.fv-chip{font-family:var(--mono);font-size:11px;font-weight:600;background:var(--panel);border:1px solid var(--line);border-radius:var(--r-chip);padding:4px 8px;cursor:pointer;transition:.15s}
+.fv-chip:hover{border-color:var(--acc);background:var(--accdim)}
+.fv-chip.active{border-color:var(--acc);background:var(--accdim);color:#fff}
+.fv-chip.c5{color:var(--acc2)} .fv-chip.c4{color:var(--info)} .fv-chip.c3{color:var(--warn)} .fv-chip.neu{color:var(--ink2)}
+.fv-chip .pxv{color:var(--ink3);font-weight:400}
+.fv-tag{font-family:var(--mono);font-size:8.5px;font-weight:700;border-radius:5px;padding:2px 6px;letter-spacing:.3px}  /* static, non-interactive */
+.fv-tag.win{background:var(--warndim);color:var(--warn)} .fv-tag.dip{background:var(--posdim);color:var(--pos)}
+.fv-tag.earn{background:var(--negdim);color:var(--neg)} .fv-tag.conc{background:var(--infodim);color:var(--info)}
+.fv-tag.conf{background:var(--posdim);color:var(--pos)} .fv-tag.proj{background:var(--warndim);color:var(--warn)}
+
+/* ===== 6. SEGMENTED CONTROL (single-select) ===== */
+.fv-seg{font-family:var(--sans);font-size:11px;font-weight:600;padding:5px 11px;border-radius:var(--r-ctrl);background:var(--panel);border:1px solid var(--line);color:var(--ink2);cursor:pointer;transition:.15s}
+.fv-seg:hover{border-color:var(--acc);color:var(--ink)}
+.fv-seg.on{background:var(--accdim);border-color:var(--acc);color:var(--acc2)}
+
+/* ===== 7. CALLOUT (chip / banner / box; color = severity) ===== */
+.fv-co-chip{display:inline-flex;align-items:center;gap:7px;border-radius:var(--r-ctrl);padding:6px 11px}
+.fv-co-chip .k{font-family:var(--mono);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.3px}
+.fv-co-banner{display:flex;align-items:center;gap:10px;border-radius:var(--r-card);padding:10px 13px}
+.fv-co-banner .k{font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;white-space:nowrap}
+.fv-co-box{border-radius:var(--r-card);padding:13px 15px}
+.fv-co-box .bh{font-family:var(--mono);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:7px}
+.fv-co--neg{background:var(--negdim);border:1px solid rgba(251,111,111,.32);border-left:3px solid var(--neg)} .fv-co--neg .k,.fv-co--neg .bh{color:var(--neg)}
+.fv-co--warn{background:var(--warndim);border:1px solid rgba(229,169,60,.32)} .fv-co--warn .k,.fv-co--warn .bh{color:var(--warn)}
+.fv-co--pos{background:var(--posdim);border:1px solid rgba(70,209,127,.32)} .fv-co--pos .k,.fv-co--pos .bh{color:var(--pos)}
+.fv-co--info{background:var(--infodim);border:1px solid rgba(95,174,242,.32)} .fv-co--info .k,.fv-co--info .bh{color:var(--info)}
+.fv-co--acc{background:var(--accdim);border:1px solid var(--acc)} .fv-co--acc .k,.fv-co--acc .bh{color:var(--acc2)}
+.fv-co-banner .t,.fv-co-box .bd{font-size:12px;color:#cdd2d9;line-height:1.45} .fv-co-chip .t{font-size:11.5px;color:var(--ink)}
+
+/* ===== 8. STAT TILE (display only) ===== */
+.fv-stat{background:var(--panel2);border:1px solid var(--line);border-radius:var(--r-ctrl);padding:11px 13px}
+.fv-stat .l{font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.4px}
+.fv-stat .v{font-family:var(--mono);font-size:17px;font-weight:600;margin-top:4px}
+.fv-stat .big{font-family:var(--mono);font-size:25px;font-weight:600;margin-top:3px;line-height:1}
+.fv-stat .sub{font-family:var(--mono);font-size:10px;margin-top:3px;color:var(--ink3)}
+.fv-mbar{height:4px;background:var(--bg2);border:1px solid var(--line);border-radius:4px;margin-top:7px;overflow:hidden;position:relative}
+.fv-mbar i{position:absolute;inset:0 auto 0 0;background:linear-gradient(90deg,rgba(139,124,246,.5),var(--acc))}
+.fv-strip{display:grid;gap:1px;background:var(--line);border-radius:var(--r-ctrl);overflow:hidden}
+.fv-strip .fv-stat{border:none;border-radius:0;background:var(--bg2)}
+
+/* showcase layout */
+h1{font-family:var(--mono);font-size:18px;letter-spacing:3px;color:var(--acc2);margin:0 0 4px}
+.sub-h{font-size:12px;color:var(--ink2);margin:0 0 22px}
+section{margin-bottom:14px}
+.cap{font-family:var(--mono);font-size:9px;color:var(--ink3);margin:8px 0 0}
+.set{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.vstack{display:flex;flex-direction:column;gap:7px}
+</style>
+</head>
+<body>
+  <h1>FINN · VISUAL SYSTEM v3.3</h1>
+  <p class="sub-h">Master component library — every surface rebuilds from these tokens + classes. No bespoke CSS. Locked Jun 5 2026.</p>
+
+  <section><div class="fv-chrome"><span class="fv-bc">FINN / <b>component library</b> · v3.3</span><span class="fv-bc" style="color:var(--pos)">✓ 8 / 8 LOCKED</span></div></section>
+
+  <section class="fv-panel">
+    <div class="fv-ph"><span class="num">1</span><span class="ttl">Button</span><span class="tag">one primary per view</span></div>
+    <div class="set">
+      <button class="fv-btn fv-btn--primary">Go ↗</button>
+      <button class="fv-btn fv-btn--secondary">home</button>
+      <button class="fv-btn fv-btn--tertiary">GMF ↗</button>
+      <span class="fv-pill">SYNC ◴ 5</span>
+      <button class="fv-btn fv-btn--secondary" disabled>disabled</button>
+    </div>
+    <p class="cap">primary solid (CTA, sentence sans) · secondary tinted · tertiary ghost · status pill (semantic) · command labels lowercase mono / acronyms UPPER mono</p>
+  </section>
+
+  <section class="fv-panel">
+    <div class="fv-ph"><span class="num">2</span><span class="ttl">Input</span><span class="tag">command bar</span></div>
+    <div class="fv-group" style="margin-bottom:8px"><input class="fv-field" placeholder="jump anywhere — type a command or ticker…"><button class="fv-btn fv-btn--primary">Go ↗</button></div>
+    <div class="vstack" style="max-width:420px">
+      <div class="fv-suggest sel"><span class="si">◧</span><span>scenario</span><span class="sk">command ↗</span></div>
+      <div class="fv-suggest"><span class="si">◴</span><span style="color:var(--acc2);font-family:var(--mono);font-weight:600">AVGO</span><span class="sk">live watch ↗</span></div>
+    </div>
+    <p class="cap">recessed field (bg2) + solid Go · focus = acc border + ring · suggestions filter commands (lowercase mono) + tickers (UPPER mono), Enter fires highlighted</p>
+  </section>
+
+  <section class="fv-panel">
+    <div class="fv-ph"><span class="num">3</span><span class="ttl">Tile</span><span class="tag">lifts on hover</span></div>
+    <div class="fv-grid">
+      <span class="fv-tile"><span class="tic">⬡</span><span class="tn">scenario</span></span>
+      <span class="fv-tile"><span class="tic">▤</span><span class="tn">ledger</span><span class="td">positions</span></span>
+      <span class="fv-tile"><span class="tb fv-tb-live">live</span><span class="tic">◷</span><span class="tn">quick dash</span><span class="td">snapshot</span></span>
+      <span class="fv-tile"><span class="tb fv-tb-warn">3d</span><span class="tic">↻</span><span class="tn">rescore</span><span class="td">CS/MS</span></span>
+    </div>
+    <p class="cap">icon-above-label (Tabler 22, swap glyphs for ti-* in app) + lowercase-mono label + optional desc + feed-driven corner badge · grid auto-fit · ONLY component that lifts</p>
+  </section>
+
+  <section class="fv-panel">
+    <div class="fv-ph"><span class="num">4</span><span class="ttl">Row</span><span class="tag">leading + trailing slots</span></div>
+    <div class="vstack">
+      <div class="fv-row"><span class="fv-ic">▤</span><div><div class="nm">scenario</div><div class="nt">bull / base / bear</div></div><span class="chev">›</span></div>
+      <div class="fv-row"><span class="fv-ic">◷</span><div><div class="nm">quick dash</div><div class="nt">snapshot + cards</div></div><span class="rpill">P&amp;L · live</span></div>
+      <div class="fv-row"><span class="em">🔴</span><span class="body"><b>ORCL earnings</b> in 5 days — hold into print</span><button class="cta">scenario ↗</button></div>
+    </div>
+    <p class="cap">nav (icon-box + chevron) · meta (icon-box + pill) · action (status emoji + prose + CTA) · suggestion · no lift</p>
+  </section>
+
+  <section class="fv-panel">
+    <div class="fv-ph"><span class="num">5</span><span class="ttl">Chip + Tag</span><span class="tag">token</span></div>
+    <div class="set" style="margin-bottom:9px"><span class="fv-chip c5">NVDA</span><span class="fv-chip c4">MRVL</span><span class="fv-chip c3">ORCL</span><span class="fv-chip neu">VOO</span><span class="fv-chip c5">NVDA <span class="pxv">$207.14</span></span></div>
+    <div class="set"><span class="fv-tag win">WIN</span><span class="fv-tag dip">DIP</span><span class="fv-tag earn">EARN 5d</span><span class="fv-tag conc">CEIL</span><span class="fv-tag conf">CONFIRMED</span><span class="fv-tag proj">FINN PROJECTION</span></div>
+    <p class="cap">interactive chip = conviction-tinted clickable token (c5 violet / c4 info / c3 warn), optional trailing value · tag = static nano label, semantic-dim fill · tickers UPPER mono</p>
+  </section>
+
+  <section class="fv-panel">
+    <div class="fv-ph"><span class="num">6</span><span class="ttl">Segmented control</span><span class="tag">single-select, sticky</span></div>
+    <div class="set"><span class="fv-seg on">live watch</span><span class="fv-seg">report</span><span class="fv-seg">scenario</span><span class="fv-seg">news</span></div>
+    <p class="cap">one always on · on = accdim + acc border (shared active token) · sans lowercase option labels · no lift</p>
+  </section>
+
+  <section class="fv-panel">
+    <div class="fv-ph"><span class="num">7</span><span class="ttl">Callout</span><span class="tag">color = severity</span></div>
+    <div class="vstack">
+      <span class="fv-co-chip fv-co--neg" style="align-self:flex-start"><span class="k">⚡ fired today</span><span class="t">ORCL scenario — auto-fired (earnings &lt;7d)</span></span>
+      <div class="fv-co-banner fv-co--neg"><span class="k">⚠ risk-off</span><span class="t"><b>Broad selloff, tech-led</b> — long-duration AI hit hardest.</span></div>
+      <div class="fv-co-box fv-co--acc"><div class="bh">▸ verdict</div><div class="bd"><b>Hold, don't chase.</b> Asymmetry favors trimming NVDA before the print.</div></div>
+    </div>
+    <p class="cap">chip (inline fact) · banner (full-width context) · box (header + multi-line) · roles: neg alert / warn caution / pos opportunity / info note / violet accent-verdict</p>
+  </section>
+
+  <section class="fv-panel">
+    <div class="fv-ph"><span class="num">8</span><span class="ttl">Stat tile</span><span class="tag">display only · numbers mono</span></div>
+    <div class="fv-strip" style="grid-template-columns:1.4fr 1fr 1fr 1fr">
+      <div class="fv-stat"><div class="l">NAV · live</div><div class="big">$28,556</div><div class="sub neg">−6.8% vs Jun4</div></div>
+      <div class="fv-stat"><div class="l">→ $50K</div><div class="v" style="color:var(--acc2)">57.1%</div><div class="fv-mbar"><i style="width:57%"></i></div></div>
+      <div class="fv-stat"><div class="l">Realized</div><div class="v pos">+$2,411</div><div class="sub">14 trades</div></div>
+      <div class="fv-stat"><div class="l">Scores</div><div class="v warnc">3d</div><div class="sub">due Jun 8</div></div>
+    </div>
+    <p class="cap">hero (display 25) · progress (4px bar, feed-driven) · delta (sub semantic) · status strip = connected, 1px hairline dividers · non-interactive</p>
+  </section>
+
+</body>
+</html>

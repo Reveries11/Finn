@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<!--
+================================================================
+  FINN DASH — CANONICAL TEMPLATE · MASTER FORMAT v3.2 (UPDATED Jun 1 2026)
+================================================================
+  HOW FINN USES THIS FILE (read first, every time):
+  1. This is the LOCKED master template. Reproduce its EXACT structure,
+     CSS, JavaScript, section order and styling. Never redesign or reorder.
+  2. Swap ONLY the data with current, confirmed values:
+       - prices, cost basis, P&L$, P&L%, market value, weights
+       - CS/MS scores (+ "scored [date]"), conviction tiers
+       - macro tiles, alerts, dates, brief / observations text
+       - dip / trim / add zones, price targets, recs, theme weights
+       - trade-log rows, dry-powder figure, day-change, equity points
+       - PT Engine §10.5: my PT, street low/high/consensus, entry zone, last analyst change
+  3. NEVER change: the 25-section order, class names, color tokens,
+     scrollspy nav, dual CS/MS engine bars, orphan-row centering.
+  4. Confirm live prices before rendering. No estimates. Wrong price = wrong trade.
+
+  25 SECTIONS IN ORDER:
+  Brief - Alerts - Macro - MacroInterp - Week - KeyObs - Plan - Scenario -
+  Ledger - Engine - PT Engine - Cards - Recs - Trim/Dip/Add - CapEff - Themes -
+  RadarT1 - RadarT2 - SmartMoney - Space - TradeLog - PostSell -
+  Gameplan - NeedsUpdate - CommandCenter
+
+  v3.2 CHANGE: Added §10.5 Price Target Engine between Engine and Cards.
+  Covers owned + T1 radar names. Analyst PT alert strip at top. Log form at bottom.
+  The data embedded below is the May 29 2026 reference snapshot (worked example).
+
+  TO USE NEXT SESSION: upload this file and run  dash
+================================================================
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finn Dash · Master Format v3.2 · Jun 1 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#090B0F; --bg2:#0D1015; --panel:#12161D; --panel2:#161B23; --elev:#1C222B;
+    --line:#242A34; --line2:#323945; --hair:rgba(255,255,255,0.045);
+    --ink:#E8EBEF; --ink2:#9AA2AD; --ink3:#646C77;
+    --acc:#8B7CF6; --acc2:#ABA0FF; --accdim:rgba(139,124,246,0.14); --accglow:rgba(139,124,246,0.5);
+    --pos:#46D17F; --posbg:rgba(70,209,127,0.12);
+    --neg:#FB6F6F; --negbg:rgba(251,111,111,0.12);
+    --warn:#E5A93C; --warnbg:rgba(229,169,60,0.13);
+    --info:#5FAEF2; --infobg:rgba(95,174,242,0.12);
+    --ms:#5EE6D0; --msglow:rgba(94,230,208,0.6);
+    --demo:#C68BE6;
+    --r:14px; --rs:9px;
+    --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+    --sans:'IBM Plex Sans',-apple-system,sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5;
+    background-image:radial-gradient(950px 520px at 80% -10%, rgba(139,124,246,0.11), transparent 60%),radial-gradient(720px 480px at 2% 1%, rgba(95,174,242,0.05), transparent 55%);
+    background-attachment:fixed;-webkit-font-smoothing:antialiased;}
+  body:before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;opacity:0.025;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+  .mono{font-family:var(--mono);font-variant-numeric:tabular-nums;font-feature-settings:"tnum";}
+  .pos{color:var(--pos);} .neg{color:var(--neg);} .warnc{color:var(--warn);} .infoc{color:var(--info);}
+  .demotag{font-family:var(--mono);font-size:8px;font-weight:700;color:var(--demo);border:1px solid var(--demo);border-radius:4px;padding:0 4px;letter-spacing:0.4px;vertical-align:middle;}
+
+  .topwrap{position:sticky;top:0;z-index:50;backdrop-filter:blur(16px);background:rgba(9,11,15,0.84);border-bottom:1px solid var(--line);}
+  .top{max-width:1140px;margin:0 auto;padding:11px 20px 0;}
+  .toprow{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;}
+  .brand{display:flex;align-items:baseline;gap:11px;}
+  .brand .mk{font-weight:700;font-size:18px;letter-spacing:5px;background:linear-gradient(92deg,var(--acc2),var(--acc));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .brand .tagn{font-size:10.5px;color:var(--ink3);letter-spacing:1px;text-transform:uppercase;}
+  .topstat{display:flex;align-items:baseline;gap:14px;}
+  .topstat .live{display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:9.5px;letter-spacing:0.6px;color:var(--ink3);text-transform:uppercase;}
+  .pulse{width:7px;height:7px;border-radius:50%;background:var(--pos);animation:pulse 2.4s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(70,209,127,0.5);}70%{box-shadow:0 0 0 6px rgba(70,209,127,0);}100%{box-shadow:0 0 0 0 rgba(70,209,127,0);}}
+  .topstat .v{font-family:var(--mono);font-size:19px;font-weight:600;}
+  .topstat .d{font-family:var(--mono);font-size:13px;font-weight:600;padding:2px 9px;border-radius:6px;background:var(--posbg);color:var(--pos);}
+  .topstat .dt{font-family:var(--mono);font-size:11px;color:var(--ink3);}
+  .nav{display:flex;gap:3px;overflow-x:auto;padding:11px 0 9px;scrollbar-width:none;}
+  .nav::-webkit-scrollbar{display:none;}
+  .nav a{flex:0 0 auto;font-size:11px;color:var(--ink2);text-decoration:none;padding:4px 9px;border-radius:6px;white-space:nowrap;border:1px solid transparent;transition:.16s;}
+  .nav a:hover{color:var(--ink);background:var(--accdim);border-color:var(--line2);}
+  .nav a.active{color:#fff;background:var(--acc);border-color:var(--acc);box-shadow:0 0 12px var(--accglow);}
+
+  .wrap{max-width:1140px;margin:0 auto;padding:22px 20px 80px;position:relative;z-index:2;}
+  .panel{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;margin-bottom:14px;position:relative;}
+  .panel.act{border-top:1px solid var(--accglow);box-shadow:0 -1px 18px -8px var(--accglow);}
+  .panel.act:before{content:"";position:absolute;left:20px;right:20px;top:-1px;height:1px;background:linear-gradient(90deg,transparent,var(--acc),transparent);}
+  body.js .panel{opacity:0;transform:translateY(12px);}
+  body.js .panel.in{opacity:1;transform:none;transition:opacity .5s ease,transform .5s cubic-bezier(.2,.7,.2,1);}
+  .ph{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px;padding-bottom:10px;border-bottom:1px solid var(--line);}
+  .ph .lab{display:flex;align-items:baseline;gap:10px;}
+  .ph .num{font-family:var(--mono);font-size:11px;color:var(--acc2);font-weight:600;}
+  .ph .ttl{font-size:12px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink);}
+  .ph .tag{font-family:var(--mono);font-size:10.5px;color:var(--ink3);}
+
+  /* HERO */
+  .hero{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:1px;background:var(--line);border-radius:var(--rs);overflow:hidden;}
+  .hero .t{background:var(--panel2);padding:14px 15px;}
+  .hero .t .l{font-size:10px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink2);margin-bottom:5px;}
+  .hero .t .big{font-family:var(--mono);font-size:27px;font-weight:600;letter-spacing:-0.5px;line-height:1;}
+  .hero .t .v{font-family:var(--mono);font-size:19px;font-weight:600;line-height:1.1;}
+  .hero .t .s{font-family:var(--mono);font-size:11px;color:var(--ink2);margin-top:5px;}
+  .allocbar{display:flex;height:8px;border-radius:5px;overflow:hidden;margin-top:12px;border:1px solid var(--line);}
+  .allocbar i{display:block;height:100%;transform:scaleX(0);transform-origin:left;animation:grow .9s .25s cubic-bezier(.2,.7,.2,1) forwards;}
+  .alloclegend{display:flex;gap:13px;margin-top:7px;font-size:10.5px;color:var(--ink2);flex-wrap:wrap;}
+  .alloclegend span{display:flex;align-items:center;gap:5px;}
+  .dotc{width:8px;height:8px;border-radius:2px;display:inline-block;}
+  @keyframes grow{to{transform:scaleX(1);}}
+
+  /* METRICS ROW (milestone / alpha / equity) */
+  .metrics{display:grid;grid-template-columns:1.4fr 1fr 1.2fr;gap:11px;margin-top:12px;}
+  .metric{background:var(--panel2);border:1px solid var(--line);border-radius:var(--rs);padding:12px 14px;}
+  .metric .l{font-size:10px;text-transform:uppercase;letter-spacing:0.6px;color:var(--ink2);display:flex;justify-content:space-between;}
+  .mstone-track{height:10px;background:var(--bg2);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:9px 0 6px;position:relative;}
+  .mstone-fill{height:100%;background:linear-gradient(90deg,var(--info),var(--acc));border-radius:6px;transform:scaleX(0);transform-origin:left;animation:grow 1.1s .3s cubic-bezier(.2,.7,.2,1) forwards;}
+  .mstone-sub{font-family:var(--mono);font-size:11px;color:var(--ink2);display:flex;justify-content:space-between;}
+  .alpha-big{font-family:var(--mono);font-size:24px;font-weight:600;margin-top:7px;}
+  .alpha-sub{font-family:var(--mono);font-size:10.5px;color:var(--ink2);margin-top:3px;}
+  .spark-sub{font-family:var(--mono);font-size:10.5px;color:var(--ink2);margin-top:4px;display:flex;justify-content:space-between;}
+  .brieftext{font-size:13px;color:#cdd2d9;margin-top:15px;line-height:1.6;}
+  .brieftext b{color:var(--ink);font-weight:600;}
+  .powder-note{font-family:var(--mono);font-size:10px;color:var(--demo);margin-top:9px;}
+
+  /* ALERTS */
+  .alert{display:flex;gap:12px;align-items:flex-start;padding:11px 13px;border-radius:var(--rs);margin-bottom:8px;border:1px solid var(--line);background:var(--panel2);}
+  .alert:last-child{margin-bottom:0;}
+  .alert .k{font-family:var(--mono);font-weight:700;font-size:10px;letter-spacing:0.6px;padding:3px 8px;border-radius:6px;white-space:nowrap;}
+  .alert .bd{flex:1;font-size:13px;color:#cdd2d9;} .alert .bd b{color:var(--ink);}
+  .a-dip{border-left:3px solid var(--pos);} .a-dip .k{background:var(--posbg);color:var(--pos);}
+  .a-earn{border-left:3px solid var(--neg);} .a-earn .k{background:var(--negbg);color:var(--neg);}
+  .a-win{border-left:3px solid var(--warn);} .a-win .k{background:var(--warnbg);color:var(--warn);}
+  .a-info{border-left:3px solid var(--info);} .a-info .k{background:var(--infobg);color:var(--info);}
+
+  .mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-radius:var(--rs);overflow:hidden;}
+  .mgrid .m{background:var(--panel2);padding:12px 14px;}
+  .mgrid .m .l{font-size:10.5px;color:var(--ink2);text-transform:uppercase;letter-spacing:0.5px;}
+  .mgrid .m .v{font-family:var(--mono);font-size:18px;font-weight:600;margin-top:4px;}
+  .mgrid .m .s{font-family:var(--mono);font-size:11px;margin-top:2px;color:var(--ink3);}
+  .interp{font-size:13px;line-height:1.65;color:#cdd2d9;} .interp b{color:var(--ink);font-weight:600;}
+
+  .wag{position:relative;padding-left:22px;}
+  .wag:before{content:"";position:absolute;left:5px;top:6px;bottom:6px;width:1.5px;background:linear-gradient(var(--line2),var(--line));}
+  .wnode{position:relative;margin-bottom:15px;} .wnode:last-child{margin-bottom:0;}
+  .wnode .dot{position:absolute;left:-22px;top:2px;width:11px;height:11px;border-radius:50%;border:2px solid var(--bg);box-shadow:0 0 0 1px var(--line2);}
+  .d-r{background:var(--neg);box-shadow:0 0 9px var(--neg);} .d-a{background:var(--warn);box-shadow:0 0 9px var(--warn);} .d-g{background:var(--pos);box-shadow:0 0 9px var(--pos);} .d-x{background:var(--ink3);}
+  .wnode .day{font-family:var(--mono);font-size:10.5px;font-weight:600;color:var(--ink2);letter-spacing:0.4px;}
+  .wnode .wt{font-size:13.5px;font-weight:600;margin:2px 0;} .wnode .wd{font-size:12px;color:var(--ink2);}
+
+  .obs{border-left:2px solid var(--line2);padding:5px 0 5px 13px;margin-bottom:11px;font-size:13px;color:#cdd2d9;}
+  .obs:last-child{margin-bottom:0;} .obs b{color:var(--ink);font-weight:600;}
+  .obs.g{border-color:var(--pos);} .obs.a{border-color:var(--warn);} .obs.b{border-color:var(--info);} .obs.v{border-color:var(--acc);}
+
+  .scen{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;}
+  .scen .c{border:1px solid var(--line);border-radius:var(--rs);padding:14px;background:var(--panel2);position:relative;overflow:hidden;}
+  .scen .c:before{content:"";position:absolute;inset:0 0 auto 0;height:2px;}
+  .scen .c.bull:before{background:var(--pos);} .scen .c.base:before{background:var(--info);} .scen .c.bear:before{background:var(--neg);}
+  .scen h4{margin:0 0 6px;font-size:13px;font-weight:700;display:flex;justify-content:space-between;align-items:center;}
+  .scen h4 .pct{font-family:var(--mono);font-size:14px;}
+  .scen .bull h4{color:var(--pos);} .scen .base h4{color:var(--info);} .scen .bear h4{color:var(--neg);}
+  .scen p{margin:0 0 9px;font-size:12px;color:#bcc2ca;line-height:1.5;}
+  .scen .act2{font-size:12px;color:var(--ink);font-weight:500;border-top:1px solid var(--line);padding-top:8px;}
+
+  .ltable{width:100%;border-collapse:collapse;font-size:12px;}
+  .ltable th{text-align:right;font-family:var(--mono);font-size:9px;letter-spacing:0.4px;text-transform:uppercase;color:var(--ink3);font-weight:600;padding:6px 6px;border-bottom:1px solid var(--line2);}
+  .ltable th:first-child{text-align:left;} .ltable th.lft{text-align:left;}
+  .ltable td{padding:7px 6px;text-align:right;border-bottom:1px solid var(--hair);font-family:var(--mono);font-variant-numeric:tabular-nums;}
+  .ltable td:first-child{text-align:left;font-weight:600;font-size:12.5px;border-left:2px solid transparent;}
+  .ltable tr.r:hover td{background:rgba(139,124,246,0.06);}
+  .ltable tr.c5 td:first-child{border-left-color:var(--acc);} .ltable tr.c4 td:first-child{border-left-color:var(--info);} .ltable tr.c3 td:first-child{border-left-color:var(--warn);}
+  .tier td{background:var(--bg2);font-family:var(--mono);font-weight:600;font-size:9.5px;letter-spacing:0.8px;text-transform:uppercase;color:var(--acc2);text-align:left;padding:6px;}
+  .wtcell{display:flex;align-items:center;justify-content:flex-end;gap:6px;}
+  .wtbar{width:38px;height:5px;border-radius:3px;background:var(--line);overflow:hidden;}
+  .wtbar i{display:block;height:100%;background:var(--acc);transform:scaleX(0);transform-origin:left;animation:grow 1s .3s ease forwards;}
+  .daycol{color:var(--demo);}
+  .sumr td{font-weight:700;border-top:1px solid var(--line2);border-bottom:none;padding-top:10px;color:var(--ink);}
+  .fl{font-family:var(--mono);font-size:9px;font-weight:700;padding:2px 5px;border-radius:5px;letter-spacing:0.3px;}
+  .fl-win{background:var(--warnbg);color:var(--warn);} .fl-dip{background:var(--posbg);color:var(--pos);} .fl-earn{background:var(--negbg);color:var(--neg);}
+  .conc{margin-top:13px;font-size:12px;background:var(--warnbg);border:1px solid rgba(229,169,60,0.3);border-radius:var(--rs);padding:10px 13px;color:#e9d4a6;} .conc b{color:var(--warn);}
+
+  .englegend{font-family:var(--mono);font-size:10px;color:var(--ink3);display:flex;gap:14px;margin-bottom:12px;flex-wrap:wrap;}
+  .englegend span{display:flex;align-items:center;gap:6px;}
+  .lg-cs{width:14px;height:8px;border-radius:2px;background:linear-gradient(90deg,rgba(139,124,246,0.55),var(--acc));}
+  .lg-ms{width:2px;height:12px;background:var(--ms);box-shadow:0 0 6px var(--msglow);}
+  .etier{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--acc2);margin:14px 0 8px;}
+  .erow{display:grid;grid-template-columns:62px 1fr 220px;align-items:center;gap:12px;margin-bottom:7px;}
+  .erow .nm{font-weight:600;font-size:13px;}
+  .ebar{position:relative;height:22px;background:var(--bg2);border:1px solid var(--line);border-radius:6px;overflow:hidden;}
+  .ebar i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,rgba(139,124,246,0.55),var(--acc));border-radius:6px;transform:scaleX(0);transform-origin:left;animation:grow 1s .2s cubic-bezier(.2,.7,.2,1) forwards;box-shadow:0 0 14px var(--accglow);}
+  .ebar .msm{position:absolute;top:-1px;bottom:-1px;width:2px;background:var(--ms);box-shadow:0 0 7px var(--msglow);opacity:0;animation:fadein .4s 1s forwards;}
+  @keyframes fadein{to{opacity:1;}}
+  .ebar .sc{position:absolute;right:8px;top:0;bottom:0;display:flex;align-items:center;font-family:var(--mono);font-size:11px;font-weight:700;color:#fff;text-shadow:0 1px 3px rgba(0,0,0,0.6);}
+  .erow .rt{font-family:var(--mono);font-size:10.5px;color:var(--ink2);text-align:right;}
+
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;}
+  .card{border:1px solid var(--line);border-left-width:3px;border-radius:var(--rs);padding:13px;background:var(--panel2);transition:.18s;}
+  .card:hover{transform:translateY(-2px);border-color:var(--line2);box-shadow:0 8px 24px rgba(0,0,0,0.4);}
+  .card.c5{border-left-color:var(--acc);} .card.c4{border-left-color:var(--info);} .card.c3{border-left-color:var(--warn);}
+  .chead{display:flex;justify-content:space-between;align-items:flex-start;}
+  .chead .tk{font-weight:700;font-size:15px;} .chead .nm{font-size:10px;color:var(--ink2);margin-top:1px;}
+  .chead .r{text-align:right;}
+  .chead .px{font-family:var(--mono);font-weight:600;font-size:14px;} .chead .ct{font-family:var(--mono);font-size:10px;color:var(--ink3);}
+  .chead .pl{font-family:var(--mono);font-size:11.5px;font-weight:700;margin-top:1px;}
+  .cmeta{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:10px 0 8px;padding-top:9px;border-top:1px solid var(--line);}
+  .pill{font-family:var(--mono);font-size:9px;font-weight:600;padding:2px 6px;border-radius:5px;letter-spacing:0.2px;}
+  .pl-c5{background:var(--accdim);color:var(--acc2);} .pl-c4{background:var(--infobg);color:var(--info);} .pl-c3{background:var(--warnbg);color:var(--warn);}
+  .pl-sc{background:var(--elev);color:var(--ink2);}
+  .pl-hold{background:var(--infobg);color:var(--info);} .pl-add{background:var(--posbg);color:var(--pos);} .pl-rev{background:var(--warnbg);color:var(--warn);}
+  .cnote{font-size:11.5px;color:#bcc2ca;line-height:1.45;margin-bottom:10px;}
+  .cbox{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+  .cbox .b{background:var(--bg2);border:1px solid var(--line);border-radius:7px;padding:7px 9px;}
+  .cbox .b .l{font-size:8.5px;text-transform:uppercase;letter-spacing:0.4px;color:var(--ink3);}
+  .cbox .b .v{font-family:var(--mono);font-size:11.5px;font-weight:600;margin-top:2px;}
+  .scored{font-family:var(--mono);font-size:8.5px;color:var(--ink3);margin-top:8px;text-align:right;}
+
+  .rec{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--hair);font-size:13px;}
+  .rec:last-child{border-bottom:none;} .rec .l b{font-weight:600;} .rec .l span{color:var(--ink2);}
+  .rbadge{font-family:var(--mono);font-size:9.5px;font-weight:700;padding:3px 9px;border-radius:6px;white-space:nowrap;}
+
+  .tda{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;}
+  .tda .c{background:var(--panel2);border:1px solid var(--line);border-radius:var(--rs);padding:13px;}
+  .tda h4{margin:0 0 9px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;}
+  .tda .h-t{color:var(--warn);} .tda .h-d{color:var(--pos);} .tda .h-a{color:var(--info);}
+  .tda .it{font-size:12px;padding:5px 0;border-bottom:1px solid var(--hair);color:#cdd2d9;}
+  .tda .it:last-child{border-bottom:none;} .tda .it b{color:var(--ink);}
+
+  .ceff .row{display:flex;gap:11px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--hair);font-size:13px;color:#cdd2d9;}
+  .ceff .row:last-child{border-bottom:none;} .ceff .row b{color:var(--ink);}
+  .ceff .ic{font-family:var(--mono);font-size:9.5px;font-weight:700;padding:3px 8px;border-radius:6px;white-space:nowrap;}
+  .ic-dead{background:var(--negbg);color:var(--neg);} .ic-mis{background:var(--accdim);color:var(--acc2);} .ic-und{background:var(--posbg);color:var(--pos);} .ic-con{background:var(--warnbg);color:var(--warn);}
+
+  /* THEME EXPOSURE */
+  .themebar{display:flex;height:13px;border-radius:6px;overflow:hidden;border:1px solid var(--line);margin-bottom:9px;}
+  .themebar i{height:100%;transform:scaleX(0);transform-origin:left;animation:grow 1s .25s cubic-bezier(.2,.7,.2,1) forwards;}
+  .themeleg{display:flex;flex-wrap:wrap;gap:13px;font-size:10.5px;color:var(--ink2);margin-bottom:16px;}
+  .themeleg span{display:flex;align-items:center;gap:5px;}
+  .tblock{padding:10px 0;border-top:1px solid var(--hair);}
+  .tblock:first-of-type{border-top:none;}
+  .tblock .th{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px;}
+  .tblock .th .nm{display:flex;align-items:center;gap:8px;font-weight:600;font-size:13px;}
+  .tblock .th .pc{font-family:var(--mono);font-size:13px;font-weight:600;}
+  .tblock .holds{display:flex;flex-wrap:wrap;gap:6px;}
+  .thold{display:flex;align-items:center;gap:6px;background:var(--bg2);border:1px solid var(--line);border-radius:7px;padding:5px 9px;font-size:11.5px;}
+  .thold .tk{font-weight:700;} .thold .cv{font-family:var(--mono);font-size:9px;padding:1px 5px;border-radius:4px;}
+  .cv5{background:var(--accdim);color:var(--acc2);} .cv4{background:var(--infobg);color:var(--info);} .cv3{background:var(--warnbg);color:var(--warn);}
+  .thold .csv{font-family:var(--mono);font-size:10px;color:var(--ink3);}
+  .themeflag{margin-top:14px;font-size:12px;background:var(--warnbg);border:1px solid rgba(229,169,60,0.3);border-radius:var(--rs);padding:10px 13px;color:#e9d4a6;} .themeflag b{color:var(--warn);}
+
+  .rt1{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;}
+  .rt1 .c{border:1px solid var(--line);border-radius:var(--rs);padding:13px;background:var(--panel2);}
+  .rt1 .hd{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;}
+  .rt1 .hd .tk{font-weight:700;font-size:14px;} .rt1 .hd .nm{font-size:10px;color:var(--ink2);}
+  .rt1 .hd .sc{font-family:var(--mono);font-size:10.5px;color:var(--ink2);text-align:right;}
+  .rt1 .sl{font-size:10.5px;color:var(--acc2);margin-bottom:6px;}
+  .rt1 .bd{font-size:11.5px;color:#bcc2ca;line-height:1.45;margin-bottom:9px;}
+  .rt1 .bx{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+  .rt1 .bx .b{background:var(--bg2);border:1px solid var(--line);border-radius:7px;padding:7px 9px;}
+  .rt1 .bx .b .l{font-size:8.5px;text-transform:uppercase;letter-spacing:0.4px;color:var(--ink3);}
+  .rt1 .bx .b .v{font-family:var(--mono);font-size:11px;font-weight:600;margin-top:2px;}
+  .rt2wrap{display:flex;flex-wrap:wrap;gap:7px;}
+  .rt2{background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:7px 10px;font-size:11.5px;display:flex;gap:8px;align-items:center;}
+  .rt2 .tk{font-weight:700;} .rt2 .sc{font-family:var(--mono);color:var(--ink3);font-size:10px;}
+
+  .sm .row{font-size:12.5px;padding:8px 0;border-bottom:1px solid var(--hair);color:#cdd2d9;}
+  .sm .row:last-child{border-bottom:none;} .sm .row b{color:var(--ink);}
+
+  .space{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;}
+  .space .c{border:1px solid var(--line);border-radius:var(--rs);padding:13px;background:var(--panel2);}
+  .space .tk{font-weight:700;font-size:13px;} .space .nm{font-size:10px;color:var(--ink2);margin-bottom:6px;}
+  .space .bd{font-size:11px;color:#bcc2ca;line-height:1.45;}
+  .space .z{font-family:var(--mono);font-size:11px;font-weight:600;margin-top:7px;color:var(--acc2);}
+  .spacefoot{margin-top:11px;font-size:12px;background:var(--bg2);border:1px solid var(--line);border-radius:var(--rs);padding:10px 13px;color:#cdd2d9;} .spacefoot b{color:var(--ink);}
+
+  /* TRADE LOG */
+  .rstat{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-bottom:14px;}
+  .rstat .s{background:var(--panel2);border:1px solid var(--line);border-radius:var(--rs);padding:11px 13px;}
+  .rstat .s .l{font-size:10px;text-transform:uppercase;letter-spacing:0.5px;color:var(--ink2);}
+  .rstat .s .v{font-family:var(--mono);font-size:19px;font-weight:600;margin-top:4px;}
+  .tlog{width:100%;border-collapse:collapse;font-size:12px;}
+  .tlog th{text-align:right;font-family:var(--mono);font-size:9px;letter-spacing:0.4px;text-transform:uppercase;color:var(--ink3);font-weight:600;padding:6px;border-bottom:1px solid var(--line2);}
+  .tlog th:first-child,.tlog th.lft{text-align:left;}
+  .tlog td{padding:7px 6px;text-align:right;border-bottom:1px solid var(--hair);font-family:var(--mono);}
+  .tlog td:first-child,.tlog td.lft{text-align:left;}
+  .act-buy{color:var(--info);} .act-sell{color:var(--ink2);} .act-trim{color:var(--warn);}
+  .tlog .bf{color:var(--demo);}
+  .tlognote{font-size:11px;color:var(--ink3);margin-top:9px;}
+
+  .ps .row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:9px 0;border-bottom:1px solid var(--hair);color:#cdd2d9;}
+  .ps .row:last-child{border-bottom:none;} .ps .row b{color:var(--ink);}
+  .ps .days{font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--warn);background:var(--warnbg);padding:3px 9px;border-radius:6px;}
+  .ps .days.cl{color:var(--ink3);background:var(--elev);}
+
+  .gp{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .gp h4{margin:0 0 9px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:0.6px;text-transform:uppercase;color:var(--ink2);}
+  .gp .it{font-size:12.5px;padding:4px 0 4px 16px;position:relative;color:#cdd2d9;}
+  .gp .it:before{content:"";position:absolute;left:0;top:10px;width:5px;height:5px;border-radius:50%;background:var(--line2);}
+  .gp .done .it:before{background:var(--pos);} .gp .donot .it:before{background:var(--neg);}
+  .gp .it.s{color:var(--ink3);text-decoration:line-through;}
+
+  .nu .row{border-left:2px solid var(--warn);background:var(--warnbg);padding:8px 13px;margin-bottom:7px;font-size:12.5px;border-radius:0 8px 8px 0;color:#e3d6bd;}
+  .nu .row:last-child{margin-bottom:0;} .nu .row b{color:var(--warn);}
+
+  .cmds{display:flex;flex-wrap:wrap;gap:7px;}
+  .cmd{font-family:var(--mono);background:var(--panel2);border:1px solid var(--line);border-radius:7px;padding:6px 11px;font-size:12px;font-weight:500;color:var(--ink2);transition:.16s;cursor:default;}
+  .cmd:hover{color:var(--acc2);border-color:var(--acc);background:var(--accdim);}
+  .foot{text-align:center;font-family:var(--mono);font-size:10.5px;color:var(--ink3);margin-top:20px;letter-spacing:0.3px;}
+
+  .totop{position:fixed;right:22px;bottom:22px;z-index:60;width:42px;height:42px;border-radius:11px;background:var(--panel2);border:1px solid var(--line2);color:var(--acc2);font-size:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(10px);transition:.22s;backdrop-filter:blur(8px);}
+  .totop.show{opacity:1;transform:none;}
+  .totop:hover{border-color:var(--acc);background:var(--accdim);box-shadow:0 0 16px var(--accglow);}
+
+  /* center an item left alone in the final row of a 2-col grid */
+  .gp>div:last-child:nth-child(odd){grid-column:1 / -1;justify-self:center;width:calc(50% - 7px);}
+  @media(max-width:820px){
+    .hero,.cards,.scen,.tda,.rt1,.space,.gp,.mgrid,.metrics,.rstat{grid-template-columns:1fr 1fr;}
+    .erow{grid-template-columns:54px 1fr;}.erow .rt{display:none;}
+    .metrics>.metric:last-child:nth-child(odd),
+    .scen>.c:last-child:nth-child(odd),
+    .cards>.card:last-child:nth-child(odd),
+    .tda>.c:last-child:nth-child(odd),
+    .rt1>.c:last-child:nth-child(odd),
+    .rstat>.s:last-child:nth-child(odd),
+    .space>.c:last-child:nth-child(odd){grid-column:1 / -1;justify-self:center;width:calc(50% - 6px);}
+    .hero>.t:last-child:nth-child(odd){grid-column:1 / -1;}
+  }
+  @media(max-width:520px){
+    .hero,.cards,.scen,.tda,.rt1,.space,.gp,.mgrid,.metrics,.rstat{grid-template-columns:1fr;}
+    .gp>div:last-child:nth-child(odd),
+    .metrics>.metric:last-child:nth-child(odd),
+    .scen>.c:last-child:nth-child(odd),
+    .cards>.card:last-child:nth-child(odd),
+    .tda>.c:last-child:nth-child(odd),
+    .rt1>.c:last-child:nth-child(odd),
+    .rstat>.s:last-child:nth-child(odd),
+    .space>.c:last-child:nth-child(odd),
+    .hero>.t:last-child:nth-child(odd){grid-column:auto;justify-self:auto;width:auto;}
+  }
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;}body.js .panel{opacity:1;transform:none;}}
+</style>
+</head>
+<body>
+
+<div class="topwrap">
+  <div class="top">
+    <div class="toprow">
+      <div class="brand"><span class="mk">FINN</span><span class="tagn">Portfolio Intelligence</span></div>
+      <div class="topstat">
+        <span class="live"><span class="pulse"></span>Confirmed</span>
+        <span class="v mono" data-count="29540" data-prefix="$">$29,540</span>
+        <span class="d mono">+17.1%</span>
+        <span class="dt">FRI · MAY 29 2026</span>
+      </div>
+    </div>
+    <div class="nav" id="nav">
+      <a href="#s1">Brief</a><a href="#s2">Alerts</a><a href="#s3">Macro</a><a href="#s4">Interp</a><a href="#s5">Week</a><a href="#s6">Obs</a><a href="#s7">Plan</a><a href="#s8">Scenario</a><a href="#s9">Ledger</a><a href="#s10">Engine</a><a href="#s10b">PT Engine</a><a href="#s11">Positions</a><a href="#s12">Recs</a><a href="#s13">T/D/A</a><a href="#s14">Cap Eff</a><a href="#s15">Themes</a><a href="#s16">Radar T1</a><a href="#s17">Radar T2</a><a href="#s18">Smart $</a><a href="#s19">Space</a><a href="#s20">Trade Log</a><a href="#s21">Post-Sell</a><a href="#s22">Gameplan</a><a href="#s23">Updates</a><a href="#s24">Commands</a>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- 1 BRIEF -->
+  <section class="panel" id="s1">
+    <div class="ph"><div class="lab"><span class="num">01</span><span class="ttl">Pre-Market Brief</span></div><span class="tag">prices user-confirmed · scores May 27</span></div>
+    <div class="hero">
+      <div class="t"><div class="l">Portfolio Value</div><div class="big mono" data-count="29540" data-prefix="$">$29,540</div>
+        <div class="allocbar"><i style="width:49.9%;background:var(--acc);"></i><i style="width:40.7%;background:var(--info);"></i><i style="width:9.4%;background:var(--warn);"></i></div>
+        <div class="alloclegend"><span><i class="dotc" style="background:var(--acc)"></i>Conv5 49.9%</span><span><i class="dotc" style="background:var(--info)"></i>Conv4 40.7%</span><span><i class="dotc" style="background:var(--warn)"></i>Conv3 9.4%</span></div>
+      </div>
+      <div class="t"><div class="l">Day <span class="demotag">DEMO</span></div><div class="v pos">+0.6%</div><div class="s pos">+$176 today</div></div>
+      <div class="t"><div class="l">Total P&amp;L</div><div class="v pos mono" data-count="4319" data-prefix="+$">+$4,319</div><div class="s pos">+17.1%</div></div>
+      <div class="t"><div class="l">Dry Powder <span class="demotag">CONFIRM</span></div><div class="v mono">~$2,500</div><div class="s">cash to deploy</div></div>
+      <div class="t"><div class="l">Dip Zones</div><div class="v">2</div><div class="s">ETN · MRVL</div></div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><div class="l"><span>Milestone → $50K</span><span class="mono">59%</span></div>
+        <div class="mstone-track"><div class="mstone-fill" style="width:59%"></div></div>
+        <div class="mstone-sub"><span>$29,540</span><span>$50,000</span></div>
+      </div>
+      <div class="metric"><div class="l"><span>Alpha vs S&amp;P</span></div>
+        <div class="alpha-big pos">+7.7 pts</div>
+        <div class="alpha-sub">book +17.1% · VOO +9.4% (proxy)</div>
+      </div>
+      <div class="metric"><div class="l"><span>Equity Curve</span><span class="mono">inception → today</span></div>
+        <svg viewBox="0 0 240 46" preserveAspectRatio="none" style="width:100%;height:46px;margin-top:6px;">
+          <defs><linearGradient id="eg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(70,209,127,0.35)"/><stop offset="1" stop-color="rgba(70,209,127,0)"/></linearGradient></defs>
+          <polyline points="6,34 234,20" fill="none" stroke="var(--pos)" stroke-width="2" stroke-linecap="round"/>
+          <polygon points="6,34 234,20 234,46 6,46" fill="url(#eg)"/>
+          <line x1="6" y1="4" x2="234" y2="4" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+          <circle cx="234" cy="20" r="3" fill="var(--pos)"/>
+        </svg>
+        <div class="spark-sub"><span>~$27.5K start</span><span class="pos">+$2.0K</span></div>
+      </div>
+    </div>
+
+    <p class="brieftext">Records held into Friday — semis leading (AMD +4–5%, NVDA firm) on AI-capex strength; Iran 60-day ceasefire talk easing oil &amp; yields. PCE printed hot Thursday (3.8% headline) but the tape shrugged. Two owned dip zones are live (<b>ETN</b>, <b>MRVL</b>); <b>CRDO</b> earnings gate Monday. Book is beating the index by ~7.7pts and sits 59% of the way to the $50K milestone.</p>
+    <div class="powder-note">▸ Dry powder is informational only — a low balance never suppresses a recommendation; if the best move needs cash, Finn says so and names what to free up.</div>
+  </section>
+
+  <!-- 2 ALERTS -->
+  <section class="panel act" id="s2">
+    <div class="ph"><div class="lab"><span class="num">02</span><span class="ttl">Alerts</span></div><span class="tag">implication → action</span></div>
+    <div class="alert a-dip"><span class="k">DIP</span><div class="bd"><b>ETN $399.37</b> inside dip zone $395–415 → add candidate; conv 4, near cost so low downside on adds.</div></div>
+    <div class="alert a-dip"><span class="k">DIP</span><div class="bd"><b>MRVL $206.74</b> inside dip zone $205–215 (reset post Q1-FY27 beat) → add candidate; MS 86, strongest momentum in book.</div></div>
+    <div class="alert a-earn"><span class="k">EARN</span><div class="bd"><b>CRDO</b> reports ~Jun 1 (&lt;7d) → entry gate, do not pre-position; preserve powder for post-print $190–205.</div></div>
+    <div class="alert a-win"><span class="k">WIN</span><div class="bd"><b>NVDA +40.4%</b> crosses win-review trigger → review thesis &amp; sizing, no automatic action.</div></div>
+    <div class="alert a-win"><span class="k">WIN</span><div class="bd"><b>APLD +77.5%</b> win-review; trim watch &gt;$75–80 (now $47) — let it run, no trim yet.</div></div>
+    <div class="alert a-info"><span class="k">CONC</span><div class="bd"><b>NVDA 22.5%</b> of book — largest name, approaching 25% rebalance line. Monitor, don't add.</div></div>
+  </section>
+
+  <!-- 3 MACRO -->
+  <section class="panel" id="s3">
+    <div class="ph"><div class="lab"><span class="num">03</span><span class="ttl">Macro Context</span></div><span class="tag">live · May 29</span></div>
+    <div class="mgrid">
+      <div class="m"><div class="l">S&amp;P 500</div><div class="v">7,563.63</div><div class="s pos">+0.6% · record</div></div>
+      <div class="m"><div class="l">Nasdaq</div><div class="v">26,917.47</div><div class="s pos">+0.9% · record</div></div>
+      <div class="m"><div class="l">Dow</div><div class="v">50,668.97</div><div class="s pos">Fri +0.75%</div></div>
+      <div class="m"><div class="l">10Y Treasury</div><div class="v">4.44%</div><div class="s pos">3-wk low ↓</div></div>
+      <div class="m"><div class="l">Core PCE YoY</div><div class="v">3.3%</div><div class="s warnc">hot · Apr</div></div>
+      <div class="m"><div class="l">Headline PCE</div><div class="v">3.8%</div><div class="s warnc">3-yr high</div></div>
+      <div class="m"><div class="l">Fed Funds</div><div class="v">4.25–4.50%</div><div class="s">hold · h-f-l</div></div>
+      <div class="m"><div class="l">Russell 2000</div><div class="v">−0.61%</div><div class="s neg">Fri · lagging</div></div>
+    </div>
+  </section>
+
+  <!-- 4 INTERP -->
+  <section class="panel" id="s4">
+    <div class="ph"><div class="lab"><span class="num">04</span><span class="ttl">Macro Interpretation</span></div></div>
+    <p class="interp">PCE ran hot (headline 3.8%, core 3.3% — highest in nearly three years) yet indexes printed fresh records: the tape is leaning on AI-capex strength and Iran ceasefire optimism over inflation. Yields eased to ~4.44% (3-week low) as oil retreated on truce headlines — a tailwind for long-duration growth/semis. The Fed stays on hold at 4.25–4.50% with cuts pushed well out ("higher for longer"). Net backdrop: <b>supportive for the AI/semi book</b>, but breadth is thin (Russell red, &lt;half of S&amp;P green) — leadership is concentrated where we're already heavy, so watch position concentration rather than chasing.</p>
+  </section>
+
+  <!-- 5 WEEK -->
+  <section class="panel" id="s5">
+    <div class="ph"><div class="lab"><span class="num">05</span><span class="ttl">Week at a Glance</span></div></div>
+    <div class="wag">
+      <div class="wnode"><div class="dot d-x"></div><div class="day">THU MAY 28 · PASSED</div><div class="wt">PCE printed — 3.8% headline / 3.3% core</div><div class="wd">Records set despite hot inflation; tape shrugged it off.</div></div>
+      <div class="wnode"><div class="dot d-g"></div><div class="day">FRI MAY 29 · TODAY</div><div class="wt">Semis rally · Iran headlines · portfolio review</div><div class="wd">ETN &amp; MRVL dip zones live. Decision: work adds vs. hold powder for CRDO.</div></div>
+      <div class="wnode"><div class="dot d-r"></div><div class="day">MON JUN 1</div><div class="wt">CRDO earnings gate</div><div class="wd">No pre-position. Post-print entry $190–205 if it dips; thesis check first.</div></div>
+      <div class="wnode"><div class="dot d-a"></div><div class="day">THIS WEEK</div><div class="wt">AMBA zone set · MRVL add watch · MP $60–63</div><div class="wd">AMBA reported 5/28 — set entry zone off the reaction. MP pullback watch.</div></div>
+      <div class="wnode"><div class="dot d-x"></div><div class="day">ONGOING</div><div class="wt">Allocation audit (pending 2 sessions)</div><div class="wd">Resolve concentration + dead-capital names (NU, DRAM sizing).</div></div>
+    </div>
+  </section>
+
+  <!-- 6 OBS -->
+  <section class="panel" id="s6">
+    <div class="ph"><div class="lab"><span class="num">06</span><span class="ttl">Key Observations</span></div></div>
+    <div class="obs g"><b>Book is green across the board</b> — 14 of 15 names positive; only NU fractionally red (−0.5%). Total +17.1%.</div>
+    <div class="obs v"><b>APLD is the breakout</b> — +77.5% on the $31B contracted-revenue thesis upgrade; MS 76 but CS still 62 → momentum running ahead of fundamentals.</div>
+    <div class="obs a"><b>NVDA doing the heavy lifting</b> — +$1,914 of the +$4,319 total P&amp;L (44%) sits in one name. Concentration is the live risk, not any single thesis.</div>
+    <div class="obs b"><b>Two dip zones triggered</b> — ETN and MRVL both inside add ranges; ETN barely above cost, MRVL reset higher post-beat.</div>
+  </section>
+
+  <!-- 7 PLAN -->
+  <section class="panel" id="s7">
+    <div class="ph"><div class="lab"><span class="num">07</span><span class="ttl">Daily + Weekly Game Plan</span></div></div>
+    <div class="obs g"><b>Daily:</b> Decide ETN/MRVL adds vs. preserving CRDO powder. Lean MRVL (higher MS, cleaner reset) if forced to choose one.</div>
+    <div class="obs b"><b>Weekly:</b> CRDO gate Mon → AMBA zone → MP $60–63 pullback. Run the allocation audit before adding any new name.</div>
+    <div class="obs a"><b>Discipline:</b> No DCA — adds only on dips into defined zones. No chasing extended names (AMD, APLD, ORCL all extended).</div>
+  </section>
+
+  <!-- 8 SCENARIO -->
+  <section class="panel" id="s8">
+    <div class="ph"><div class="lab"><span class="num">08</span><span class="ttl">Scenario Planning</span></div></div>
+    <div class="scen">
+      <div class="c bull"><h4><span>Bull</span><span class="pct">40%</span></h4><p>Iran truce holds, yields keep easing, AI capex re-accelerates → semis extend leadership, records run.</p><div class="act2">Hold winners, add only into dips. Let APLD/NVDA run.</div></div>
+      <div class="c base"><h4><span>Base</span><span class="pct">45%</span></h4><p>Chop near records, PCE keeps Fed on hold, rotation churns within tech. Thin breadth persists.</p><div class="act2">Work ETN/MRVL dip zones, preserve CRDO powder, audit allocation.</div></div>
+      <div class="c bear"><h4><span>Bear</span><span class="pct">15%</span></h4><p>Iran deal collapses / oil spikes / inflation re-accelerates → yields up, multiple compression hits growth.</p><div class="act2">Trim extended names, raise cash, defend $20K soft floor.</div></div>
+    </div>
+  </section>
+
+  <!-- 9 LEDGER -->
+  <section class="panel" id="s9">
+    <div class="ph"><div class="lab"><span class="num">09</span><span class="ttl">Ledger Snapshot</span></div><span class="tag">conviction-ordered · CS/MS</span></div>
+    <table class="ltable">
+      <thead><tr><th class="lft">Ticker</th><th>Cv</th><th>Sh</th><th>Cost</th><th>Price</th><th>Day <span class="demotag">D</span></th><th>P&amp;L%</th><th>P&amp;L$</th><th>Mkt Val</th><th>Wt%</th><th>CS</th><th>MS</th><th class="lft" style="padding-left:12px;">Flags</th></tr></thead>
+      <tbody>
+        <tr class="tier"><td colspan="13">Conviction 5</td></tr>
+        <tr class="r c5"><td>AVGO</td><td>5</td><td>6</td><td>415.55</td><td>435.78</td><td class="daycol">+1.2%</td><td class="pos">+4.9%</td><td class="pos">+$121</td><td>$2,615</td><td><div class="wtcell">8.9%<span class="wtbar"><i style="width:36%"></i></span></div></td><td>89</td><td>82</td><td style="text-align:left;padding-left:12px;"></td></tr>
+        <tr class="r c5"><td>ANET</td><td>5</td><td>17</td><td>145.01</td><td>158.45</td><td class="daycol">+0.8%</td><td class="pos">+9.3%</td><td class="pos">+$228</td><td>$2,694</td><td><div class="wtcell">9.1%<span class="wtbar"><i style="width:37%"></i></span></div></td><td>86</td><td>78</td><td style="text-align:left;padding-left:12px;"></td></tr>
+        <tr class="r c5"><td>NVDA</td><td>5</td><td>30.73</td><td>154.17</td><td>216.46</td><td class="daycol">+1.5%</td><td class="pos">+40.4%</td><td class="pos">+$1,914</td><td>$6,651</td><td><div class="wtcell">22.5%<span class="wtbar"><i style="width:90%"></i></span></div></td><td>85</td><td>80</td><td style="text-align:left;padding-left:12px;"><span class="fl fl-win">WIN</span></td></tr>
+        <tr class="r c5"><td>VOO</td><td>5</td><td>4</td><td>635.56</td><td>695.30</td><td class="daycol">+0.6%</td><td class="pos">+9.4%</td><td class="pos">+$239</td><td>$2,781</td><td><div class="wtcell">9.4%<span class="wtbar"><i style="width:38%"></i></span></div></td><td>84</td><td>78</td><td style="text-align:left;padding-left:12px;"></td></tr>
+        <tr class="tier"><td colspan="13">Conviction 4</td></tr>
+        <tr class="r c4"><td>APH</td><td>4</td><td>10</td><td>129.56</td><td>146.69</td><td class="daycol">+0.9%</td><td class="pos">+13.2%</td><td class="pos">+$171</td><td>$1,467</td><td><div class="wtcell">5.0%<span class="wtbar"><i style="width:20%"></i></span></div></td><td>85</td><td>82</td><td style="text-align:left;padding-left:12px;"></td></tr>
+        <tr class="r c4"><td>AMAT</td><td>4</td><td>6</td><td>431.90</td><td>449.36</td><td class="daycol">+2.1%</td><td class="pos">+4.0%</td><td class="pos">+$105</td><td>$2,696</td><td><div class="wtcell">9.1%<span class="wtbar"><i style="width:37%"></i></span></div></td><td>83</td><td>79</td><td style="text-align:left;padding-left:12px;"></td></tr>
+        <tr class="r c4"><td>MRVL</td><td>4</td><td>4</td><td>186.50</td><td>206.74</td><td class="daycol">+1.7%</td><td class="pos">+10.9%</td><td class="pos">+$81</td><td>$827</td><td><div class="wtcell">2.8%<span class="wtbar"><i style="width:11%"></i></span></div></td><td>81</td><td>86</td><td style="text-align:left;padding-left:12px;"><span class="fl fl-dip">DIP</span></td></tr>
+        <tr class="r c4"><td>NOW</td><td>4</td><td>12</td><td>101.68</td><td>123.63</td><td class="daycol">+0.4%</td><td class="pos">+21.6%</td><td class="pos">+$263</td><td>$1,484</td><td><div class="wtcell">5.0%<span class="wtbar"><i style="width:20%"></i></span></div></td><td>81</td><td>74</td><td style="text-align:left;padding-left:12px;"></td></tr>
+        <tr class="r c4"><td>ETN</td><td>4</td><td>6</td><td>395.19</td><td>399.37</td><td class="daycol">+0.3%</td><td class="pos">+1.1%</td><td class="pos">+$25</td><td>$2,396</td><td><div class="wtcell">8.1%<span class="wtbar"><i style="width:33%"></i></span></div></td><td>80</td><td>72</td><td style="text-align:left;padding-left:12px;"><span class="fl fl-dip">DIP</span></td></tr>
+        <tr class="r c4"><td>AMD</td><td>4</td><td>3</td><td>436.98</td><td>506.00</td><td class="daycol">+4.6%</td><td class="pos">+15.8%</td><td class="pos">+$207</td><td>$1,518</td><td><div class="wtcell">5.1%<span class="wtbar"><i style="width:21%"></i></span></div></td><td>76</td><td>84</td><td style="text-align:left;padding-left:12px;"></td></tr>
+        <tr class="r c4"><td>APLD</td><td>4</td><td>35</td><td>26.49</td><td>47.02</td><td class="daycol">+3.2%</td><td class="pos">+77.5%</td><td class="pos">+$719</td><td>$1,646</td><td><div class="wtcell">5.6%<span class="wtbar"><i style="width:22%"></i></span></div></td><td>62</td><td>76</td><td style="text-align:left;padding-left:12px;"><span class="fl fl-win">WIN</span></td></tr>
+        <tr class="tier"><td colspan="13">Conviction 3</td></tr>
+        <tr class="r c3"><td>ORCL</td><td>3</td><td>5</td><td>192.84</td><td>222.78</td><td class="daycol">+1.1%</td><td class="pos">+15.5%</td><td class="pos">+$150</td><td>$1,114</td><td><div class="wtcell">3.8%<span class="wtbar"><i style="width:15%"></i></span></div></td><td>76</td><td>68</td><td style="text-align:left;padding-left:12px;"></td></tr>
+        <tr class="r c3"><td>NU</td><td>3</td><td>5</td><td>13.17</td><td>13.10</td><td class="daycol neg">−0.4%</td><td class="neg">−0.5%</td><td class="neg">−$0</td><td>$66</td><td><div class="wtcell">0.2%<span class="wtbar"><i style="width:1%"></i></span></div></td><td>76</td><td>72</td><td style="text-align:left;padding-left:12px;"></td></tr>
+        <tr class="r c3"><td>CEG</td><td>3</td><td>4</td><td>278.70</td><td>286.73</td><td class="daycol">+0.7%</td><td class="pos">+2.9%</td><td class="pos">+$32</td><td>$1,147</td><td><div class="wtcell">3.9%<span class="wtbar"><i style="width:16%"></i></span></div></td><td>75</td><td>68</td><td style="text-align:left;padding-left:12px;"></td></tr>
+        <tr class="r c3"><td>DRAM</td><td>3</td><td>7</td><td>53.73</td><td>62.76</td><td class="daycol">+1.9%</td><td class="pos">+16.8%</td><td class="pos">+$63</td><td>$439</td><td><div class="wtcell">1.5%<span class="wtbar"><i style="width:6%"></i></span></div></td><td>68</td><td>72</td><td style="text-align:left;padding-left:12px;"></td></tr>
+        <tr class="sumr"><td>TOTAL</td><td></td><td></td><td></td><td></td><td class="daycol">+0.6%</td><td class="pos">+17.1%</td><td class="pos">+$4,319</td><td>$29,540</td><td style="text-align:right;">100%</td><td></td><td></td><td></td></tr>
+      </tbody>
+    </table>
+    <div class="conc"><b>Concentration:</b> NVDA largest at 22.5% — under the 25% rebalance line but the single biggest risk in the book. Top 4 (NVDA, ANET, AMAT, VOO) ≈ 49.7%. No add to NVDA. <span class="demotag">DEMO</span> Day column is placeholder — populates once prior-close is captured in the price widget.</div>
+  </section>
+
+  <!-- 10 ENGINE -->
+  <section class="panel" id="s10">
+    <div class="ph"><div class="lab"><span class="num">10</span><span class="ttl">Capital Efficiency Engine</span></div><span class="tag">conviction → CS desc</span></div>
+    <div class="englegend"><span><i class="lg-cs"></i>fill = CS (fundamentals)</span><span><i class="lg-ms"></i>tick = MS (market) — right of fill = momentum ahead</span></div>
+    <div class="etier">Conviction 5</div>
+    <div class="erow"><div class="nm">AVGO</div><div class="ebar"><i style="width:89%"></i><span class="msm" style="left:82%"></span><span class="sc">89</span></div><div class="rt">MS 82 · custom-ASIC core</div></div>
+    <div class="erow"><div class="nm">ANET</div><div class="ebar"><i style="width:86%"></i><span class="msm" style="left:78%"></span><span class="sc">86</span></div><div class="rt">MS 78 · AI networking</div></div>
+    <div class="erow"><div class="nm">NVDA</div><div class="ebar"><i style="width:85%"></i><span class="msm" style="left:80%"></span><span class="sc">85</span></div><div class="rt">MS 80 · anchor, don't add</div></div>
+    <div class="erow"><div class="nm">VOO</div><div class="ebar"><i style="width:84%"></i><span class="msm" style="left:78%"></span><span class="sc">84</span></div><div class="rt">MS 78 · core, never sell</div></div>
+    <div class="etier">Conviction 4</div>
+    <div class="erow"><div class="nm">APH</div><div class="ebar"><i style="width:85%"></i><span class="msm" style="left:82%"></span><span class="sc">85</span></div><div class="rt">MS 82 · connectors compounder</div></div>
+    <div class="erow"><div class="nm">AMAT</div><div class="ebar"><i style="width:83%"></i><span class="msm" style="left:79%"></span><span class="sc">83</span></div><div class="rt">MS 79 · WFE leverage</div></div>
+    <div class="erow"><div class="nm">MRVL</div><div class="ebar"><i style="width:81%"></i><span class="msm" style="left:86%"></span><span class="sc">81</span></div><div class="rt">MS 86 · momentum &gt; CS, dip zone</div></div>
+    <div class="erow"><div class="nm">NOW</div><div class="ebar"><i style="width:81%"></i><span class="msm" style="left:74%"></span><span class="sc">81</span></div><div class="rt">MS 74 · agentic AI, +21%</div></div>
+    <div class="erow"><div class="nm">ETN</div><div class="ebar"><i style="width:80%"></i><span class="msm" style="left:72%"></span><span class="sc">80</span></div><div class="rt">MS 72 · dip zone, electrification</div></div>
+    <div class="erow"><div class="nm">AMD</div><div class="ebar"><i style="width:76%"></i><span class="msm" style="left:84%"></span><span class="sc">76</span></div><div class="rt">MS 84 · momentum &gt; CS, extended</div></div>
+    <div class="erow"><div class="nm">APLD</div><div class="ebar"><i style="width:62%"></i><span class="msm" style="left:76%"></span><span class="sc">62</span></div><div class="rt">MS 76 · momentum well ahead of CS</div></div>
+    <div class="etier">Conviction 3</div>
+    <div class="erow"><div class="nm">ORCL</div><div class="ebar"><i style="width:76%"></i><span class="msm" style="left:68%"></span><span class="sc">76</span></div><div class="rt">MS 68 · CS ahead, extended px</div></div>
+    <div class="erow"><div class="nm">NU</div><div class="ebar"><i style="width:76%"></i><span class="msm" style="left:72%"></span><span class="sc">76</span></div><div class="rt">MS 72 · dead-capital size</div></div>
+    <div class="erow"><div class="nm">CEG</div><div class="ebar"><i style="width:75%"></i><span class="msm" style="left:68%"></span><span class="sc">75</span></div><div class="rt">MS 68 · power/nuclear</div></div>
+    <div class="erow"><div class="nm">DRAM</div><div class="ebar"><i style="width:68%"></i><span class="msm" style="left:72%"></span><span class="sc">68</span></div><div class="rt">MS 72 · HBM proxy, small</div></div>
+  </section>
+
+  <!-- 10b PT ENGINE -->
+  <section class="panel" id="s10b">
+    <div class="ph"><div class="lab"><span class="num">10.5</span><span class="ttl">Price Target Engine</span></div><span class="tag">owned + radar · analyst alerts live</span></div>
+
+    <!-- ALERT STRIP: populate when analyst raises/lowers a PT -->
+    <div id="pte-alerts" style="margin-bottom:12px;">
+      <div style="background:rgba(229,169,60,0.13);border:1px solid rgba(229,169,60,0.3);border-radius:9px;padding:9px 13px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;">
+        <span style="font-family:var(--mono);font-size:10px;font-weight:700;color:var(--warn);letter-spacing:0.5px;">🔔 RECENT PT CHANGES</span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--ink);">
+          <b style="color:var(--pos)">RAISE</b> MRVL · Deutsche Bank · $95→$130 · May 28
+        </span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--ink);">
+          <b style="color:var(--pos)">RAISE</b> ANET · JPMorgan · $175→$210 · May 22
+        </span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--ink);">
+          <b style="color:var(--pos)">RAISE</b> APLD · Wedbush · $28→$52 · May 20
+        </span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--ink);">
+          <b style="color:var(--pos)">RAISE</b> NVDA · Morgan Stanley · $280→$320 · May 28
+        </span>
+        <span style="font-family:var(--mono);font-size:11px;color:var(--ink);">
+          <b style="color:var(--pos)">RAISE</b> CRDO · Needham · $92→$118 · May 27
+        </span>
+      </div>
+    </div>
+
+    <!-- TABLE HEADER -->
+    <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;background:var(--line2);border-radius:8px 8px 0 0;overflow:hidden;">
+      <div style="background:var(--panel2);padding:7px 8px;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.5px;text-transform:uppercase;">Ticker</div>
+      <div style="background:var(--panel2);padding:7px 8px;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.5px;text-transform:uppercase;">Name</div>
+      <div style="background:var(--panel2);padding:7px 8px;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.5px;text-transform:uppercase;text-align:right;">My PT</div>
+      <div style="background:var(--panel2);padding:7px 8px;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.5px;text-transform:uppercase;text-align:right;">St Low</div>
+      <div style="background:var(--panel2);padding:7px 8px;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.5px;text-transform:uppercase;text-align:right;">St High</div>
+      <div style="background:var(--panel2);padding:7px 8px;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.5px;text-transform:uppercase;text-align:right;">Cons.</div>
+      <div style="background:var(--panel2);padding:7px 8px;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.5px;text-transform:uppercase;text-align:right;">Entry Zone</div>
+      <div style="background:var(--panel2);padding:7px 8px;font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.5px;text-transform:uppercase;text-align:right;">Last Change</div>
+    </div>
+
+    <!-- OWNED ROWS — ordered by market value desc within tier -->
+    <div style="border:1px solid var(--line);border-top:none;border-radius:0 0 8px 8px;overflow:hidden;">
+
+      <div style="background:var(--accdim);padding:4px 10px;font-family:var(--mono);font-size:9px;color:var(--acc2);font-weight:700;letter-spacing:0.6px;text-transform:uppercase;">Conviction 5</div>
+
+      <!-- NVDA -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--panel2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--acc);">NVDA<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">NVIDIA</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$295<br><span style="font-size:9px;color:var(--neg);">−3.6%</span></div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--neg);">$220</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--pos);">$380</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$305</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$200–210</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;"><span style="color:var(--pos);font-weight:700;">RAISE</span><br>$280→$320<br><span style="color:var(--ink3);">MS · May 28</span></div>
+      </div>
+
+      <!-- AMAT -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--bg2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--acc);">AMAT<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">Applied Materials</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$537<br><span style="font-size:9px;color:var(--pos);">+19.7%</span></div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--neg);">$175</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--pos);">$250</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$215</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$420–425</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;color:var(--ink3);">—</div>
+      </div>
+
+      <!-- VOO -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--panel2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--acc);">VOO<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">Vanguard S&amp;P 500</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--ink3);">core</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--ink3);">—</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--ink3);">—</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--ink3);">—</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">~$650</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;color:var(--ink3);">—</div>
+      </div>
+
+      <!-- ANET -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--bg2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--acc);">ANET<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">Arista Networks</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$187<br><span style="font-size:9px;color:var(--neg);">−4.1%</span></div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--neg);">$155</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--pos);">$220</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$195</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$140–145</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;"><span style="color:var(--pos);font-weight:700;">RAISE</span><br>$175→$210<br><span style="color:var(--ink3);">JPM · May 22</span></div>
+      </div>
+
+      <!-- AVGO -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--panel2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--acc);">AVGO<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">Broadcom</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$582<br><span style="font-size:9px;color:var(--pos);">+33.6%</span></div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--neg);">$380</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--pos);">$620</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$530</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$410–420</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;color:var(--ink3);">—</div>
+      </div>
+
+      <div style="background:rgba(95,174,242,0.08);padding:4px 10px;font-family:var(--mono);font-size:9px;color:var(--info);font-weight:700;letter-spacing:0.6px;text-transform:uppercase;">Conviction 4</div>
+
+      <!-- ETN -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--panel2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--info);">ETN<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">Eaton Corp</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$464<br><span style="font-size:9px;color:var(--pos);">+16.3%</span></div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--neg);">$380</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--pos);">$550</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$468</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$395–415</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;color:var(--ink3);">—</div>
+      </div>
+
+      <!-- APLD -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--bg2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--info);">APLD<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">Applied Digital</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$97<br><span style="font-size:9px;color:var(--pos);">+106.4%</span></div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--neg);">$18</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--pos);">$65</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$42</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$40–43 dip</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;"><span style="color:var(--pos);font-weight:700;">RAISE</span><br>$28→$52<br><span style="color:var(--ink3);">Wedbush · May 20</span></div>
+      </div>
+
+      <!-- NOW -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--panel2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--info);">NOW<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">ServiceNow</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$143<br><span style="font-size:9px;color:var(--pos);">+40.6%</span></div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--neg);">$115</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--pos);">$145</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$135</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$115–120</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;color:var(--ink3);">—</div>
+      </div>
+
+      <!-- AMD -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--bg2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--info);">AMD<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">Advanced Micro</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$480<br><span style="font-size:9px;color:var(--pos);">+9.8%</span></div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--neg);">$140</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--pos);">$210</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$172</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$430–440</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;"><span style="color:var(--pos);font-weight:700;">RAISE</span><br>$145→$185<br><span style="color:var(--ink3);">UBS · May 15</span></div>
+      </div>
+
+      <!-- APH -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--panel2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--info);">APH<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">Amphenol</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$163<br><span style="font-size:9px;color:var(--pos);">+12.0%</span></div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--neg);">$140</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--pos);">$195</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$168</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$130–135</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;color:var(--ink3);">—</div>
+      </div>
+
+      <!-- MRVL -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--bg2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--info);">MRVL<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">Marvell Tech</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$280<br><span style="font-size:9px;color:var(--pos);">+44.1%</span></div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--neg);">$95</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--pos);">$130</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$112</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$205–215</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;"><span style="color:var(--pos);font-weight:700;">RAISE</span><br>$95→$130<br><span style="color:var(--ink3);">DB · May 28</span></div>
+      </div>
+
+      <div style="background:rgba(229,169,60,0.08);padding:4px 10px;font-family:var(--mono);font-size:9px;color:var(--warn);font-weight:700;letter-spacing:0.6px;text-transform:uppercase;">Conviction 3</div>
+
+      <!-- ORCL -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--panel2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--warn);">ORCL<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">Oracle</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$261<br><span style="font-size:9px;color:var(--pos);">+35.4%</span></div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--neg);">$195</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--pos);">$310</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$258</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$185–190</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;color:var(--ink3);">—</div>
+      </div>
+
+      <!-- DRAM -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--bg2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--warn);">DRAM<br><span style="font-size:9px;color:var(--pos);background:var(--posbg);padding:1px 5px;border-radius:3px;">OWNED</span></div>
+        <div style="padding:7px 8px;font-size:12px;">DRAM / HBM ETF</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--ink3);">thesis</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--ink3);">—</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--ink3);">—</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--ink3);">—</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$55–57</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;color:var(--ink3);">—</div>
+      </div>
+
+      <!-- T1 RADAR divider -->
+      <div style="background:rgba(94,230,208,0.08);padding:4px 10px;font-family:var(--mono);font-size:9px;color:var(--ms);font-weight:700;letter-spacing:0.6px;text-transform:uppercase;">T1 Radar</div>
+
+      <!-- CRDO -->
+      <div style="display:grid;grid-template-columns:68px 1fr 78px 78px 78px 68px 90px 100px;gap:0;border-bottom:1px solid var(--hair);background:var(--panel2);">
+        <div style="padding:7px 8px;font-family:var(--mono);font-weight:700;font-size:12px;border-left:2px solid var(--ms);">CRDO<br><span style="font-size:9px;background:var(--infobg);color:var(--info);padding:1px 5px;border-radius:3px;">WATCH</span></div>
+        <div style="padding:7px 8px;font-size:12px;">Credo Tech</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$250<br><span style="font-size:9px;color:var(--ink3);">my PT</span></div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--neg);">$95</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;color:var(--pos);">$120</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:12px;text-align:right;">$108</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:11px;text-align:right;color:var(--acc2);">$190–215</div>
+        <div style="padding:7px 8px;font-family:var(--mono);font-size:10px;text-align:right;"><span style="color:var(--pos);font-weight:700;">RAISE</span><br>$92→$118<br><span style="color:var(--ink3);">Needham · May 27</span></div>
+      </div>
+    </div>
+
+    <!-- LOG FORM -->
+    <div style="margin-top:12px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:12px 14px;">
+      <div style="font-family:var(--mono);font-size:9px;color:var(--ink3);letter-spacing:0.6px;text-transform:uppercase;margin-bottom:8px;">Log Analyst PT Change → fires to Finn for memory update</div>
+      <div style="display:grid;grid-template-columns:72px 1fr 84px 84px 80px auto;gap:8px;align-items:center;">
+        <input id="pte-tk" placeholder="Ticker" style="font-family:var(--mono);background:var(--bg2);border:1px solid var(--line);border-radius:6px;color:var(--ink);padding:6px 8px;font-size:11px;">
+        <input id="pte-firm" placeholder="Firm" style="font-family:var(--mono);background:var(--bg2);border:1px solid var(--line);border-radius:6px;color:var(--ink);padding:6px 8px;font-size:11px;">
+        <input id="pte-prev" placeholder="Old PT ($)" type="number" style="font-family:var(--mono);background:var(--bg2);border:1px solid var(--line);border-radius:6px;color:var(--ink);padding:6px 8px;font-size:11px;">
+        <input id="pte-new" placeholder="New PT ($)" type="number" style="font-family:var(--mono);background:var(--bg2);border:1px solid var(--line);border-radius:6px;color:var(--ink);padding:6px 8px;font-size:11px;">
+        <select id="pte-act" style="font-family:var(--mono);background:var(--bg2);border:1px solid var(--line);border-radius:6px;color:var(--ink);padding:6px 8px;font-size:11px;">
+          <option value="RAISE">RAISE</option>
+          <option value="LOWER">LOWER</option>
+          <option value="INIT">INITIATE</option>
+          <option value="REIT">REITERATE</option>
+        </select>
+        <button onclick="logPTChange()" style="font-family:var(--mono);font-size:11px;font-weight:700;padding:6px 14px;border-radius:6px;border:1px solid var(--acc);background:var(--accdim);color:var(--acc2);cursor:pointer;">LOG ↗</button>
+      </div>
+      <div id="pte-log" style="margin-top:8px;font-family:var(--mono);font-size:10px;color:var(--ink3);"></div>
+    </div>
+  </section>
+
+  <!-- 11 POSITIONS -->
+  <section class="panel" id="s11">
+    <div class="ph"><div class="lab"><span class="num">11</span><span class="ttl">Positions</span></div><span class="tag">conviction tier → CS desc</span></div>
+    <div class="cards">
+      <div class="card c5"><div class="chead"><div><div class="tk">AVGO</div><div class="nm">Broadcom</div></div><div class="r"><div class="px">$435.78</div><div class="ct">@ $415.55</div><div class="pl pos">+4.9%</div></div></div><div class="cmeta"><span class="pill pl-c5">CONV 5</span><span class="pill pl-sc">CS 89</span><span class="pill pl-sc">MS 82</span><span class="pill pl-hold">HOLD</span></div><div class="cnote">Custom-silicon + networking core of the AI thesis. Highest CS in book.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$463–582</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$410–420</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c5"><div class="chead"><div><div class="tk">ANET</div><div class="nm">Arista Networks</div></div><div class="r"><div class="px">$158.45</div><div class="ct">@ $145.01</div><div class="pl pos">+9.3%</div></div></div><div class="cmeta"><span class="pill pl-c5">CONV 5</span><span class="pill pl-sc">CS 86</span><span class="pill pl-sc">MS 78</span><span class="pill pl-hold">HOLD</span></div><div class="cnote">AI back-end networking leader. Largest share count (17). Near PT.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$187</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$140–145</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c5"><div class="chead"><div><div class="tk">NVDA</div><div class="nm">NVIDIA</div></div><div class="r"><div class="px">$216.46</div><div class="ct">@ $154.17</div><div class="pl pos">+40.4%</div></div></div><div class="cmeta"><span class="pill pl-c5">CONV 5</span><span class="pill pl-sc">CS 85</span><span class="pill pl-sc">MS 80</span><span class="pill pl-hold">HOLD</span><span class="fl fl-win">WIN</span></div><div class="cnote">Anchor +40%, 22.5% of book. Win-review triggered. Don't add — concentration.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$295</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$200–210</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c5"><div class="chead"><div><div class="tk">VOO</div><div class="nm">Vanguard S&amp;P 500</div></div><div class="r"><div class="px">$695.30</div><div class="ct">@ $635.56</div><div class="pl pos">+9.4%</div></div></div><div class="cmeta"><span class="pill pl-c5">CONV 5</span><span class="pill pl-sc">CS 84</span><span class="pill pl-sc">MS 78</span><span class="pill pl-hold">CORE</span></div><div class="cnote">Foundation ETF. Never sell — dollar-anchor of the book.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">core / n.a.</div></div><div class="b"><div class="l">Add Zone</div><div class="v">~$650</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c4"><div class="chead"><div><div class="tk">APH</div><div class="nm">Amphenol</div></div><div class="r"><div class="px">$146.69</div><div class="ct">@ $129.56</div><div class="pl pos">+13.2%</div></div></div><div class="cmeta"><span class="pill pl-c4">CONV 4</span><span class="pill pl-sc">CS 85</span><span class="pill pl-sc">MS 82</span><span class="pill pl-hold">HOLD</span></div><div class="cnote">Connector/interconnect compounder, AI datacenter pull. In lower PT band.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$145–182</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$130–135</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c4"><div class="chead"><div><div class="tk">AMAT</div><div class="nm">Applied Materials</div></div><div class="r"><div class="px">$449.36</div><div class="ct">@ $431.90</div><div class="pl pos">+4.0%</div></div></div><div class="cmeta"><span class="pill pl-c4">CONV 4</span><span class="pill pl-sc">CS 83</span><span class="pill pl-sc">MS 79</span><span class="pill pl-add">ADD ZONE</span></div><div class="cnote">WFE leverage to the buildout. Add band sits below current.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$500–575</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$420–425</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c4"><div class="chead"><div><div class="tk">MRVL</div><div class="nm">Marvell Tech</div></div><div class="r"><div class="px">$206.74</div><div class="ct">@ $186.50</div><div class="pl pos">+10.9%</div></div></div><div class="cmeta"><span class="pill pl-c4">CONV 4</span><span class="pill pl-sc">CS 81</span><span class="pill pl-sc">MS 86</span><span class="pill pl-add">ADD</span><span class="fl fl-dip">DIP</span></div><div class="cnote">Inside dip zone, reset higher post Q1-FY27 beat. Best MS in book — add candidate.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$270–290</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$205–215</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c4"><div class="chead"><div><div class="tk">NOW</div><div class="nm">ServiceNow</div></div><div class="r"><div class="px">$123.63</div><div class="ct">@ $101.68</div><div class="pl pos">+21.6%</div></div></div><div class="cmeta"><span class="pill pl-c4">CONV 4</span><span class="pill pl-sc">CS 81</span><span class="pill pl-sc">MS 74</span><span class="pill pl-hold">HOLD</span></div><div class="cnote">Agentic-AI software compounder, strongest % gainer ex-APLD. Watch ARR &gt;20%.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$143 / hi $236</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$115–120</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c4"><div class="chead"><div><div class="tk">ETN</div><div class="nm">Eaton</div></div><div class="r"><div class="px">$399.37</div><div class="ct">@ $395.19</div><div class="pl pos">+1.1%</div></div></div><div class="cmeta"><span class="pill pl-c4">CONV 4</span><span class="pill pl-sc">CS 80</span><span class="pill pl-sc">MS 72</span><span class="pill pl-add">ADD</span><span class="fl fl-dip">DIP</span></div><div class="cnote">Inside dip zone, basically at cost. Electrification/datacenter power. Low-risk add.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$464</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$395–415</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c4"><div class="chead"><div><div class="tk">AMD</div><div class="nm">Advanced Micro</div></div><div class="r"><div class="px">$506.00</div><div class="ct">@ $436.98</div><div class="pl pos">+15.8%</div></div></div><div class="cmeta"><span class="pill pl-c4">CONV 4</span><span class="pill pl-sc">CS 76</span><span class="pill pl-sc">MS 84</span><span class="pill pl-hold">HOLD</span></div><div class="cnote">Extended above add band after semis rally. Don't chase; wait for pullback.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$480 / bull $525</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$430–440</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c4"><div class="chead"><div><div class="tk">APLD</div><div class="nm">Applied Digital</div></div><div class="r"><div class="px">$47.02</div><div class="ct">@ $26.49</div><div class="pl pos">+77.5%</div></div></div><div class="cmeta"><span class="pill pl-c4">CONV 4</span><span class="pill pl-sc">CS 62</span><span class="pill pl-sc">MS 76</span><span class="pill pl-hold">HOLD</span><span class="fl fl-win">WIN</span></div><div class="cnote">+77% on $31B contracted thesis upgrade. Trim watch &gt;$75–80, add only $40–43 dip.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$58–97</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$40–43 dip</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c3"><div class="chead"><div><div class="tk">ORCL</div><div class="nm">Oracle</div></div><div class="r"><div class="px">$222.78</div><div class="ct">@ $192.84</div><div class="pl pos">+15.5%</div></div></div><div class="cmeta"><span class="pill pl-c3">CONV 3</span><span class="pill pl-sc">CS 76</span><span class="pill pl-sc">MS 68</span><span class="pill pl-hold">HOLD</span></div><div class="cnote">OCI/AI-cloud re-rate. Extended vs. dip band; trimmed 2sh earlier. Don't add here.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$261</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$185–190</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c3"><div class="chead"><div><div class="tk">NU</div><div class="nm">Nu Holdings</div></div><div class="r"><div class="px">$13.10</div><div class="ct">@ $13.17</div><div class="pl neg">−0.5%</div></div></div><div class="cmeta"><span class="pill pl-c3">CONV 3</span><span class="pill pl-sc">CS 76</span><span class="pill pl-sc">MS 72</span><span class="pill pl-hold">HOLD</span></div><div class="cnote">New May 29 (5sh). LatAm fintech. Position too small to matter — size up on dip or cut.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$19–22</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$11.50–12.50</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c3"><div class="chead"><div><div class="tk">CEG</div><div class="nm">Constellation Energy</div></div><div class="r"><div class="px">$286.73</div><div class="ct">@ $278.70</div><div class="pl pos">+2.9%</div></div></div><div class="cmeta"><span class="pill pl-c3">CONV 3</span><span class="pill pl-sc">CS 75</span><span class="pill pl-sc">MS 68</span><span class="pill pl-hold">HOLD</span></div><div class="cnote">Nuclear/power for AI demand. Just above dip band.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">$366</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$270–280</div></div></div><div class="scored">scored May 27</div></div>
+      <div class="card c3"><div class="chead"><div><div class="tk">DRAM</div><div class="nm">Sumitomo / HBM ETF</div></div><div class="r"><div class="px">$62.76</div><div class="ct">@ $53.73</div><div class="pl pos">+16.8%</div></div></div><div class="cmeta"><span class="pill pl-c3">CONV 3</span><span class="pill pl-sc">CS 68</span><span class="pill pl-sc">MS 72</span><span class="pill pl-hold">HOLD</span></div><div class="cnote">HBM/memory proxy. Exit if HBM cycle breaks. Small sizing.</div><div class="cbox"><div class="b"><div class="l">Price Target</div><div class="v">thesis-based</div></div><div class="b"><div class="l">Add Zone</div><div class="v">$55–57</div></div></div><div class="scored">scored May 27</div></div>
+    </div>
+  </section>
+
+  <!-- 12 RECS -->
+  <section class="panel act" id="s12">
+    <div class="ph"><div class="lab"><span class="num">12</span><span class="ttl">Recommendations</span></div></div>
+    <div class="rec"><div class="l"><b>MRVL</b> <span>— dip zone hit + MS 86; cleanest add candidate this week</span></div><span class="rbadge pl-add">ADD ON DIP</span></div>
+    <div class="rec"><div class="l"><b>ETN</b> <span>— dip zone, at cost, low downside; secondary add if budget allows</span></div><span class="rbadge pl-add">ADD ON DIP</span></div>
+    <div class="rec"><div class="l"><b>CRDO</b> <span>— hold powder for post-earnings $190–205 (Mon gate)</span></div><span class="rbadge pl-hold">WAIT</span></div>
+    <div class="rec"><div class="l"><b>NVDA</b> <span>— +40% win review; no add, concentration at 22.5%</span></div><span class="rbadge pl-rev">REVIEW</span></div>
+    <div class="rec"><div class="l"><b>NU</b> <span>— $66 position is dead capital; size up on dip or recycle</span></div><span class="rbadge pl-rev">RESIZE</span></div>
+  </section>
+
+  <!-- 13 TDA -->
+  <section class="panel act" id="s13">
+    <div class="ph"><div class="lab"><span class="num">13</span><span class="ttl">Trim · Dip · Add</span></div></div>
+    <div class="tda">
+      <div class="c"><h4 class="h-t">Trim / Exit</h4><div class="it">None triggered — no name &gt;30% above PT</div><div class="it">APLD trim watch &gt;$75–80 (now $47)</div><div class="it">NVDA review &gt;$382 / sell on capex cuts</div></div>
+      <div class="c"><h4 class="h-d">Dip Targets</h4><div class="it"><b>ETN $395–415</b> — HIT</div><div class="it"><b>MRVL $205–215</b> — HIT</div><div class="it">CEG $270–280 · AMD $430–440</div><div class="it">ORCL $185–190 · ANET $140–145</div><div class="it">VOO ~$650 · NU $11.50–12.50</div></div>
+      <div class="c"><h4 class="h-a">New Entries</h4><div class="it">MP $60–63 (pullback watch)</div><div class="it">EQT $55–58 ($300–400)</div><div class="it">INFQ &lt;$14 spec ($200–300)</div><div class="it">CRDO $190–205 (post Jun 1)</div></div>
+    </div>
+  </section>
+
+  <!-- 14 CAP EFF -->
+  <section class="panel" id="s14">
+    <div class="ph"><div class="lab"><span class="num">14</span><span class="ttl">Capital Efficiency Review</span></div></div>
+    <div class="ceff">
+      <div class="row"><span class="ic ic-dead">DEAD CAP</span><div><b>NU — $66, 0.2%.</b> Too small to move the needle. Size to a real position on a dip into $11.50–12.50 or recycle into a higher-conviction add (MRVL/ETN).</div></div>
+      <div class="row"><span class="ic ic-mis">MISMATCH</span><div><b>APLD — Conv 4 but CS 62.</b> Momentum (MS 76, +77%) running well ahead of fundamentals. Conviction carried by price action — fine to ride, but don't add at full size.</div></div>
+      <div class="row"><span class="ic ic-und">UNDERSIZED</span><div><b>MRVL — Conv 4 at 2.8%.</b> Smallest Conv-4 weight while sitting in its dip zone with the best MS in the book. Most capital-efficient add available right now.</div></div>
+      <div class="row"><span class="ic ic-con">CONCENTRATION</span><div><b>NVDA — 22.5%.</b> Sized to conviction but approaching the 25% line. Dead-stop on adds; rebalance if it crosses 25–30%.</div></div>
+    </div>
+  </section>
+
+  <!-- 15 THEME EXPOSURE (NEW) -->
+  <section class="panel" id="s15">
+    <div class="ph"><div class="lab"><span class="num">15</span><span class="ttl">Theme Exposure</span></div><span class="tag">tiered by theme · conviction-ordered within</span></div>
+    <div class="themebar">
+      <i style="width:49.9%;background:var(--acc)"></i><i style="width:19.7%;background:var(--info)"></i><i style="width:12.0%;background:var(--warn)"></i><i style="width:8.8%;background:#5EE6D0"></i><i style="width:9.4%;background:var(--ink3)"></i><i style="width:0.2%;background:var(--neg)"></i>
+    </div>
+    <div class="themeleg">
+      <span><i class="dotc" style="background:var(--acc)"></i>AI Semis 49.9%</span>
+      <span><i class="dotc" style="background:var(--info)"></i>AI Infra/Networking 19.7%</span>
+      <span><i class="dotc" style="background:var(--warn)"></i>Power/Energy 12.0%</span>
+      <span><i class="dotc" style="background:#5EE6D0"></i>AI Software 8.8%</span>
+      <span><i class="dotc" style="background:var(--ink3)"></i>Foundation/ETF 9.4%</span>
+      <span><i class="dotc" style="background:var(--neg)"></i>Fintech 0.2%</span>
+    </div>
+
+    <div class="tblock"><div class="th"><div class="nm"><i class="dotc" style="background:var(--acc)"></i>AI Semiconductors</div><div class="pc">49.9% · $14.7K</div></div>
+      <div class="holds">
+        <div class="thold"><span class="tk">AVGO</span><span class="cv cv5">C5</span><span class="csv">CS89</span></div>
+        <div class="thold"><span class="tk">NVDA</span><span class="cv cv5">C5</span><span class="csv">CS85</span></div>
+        <div class="thold"><span class="tk">AMAT</span><span class="cv cv4">C4</span><span class="csv">CS83</span></div>
+        <div class="thold"><span class="tk">MRVL</span><span class="cv cv4">C4</span><span class="csv">CS81</span></div>
+        <div class="thold"><span class="tk">AMD</span><span class="cv cv4">C4</span><span class="csv">CS76</span></div>
+        <div class="thold"><span class="tk">DRAM</span><span class="cv cv3">C3</span><span class="csv">CS68</span></div>
+      </div>
+    </div>
+    <div class="tblock"><div class="th"><div class="nm"><i class="dotc" style="background:var(--info)"></i>AI Infra / Networking</div><div class="pc">19.7% · $5.8K</div></div>
+      <div class="holds">
+        <div class="thold"><span class="tk">ANET</span><span class="cv cv5">C5</span><span class="csv">CS86</span></div>
+        <div class="thold"><span class="tk">APH</span><span class="cv cv4">C4</span><span class="csv">CS85</span></div>
+        <div class="thold"><span class="tk">APLD</span><span class="cv cv4">C4</span><span class="csv">CS62</span></div>
+      </div>
+    </div>
+    <div class="tblock"><div class="th"><div class="nm"><i class="dotc" style="background:var(--warn)"></i>Power / Energy</div><div class="pc">12.0% · $3.5K</div></div>
+      <div class="holds">
+        <div class="thold"><span class="tk">ETN</span><span class="cv cv4">C4</span><span class="csv">CS80</span></div>
+        <div class="thold"><span class="tk">CEG</span><span class="cv cv3">C3</span><span class="csv">CS75</span></div>
+      </div>
+    </div>
+    <div class="tblock"><div class="th"><div class="nm"><i class="dotc" style="background:#5EE6D0"></i>AI Software</div><div class="pc">8.8% · $2.6K</div></div>
+      <div class="holds">
+        <div class="thold"><span class="tk">NOW</span><span class="cv cv4">C4</span><span class="csv">CS81</span></div>
+        <div class="thold"><span class="tk">ORCL</span><span class="cv cv3">C3</span><span class="csv">CS76</span></div>
+      </div>
+    </div>
+    <div class="tblock"><div class="th"><div class="nm"><i class="dotc" style="background:var(--ink3)"></i>Foundation / ETF</div><div class="pc">9.4% · $2.8K</div></div>
+      <div class="holds"><div class="thold"><span class="tk">VOO</span><span class="cv cv5">C5</span><span class="csv">CS84</span></div></div>
+    </div>
+    <div class="tblock"><div class="th"><div class="nm"><i class="dotc" style="background:var(--neg)"></i>Fintech</div><div class="pc">0.2% · $66</div></div>
+      <div class="holds"><div class="thold"><span class="tk">NU</span><span class="cv cv3">C3</span><span class="csv">CS76</span></div></div>
+    </div>
+
+    <div class="themeflag"><b>Thematic concentration:</b> AI Semis + AI Infra = <b>~69.6%</b> directly levered to the AI buildout. The 25% single-name rule won't catch this — if AI-capex sentiment turns, ~70% of the book moves together regardless of individual theses. This is the real diversification gap.</div>
+  </section>
+
+  <!-- 16 RADAR T1 -->
+  <section class="panel" id="s16">
+    <div class="ph"><div class="lab"><span class="num">16</span><span class="ttl">On Radar — Tier 1</span></div></div>
+    <div class="rt1">
+      <div class="c"><div class="hd"><div><div class="tk">CRDO <span class="fl fl-earn">EARN ~JUN 1</span></div><div class="nm">Credo Technology</div></div><div class="sc">CS 80 · MS 86</div></div><div class="sl">Highest-MS radar name · entry gated on earnings</div><div class="bd">SerDes/connectivity AI play. Gate is Monday's print — no pre-position. If it dips post-report into the zone and the thesis holds, that's the entry. Preserve powder.</div><div class="bx"><div class="b"><div class="l">Price Target</div><div class="v">$240–260</div></div><div class="b"><div class="l">Entry Zone</div><div class="v">$190–205</div></div></div></div>
+      <div class="c"><div class="hd"><div><div class="tk">AMBA</div><div class="nm">Ambarella</div></div><div class="sc">CS 68 · MS 65</div></div><div class="sl">Reported 5/28 — set zone off the reaction</div><div class="bd">Edge-AI vision SoCs. Old entry zone obsolete post-print; needs a fresh read off the earnings reaction. Lower scores than other T1 names — show-me.</div><div class="bx"><div class="b"><div class="l">Price Target</div><div class="v">TBD post-print</div></div><div class="b"><div class="l">Entry Zone</div><div class="v">set at open</div></div></div></div>
+      <div class="c"><div class="hd"><div><div class="tk">PLTR</div><div class="nm">Palantir</div></div><div class="sc">CS 66 · MS 78</div></div><div class="sl">Momentum name · valuation the gating risk</div><div class="bd">Strong MS, rich valuation. Watch-only — would need a meaningful pullback to make the risk/reward work. No defined zone yet.</div><div class="bx"><div class="b"><div class="l">Price Target</div><div class="v">on review</div></div><div class="b"><div class="l">Entry Zone</div><div class="v">pullback only</div></div></div></div>
+    </div>
+  </section>
+
+  <!-- 17 RADAR T2 -->
+  <section class="panel" id="s17">
+    <div class="ph"><div class="lab"><span class="num">17</span><span class="ttl">On Radar — Tier 2</span></div><span class="tag">live scoring on demand</span></div>
+    <div class="rt2wrap">
+      <div class="rt2"><span class="tk">IONQ</span><span class="sc">CS48·MS68 · $54–58</span></div><div class="rt2"><span class="tk">IREN</span><span class="sc">$50–55</span></div><div class="rt2"><span class="tk">CRWV</span><span class="sc">$70–80</span></div><div class="rt2"><span class="tk">ALAB</span><span class="sc">NVDA-adjacent</span></div><div class="rt2"><span class="tk">RBRK</span></div><div class="rt2"><span class="tk">COHR</span></div><div class="rt2"><span class="tk">CLS</span></div><div class="rt2"><span class="tk">DELL</span><span class="sc">tech leader today</span></div><div class="rt2"><span class="tk">MSFT</span><span class="sc">CS88·MS74</span></div><div class="rt2"><span class="tk">CLSK</span><span class="sc">$14–16</span></div><div class="rt2"><span class="tk">HLIT</span></div><div class="rt2"><span class="tk">INFQ</span><span class="sc">spec &lt;$14</span></div><div class="rt2"><span class="tk">FN</span></div><div class="rt2"><span class="tk">LRCX</span></div><div class="rt2"><span class="tk">CORZ</span></div><div class="rt2"><span class="tk">NBIS</span><span class="sc">post-sell mon.</span></div><div class="rt2"><span class="tk">PENG</span></div><div class="rt2"><span class="tk">BB</span></div><div class="rt2"><span class="tk">RDW</span><span class="sc">wait $12–14</span></div><div class="rt2"><span class="tk">LAES</span></div><div class="rt2"><span class="tk">PDYN</span></div>
+    </div>
+  </section>
+
+  <!-- 18 SMART MONEY -->
+  <section class="panel" id="s18">
+    <div class="ph"><div class="lab"><span class="num">18</span><span class="ttl">Smart Money</span></div><span class="tag">13F + congress · convergence watch</span></div>
+    <div class="sm">
+      <div class="row">Tracking: <b>Druckenmiller · Tepper · Tiger Global · TCI · Coatue · Point72</b>. Flag rule: 2+ funds converging on one name.</div>
+      <div class="row">No new 13F convergence flagged this session — last filings digested; next 13F window is mid-Aug (Q2). Live pull available on demand.</div>
+      <div class="row">Adjacency map active: ETN/CEG → BE, CMI, PWR · NVDA/AMAT/MRVL/AVGO → ALAB, CLS, MTSI · APLD → CRWV/neocloud · IONQ → QBTS, RGTI.</div>
+    </div>
+  </section>
+
+  <!-- 19 SPACE -->
+  <section class="panel" id="s19">
+    <div class="ph"><div class="lab"><span class="num">19</span><span class="ttl">Space &amp; Defense</span></div></div>
+    <div class="space">
+      <div class="c"><div class="tk">RKLB</div><div class="nm">Rocket Lab</div><div class="bd">Thesis upgraded — $90M Space Force GEO + $30M HASTE + Raytheon SBI; record Q1 rev $200.3M (+63.5% YoY); defense book ~$1.3B. Neutron Q4'26. Dilution risk: $3B ATM.</div><div class="z">PT $185–200 · dip $130–138</div></div>
+      <div class="c"><div class="tk">ASTS</div><div class="nm">AST SpaceMobile</div><div class="bd">Direct-to-cell. Starter $115–120, add &gt;$125 on catalyst.</div><div class="z">starter $115–120</div></div>
+      <div class="c"><div class="tk">LUNR</div><div class="nm">Intuitive Machines</div><div class="bd">Lunar/cislunar services. Add on dip.</div><div class="z">dip $32–35</div></div>
+      <div class="c"><div class="tk">VOYG</div><div class="nm">Voyager Tech</div><div class="bd">Station/defense. Watch pullback.</div><div class="z">dip $38–40</div></div>
+      <div class="c"><div class="tk">SATL</div><div class="nm">Satellogic</div><div class="bd">Radar — Oct Merlin launch catalyst.</div><div class="z">radar</div></div>
+      <div class="c"><div class="tk">RDW</div><div class="nm">Redwire</div><div class="bd">Wait for entry.</div><div class="z">wait $12–14</div></div>
+    </div>
+    <div class="spacefoot"><b>Catalysts:</b> SPCX → Nasdaq Jun 12 · SpaceX IPO window open · KEEL on deal alert · MDA sold flat (4sh @ $44.80).</div>
+  </section>
+
+  <!-- 20 TRADE LOG / REALIZED (NEW) -->
+  <section class="panel" id="s20">
+    <div class="ph"><div class="lab"><span class="num">20</span><span class="ttl">Realized P&amp;L · Trade Log</span></div><span class="tag">logged from your buy/sell reports</span></div>
+    <div class="rstat">
+      <div class="s"><div class="l">Realized P&amp;L</div><div class="v pos">+$117</div></div>
+      <div class="s"><div class="l">Lots logged</div><div class="v">16</div></div>
+      <div class="s"><div class="l">Tracking since</div><div class="v" style="font-size:15px;">May 29 '26</div></div>
+    </div>
+    <table class="tlog">
+      <thead><tr><th class="lft">Date</th><th class="lft">Ticker</th><th class="lft">Action</th><th>Shares</th><th>Price</th><th>Realized</th></tr></thead>
+      <tbody>
+        <tr><td class="lft">seed</td><td class="lft">NVDA</td><td class="lft act-trim">TRIM</td><td>2</td><td>$212.76</td><td class="pos">+$117</td></tr>
+        <tr><td class="lft">May 29</td><td class="lft">NU</td><td class="lft act-buy">BUY (new)</td><td>5</td><td>$13.17</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">APH</td><td class="lft act-buy">BUY</td><td>4</td><td>$121.79</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">APH</td><td class="lft act-buy">BUY</td><td>2</td><td>$121.82</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">APH</td><td class="lft act-buy">BUY</td><td>4</td><td>$141.20</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">NOW</td><td class="lft act-buy">BUY</td><td>4</td><td>$101.97</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">NOW</td><td class="lft act-buy">BUY</td><td>6</td><td>$101.40</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">NOW</td><td class="lft act-buy">BUY</td><td>2</td><td>$101.95</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">ANET</td><td class="lft act-buy">BUY</td><td>2</td><td>$143.62</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">ANET</td><td class="lft act-buy">BUY</td><td>2</td><td>$140.22</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">ANET</td><td class="lft act-buy">BUY</td><td>1</td><td>$159.24</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">ANET</td><td class="lft act-buy">BUY</td><td>1</td><td>$158.83</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">ANET</td><td class="lft act-buy">BUY</td><td>1</td><td>$144.57</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">ANET</td><td class="lft act-buy">BUY</td><td>1</td><td>$146.65</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">ANET</td><td class="lft act-buy">BUY</td><td>1</td><td>$146.09</td><td class="ink3">open</td></tr>
+        <tr><td class="lft">seed</td><td class="lft">ANET</td><td class="lft act-buy">BUY</td><td>8</td><td>$142.76</td><td class="ink3">open</td></tr>
+      </tbody>
+    </table>
+    <div class="tlognote">Tracks from <b>May 29 2026</b> (older exits excluded). Blended cost — <b>APH $129.56</b> · NOW $101.68 · ANET $145.01 — all synced to the ledger. Every buy/sell you report from now logs here automatically.</div>
+  </section>
+
+  <!-- 21 POST SELL -->
+  <section class="panel" id="s21">
+    <div class="ph"><div class="lab"><span class="num">21</span><span class="ttl">Post-Sell Monitor</span></div><span class="tag">30-day re-entry watch</span></div>
+    <div class="ps">
+      <div class="row"><div><b>NBIS</b> — Nebius. Watch for re-entry setup post-exit.</div><span class="days">22 days left</span></div>
+      <div class="row"><div><b>GOOGL</b> — Alphabet. Re-entry monitor after sale.</div><span class="days">22 days left</span></div>
+      <div class="row"><div><b>PLAB</b> — Photronics. Sold/dropped — off active watch.</div><span class="days cl">closed</span></div>
+    </div>
+  </section>
+
+  <!-- 22 GAMEPLAN -->
+  <section class="panel" id="s22">
+    <div class="ph"><div class="lab"><span class="num">22</span><span class="ttl">Game Plan</span></div></div>
+    <div class="gp">
+      <div class="done"><h4>Done</h4><div class="it s">APH add</div><div class="it s">NOW add</div><div class="it s">ANET add</div><div class="it s">MDA sold flat</div></div>
+      <div><h4>Tomorrow / Mon Jun 1</h4><div class="it">CRDO earnings gate — post-print entry $190–205</div></div>
+      <div><h4>This Week</h4><div class="it">MRVL — work add in dip zone $205–215 (live)</div><div class="it">ETN — secondary add candidate $395–415 (live)</div><div class="it">AMBA — set entry zone off 5/28 print</div><div class="it">MP — pullback watch $60–63</div><div class="it">Allocation audit (overdue)</div></div>
+      <div><h4>Conditional</h4><div class="it">AMAT $420–425 · DRAM $55–57 · IREN $50–55</div><div class="it">IONQ $54–58 · AMD $430–440 · CRWV $70–80</div><div class="it">CLSK $14–16 · APLD add $40–43 (dip only)</div></div>
+      <div class="donot"><h4>Do Not</h4><div class="it">No DCA — adds only into defined dip zones</div><div class="it">Don't chase AMD / APLD / ORCL (extended)</div><div class="it">Don't add NVDA (concentration 22.5%)</div></div>
+    </div>
+  </section>
+
+  <!-- 23 NEEDS UPDATE -->
+  <section class="panel" id="s23">
+    <div class="ph"><div class="lab"><span class="num">23</span><span class="ttl">Needs Update</span></div></div>
+    <div class="nu">
+      <div class="row"><b>Confirm dry powder</b> — cash tile is a placeholder (~$2,500). Give me the real figure to make adds concrete.</div>
+      <div class="row"><b>Prior-close capture</b> — Day column needs a prior-close field added to the price widget to go live.</div>
+      <div class="row"><b>Backfill realized P&amp;L</b> — PLAB / GOOGL / NBIS exit prices not recorded.</div>
+      <div class="row"><b>Allocation audit</b> — pending 2 sessions. Concentration + dead-capital (NU, DRAM).</div>
+      <div class="row"><b>Scores</b> — last scored May 27. Rescore owned names by Jun 3.</div>
+    </div>
+  </section>
+
+  <!-- 24 COMMAND CENTER -->
+  <section class="panel" id="s24">
+    <div class="ph"><div class="lab"><span class="num">24</span><span class="ttl">Command Center</span></div></div>
+    <div class="cmds">
+      <span class="cmd">dash</span><span class="cmd">quick dash</span><span class="cmd">terminal</span><span class="cmd">dip check</span><span class="cmd">weekly overview</span><span class="cmd">weekly prep</span><span class="cmd">news on [X]</span><span class="cmd">blindspots</span><span class="cmd">engine</span><span class="cmd">ledger</span><span class="cmd">prices</span><span class="cmd">update</span><span class="cmd">todo</span><span class="cmd">gameplan</span><span class="cmd">eod</span><span class="cmd">GMF</span><span class="cmd">GNF</span><span class="cmd">system</span>
+    </div>
+  </section>
+
+  <div class="foot">FINN DASH · MASTER FORMAT v3.1 · CANDIDATE · MAY 29 2026 · prices user-confirmed · scores May 27 · day-change &amp; cash = placeholder</div>
+
+</div>
+
+<div class="totop" id="totop" title="Back to top">↑</div>
+
+<script>
+(function(){
+  document.body.classList.add('js');
+  var prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var panels = document.querySelectorAll('.panel');
+  if('IntersectionObserver' in window && !prefersReduced){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    },{rootMargin:'0px 0px -8% 0px',threshold:0.06});
+    panels.forEach(function(p){ io.observe(p); });
+  } else { panels.forEach(function(p){ p.classList.add('in'); }); }
+
+  function countUp(el){
+    var target = parseFloat(el.getAttribute('data-count'));
+    var prefix = el.getAttribute('data-prefix') || '';
+    if(prefersReduced){ el.textContent = prefix + target.toLocaleString(); return; }
+    var dur = 1100, start = null;
+    function step(ts){ if(!start) start = ts;
+      var p = Math.min((ts-start)/dur, 1);
+      var val = Math.round(target * (1 - Math.pow(1-p,3)));
+      el.textContent = prefix + val.toLocaleString();
+      if(p < 1) requestAnimationFrame(step);
+    } requestAnimationFrame(step);
+  }
+  document.querySelectorAll('[data-count]').forEach(countUp);
+
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll('#nav a'));
+  var map = {}; navLinks.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+  var sections = document.querySelectorAll('section.panel[id]');
+  if('IntersectionObserver' in window){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){
+        navLinks.forEach(function(a){ a.classList.remove('active'); });
+        var act = map[e.target.id];
+        if(act){ act.classList.add('active'); act.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'}); }
+      }});
+    },{rootMargin:'-45% 0px -50% 0px',threshold:0});
+    sections.forEach(function(s){ spy.observe(s); });
+  }
+
+  var totop = document.getElementById('totop');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 600) totop.classList.add('show'); else totop.classList.remove('show');
+  }, {passive:true});
+  totop.addEventListener('click', function(){ window.scrollTo({top:0,behavior:'smooth'}); });
+})();
+
+function logPTChange(){
+  var tk=(document.getElementById('pte-tk').value||'').toUpperCase().trim();
+  var firm=(document.getElementById('pte-firm').value||'').trim();
+  var prev=parseFloat(document.getElementById('pte-prev').value);
+  var nw=parseFloat(document.getElementById('pte-new').value);
+  var act=document.getElementById('pte-act').value;
+  if(!tk||!firm||isNaN(prev)||isNaN(nw)){alert('Fill all fields.');return;}
+  var log=document.getElementById('pte-log');
+  var color=act==='RAISE'?'var(--pos)':act==='LOWER'?'var(--neg)':'var(--warn)';
+  var row=document.createElement('div');
+  row.style.cssText='padding:4px 0;border-bottom:1px solid var(--hair);';
+  row.innerHTML='<span style="font-weight:700;color:'+color+';">'+act+'</span> '+tk+' · '+firm+' · $'+prev+'→$'+nw+' · logged this session — <b>tell Finn to save to memory</b>';
+  log.insertBefore(row,log.firstChild);
+  document.getElementById('pte-tk').value='';
+  document.getElementById('pte-firm').value='';
+  document.getElementById('pte-prev').value='';
+  document.getElementById('pte-new').value='';
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# deps
+node_modules/
+
+# env / secrets — never commit API keys or tokens
+.env
+.env.*
+*.local
+
+# build output (Phase 3 Next.js)
+dist/
+build/
+.next/
+out/
+
+# logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
