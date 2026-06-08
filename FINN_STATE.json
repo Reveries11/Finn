@@ -2,20 +2,50 @@
   "_meta": {
     "file": "FINN_STATE.json",
     "version": "1.0",
-    "rev": 1,
+    "rev": 2,
     "created": "2026-06-05",
-    "last_updated": "2026-06-05",
+    "last_updated": "2026-06-06",
     "purpose": "SINGLE consolidated state file — the canonical source of truth for all Finn portfolio data. Replaces the 10 separate JSONs (STATE_INDEX, POSITIONS_MASTER, WATCHLIST_MASTER, SCORES_SNAPSHOT, TRADE_LOG, NAV_HISTORY, MACRO_SNAPSHOT, THESIS_LEDGER, EARNINGS_CALENDAR, REVIEW_LOG). Structure files stay separate (SYSTEM_PROMPT.md, FINN_VISUAL_SYSTEM_v3_3.html, FINN_DASH_TEMPLATE_v3_2.html, FINN_SESSION_HANDOFF_TEMPLATE.md).",
     "read_first": "This file is the GMF read-first manifest. Anchors (below) are ground truth; every section + render must agree. memory = thin pointer + session deltas only.",
-    "sections": ["anchors","sync","portfolio","positions","fmp_targets","trades","unreconciled","realized_breakdown","nav_history","scores","thesis","earnings","reviews","watchlist","macro","open_decisions","session_handoff"],
+    "sections": [
+      "anchors",
+      "sync",
+      "portfolio",
+      "positions",
+      "fmp_targets",
+      "trades",
+      "unreconciled",
+      "realized_breakdown",
+      "nav_history",
+      "scores",
+      "thesis",
+      "earnings",
+      "reviews",
+      "watchlist",
+      "macro",
+      "open_decisions",
+      "session_handoff"
+    ],
     "edit_rule": "On any data change, edit the section + bump rev + last_updated + flag the section dirty in `sync.sections`. One file = one upload at GNF.",
     "migration_note": "Consolidated Jun5 from the 10 source files (all read, not reconstructed). Verbose per-file reconciliation prose dropped; all actual data + decision-relevant flags preserved."
   },
-
   "anchors": {
     "open_positions": 12,
-    "open_tickers": ["VOO","NVDA","AVGO","ANET","AMAT","ETN","APH","APLD","MRVL","NOW","CRDO","ORCL"],
-    "net_realized_pnl": 2410.60,
+    "open_tickers": [
+      "VOO",
+      "NVDA",
+      "AVGO",
+      "ANET",
+      "AMAT",
+      "ETN",
+      "APH",
+      "APLD",
+      "MRVL",
+      "NOW",
+      "CRDO",
+      "ORCL"
+    ],
+    "net_realized_pnl": 2410.6,
     "last_trade_date": "2026-06-03",
     "scores_date": "2026-06-01",
     "scores_next_due": "2026-06-08",
@@ -30,7 +60,6 @@
     "return_from_inception_pct": 3.8,
     "nav_note": "Jun5 broker EOD close $28,555.66 (-6.8% vs Jun4, broad AI/semis selloff: AVGO unraised AI outlook + hot May jobs, 10Y 4.54%). EOD-close measure ADOPTED Jun5. No trades today."
   },
-
   "sync": {
     "protocol": "See SYSTEM_PROMPT §SYNC. Single-file model: track per-SECTION dirty flags here instead of per-file. GMF runs SYNC CHECK (anchors vs sections); GNF = one upload of this file + any touched structure file, then GNF UPLOAD VERIFICATION.",
     "this_file_status": "rev1 — NEW consolidated file. Upload to project; then DELETE the 10 superseded JSONs (anchors live here now).",
@@ -41,18 +70,50 @@
       "FINN_SESSION_HANDOFF_TEMPLATE.md": "v1.0"
     },
     "sections": {
-      "positions": {"rev": "2.1", "dirty": false},
-      "trades": {"rev": "Jun5", "dirty": false, "note": "NVDA 05/26 +$129.73 confirmed; ORCL -$3.36 unreconciled"},
-      "scores": {"rev": "Jun3", "dirty": false, "next_due": "2026-06-08"},
-      "nav_history": {"rev": 5, "dirty": false, "note": "Jun5 EOD logged"},
-      "watchlist": {"rev": "2.0", "dirty": false},
-      "earnings": {"rev": "2.1", "dirty": false, "note": "29-name sweep Jun5"},
-      "thesis": {"rev": 1, "dirty": false},
-      "reviews": {"rev": 1, "dirty": false, "note": "APLD win review OPEN"},
-      "macro": {"rev": "Jun3+jobs", "dirty": false, "note": "full refresh week of Jun16 (FOMC)"}
+      "positions": {
+        "rev": "2.1",
+        "dirty": false
+      },
+      "trades": {
+        "rev": "Jun5",
+        "dirty": false,
+        "note": "NVDA 05/26 +$129.73 confirmed; ORCL -$3.36 unreconciled"
+      },
+      "scores": {
+        "rev": "Jun3",
+        "dirty": false,
+        "next_due": "2026-06-08"
+      },
+      "nav_history": {
+        "rev": 5,
+        "dirty": false,
+        "note": "Jun5 EOD logged"
+      },
+      "watchlist": {
+        "rev": "2.0",
+        "dirty": false
+      },
+      "earnings": {
+        "rev": "2.1",
+        "dirty": false,
+        "note": "29-name sweep Jun5"
+      },
+      "thesis": {
+        "rev": 1,
+        "dirty": false
+      },
+      "reviews": {
+        "rev": 1,
+        "dirty": false,
+        "note": "APLD win review OPEN"
+      },
+      "macro": {
+        "rev": "Jun3+jobs",
+        "dirty": false,
+        "note": "full refresh week of Jun16 (FOMC)"
+      }
     }
   },
-
   "portfolio": {
     "inception_value": 27500,
     "milestone_1": 50000,
@@ -60,187 +121,1665 @@
     "soft_floor": 20000,
     "concern_threshold": 15000,
     "tracking_since": "2026-05-29",
-    "realized_pnl_total": 2410.60,
-    "capital_budget": "~$0 — fully deployed post-AVGO Jun3 add. Rebuilds as positions trim. Next dollar → NOW (undersized)."
+    "realized_pnl_total": 2410.6,
+    "capital_budget": "~$0 — fully deployed post-AVGO Jun3 add. Rebuilds as positions trim. Next dollar → NOW (undersized).",
+    "cash": 16.62
   },
-
   "positions": [
-    {"ticker":"VOO","name":"Vanguard S&P 500 ETF","shares":4,"cost_per_share":635.56,"conviction":5,"sector":"Foundation","cs":84,"ms":79,"scores_date":"2026-06-01","pt_low":null,"pt_high":null,"dip_zone_low":650,"dip_zone_high":650,"trim_trigger":null,"sell_trigger":"NEVER SELL","notes":"Core foundation. Dollar anchor. Never sell."},
-    {"ticker":"NVDA","name":"NVIDIA Corp","shares":29.727,"cost_per_share":154.17,"conviction":5,"sector":"AI Semis","cs":88,"ms":82,"scores_date":"2026-06-01","pt_low":295,"pt_high":295,"dip_zone_low":200,"dip_zone_high":210,"trim_trigger":382,"sell_trigger":"capex cuts by hyperscalers","notes":"Anchor. ~21% of NAV — over 20% ceiling, don't add. Macro scenario flagged trimming to 18-20% pre-FOMC."},
-    {"ticker":"AVGO","name":"Broadcom","shares":8,"cost_per_share":424.53,"conviction":5,"sector":"AI Semis","cs":91,"ms":85,"scores_date":"2026-06-01","lots":[{"shares":6,"cost":415.55,"date":"seed"},{"shares":1,"cost":453.50,"date":"2026-06-02"},{"shares":1,"cost":449.50,"date":"2026-06-02"}],"pt_low":463,"pt_high":582,"dip_zone_low":410,"dip_zone_high":420,"trim_trigger":602,"sell_trigger":"ASIC pulled by hyperscalers","notes":"Highest CS in book. Jun5: below cost AND below dip zone — strongest add if capital frees. Left FY AI-chip outlook unchanged Jun3 print = the selloff spark."},
-    {"ticker":"ANET","name":"Arista Networks","shares":17,"cost_per_share":145.01,"conviction":5,"sector":"AI Infra/Networking","cs":87,"ms":80,"scores_date":"2026-06-01","pt_low":187,"pt_high":187,"dip_zone_low":140,"dip_zone_high":145,"trim_trigger":235,"sell_trigger":null,"notes":"AI back-end networking leader. Below PT — hold, no add."},
-    {"ticker":"AMAT","name":"Applied Materials","shares":6,"cost_per_share":431.90,"conviction":4,"sector":"AI Semis","cs":87,"ms":83,"scores_date":"2026-06-01","pt_low":500,"pt_high":575,"dip_zone_low":420,"dip_zone_high":425,"trim_trigger":590,"sell_trigger":"WFE cycle down","notes":"Record Q2 beat. WFE leverage. Add zone $420-425 below."},
-    {"ticker":"ETN","name":"Eaton Corp","shares":5,"cost_per_share":395.19,"conviction":4,"sector":"Power/Energy","cs":83,"ms":76,"scores_date":"2026-06-01","pt_low":464,"pt_high":464,"dip_zone_low":395,"dip_zone_high":415,"trim_trigger":586,"sell_trigger":null,"notes":"DC orders +240%. In dip zone $395-415 — add candidate, near cost."},
-    {"ticker":"APH","name":"Amphenol","shares":12,"cost_per_share":133.11,"conviction":4,"sector":"AI Infra/Networking","cs":88,"ms":86,"scores_date":"2026-06-01","lots":[{"shares":4,"cost":121.79,"date":"seed"},{"shares":2,"cost":121.82,"date":"seed"},{"shares":4,"cost":141.20,"date":"seed"},{"shares":2,"cost":150.86,"date":"2026-06-02","derived":true}],"pt_low":145,"pt_high":182,"dip_zone_low":130,"dip_zone_high":135,"trim_trigger":237,"sell_trigger":null,"notes":"Connector compounder. +58% rev (CommScope). Dip zone below."},
-    {"ticker":"APLD","name":"Applied Digital","shares":35,"cost_per_share":26.49,"conviction":4,"sector":"AI Infra/Networking","cs":63,"ms":77,"scores_date":"2026-06-01","pt_low":58,"pt_high":97,"dip_zone_low":40,"dip_zone_high":43,"trim_trigger":75,"sell_trigger":"lease cancellation","notes":"$31B contracted thesis. Win review OPEN. Trim watch >$75. Add $40-43."},
-    {"ticker":"MRVL","name":"Marvell Technology","shares":6,"cost_per_share":194.33,"conviction":4,"sector":"AI Semis","cs":84,"ms":90,"scores_date":"2026-06-01","pt_low":340,"pt_high":400,"dip_zone_low":205,"dip_zone_high":215,"trim_trigger":390,"sell_trigger":null,"notes":"Best MS in book (90). Win review due (>+40%). PT base $340 (FINN PROJECTION) / bull $400 (sourced, post-Jensen); street consensus $231 lagging. Hold."},
-    {"ticker":"NOW","name":"ServiceNow","shares":12,"cost_per_share":101.68,"conviction":4,"sector":"AI Software","cs":83,"ms":76,"scores_date":"2026-06-01","pt_low":143,"pt_high":236,"dip_zone_low":115,"dip_zone_high":120,"trim_trigger":186,"sell_trigger":"ARR growth <20%","notes":"Agentic AI compounder. Undersized vs conviction — best next dollar. Dip $115-120."},
-    {"ticker":"CRDO","name":"Credo Technology","shares":11,"cost_per_share":215.95,"conviction":4,"sector":"AI Semis","cs":83,"ms":85,"scores_date":"2026-06-03","lots":[{"shares":1,"cost":219.38,"date":"2026-06-02"},{"shares":3,"cost":220.37,"date":"2026-06-02"},{"shares":2,"cost":219.34,"date":"2026-06-02"},{"shares":5,"cost":211.26,"date":"2026-06-03","derived":true}],"pt_low":240,"pt_high":300,"trim_trigger":null,"dip_zone_low":190,"dip_zone_high":215,"sell_trigger":"AEC/optical share loss to MRVL/AVGO","notes":"Conviction 4 confirmed Jun3. SerDes/AEC/optical. PT $240-300 sourced (TD Cowen/Jefferies/Mizuho/Roth)."},
-    {"ticker":"ORCL","name":"Oracle","shares":5,"cost_per_share":192.84,"conviction":3,"sector":"AI Software","cs":76,"ms":70,"scores_date":"2026-06-01","pt_low":261,"pt_high":261,"dip_zone_low":185,"dip_zone_high":190,"trim_trigger":339,"sell_trigger":null,"notes":"OCI/AI-cloud re-rate. Earnings Jun10 AC (5d) — HOLD into print; now also an AI-demand referendum. Prior 2sh trim -$3.36 unreconciled."}
+    {
+      "ticker": "VOO",
+      "name": "Vanguard S&P 500 ETF",
+      "shares": 4,
+      "cost_per_share": 635.56,
+      "conviction": 5,
+      "sector": "Foundation",
+      "cs": 84,
+      "ms": 79,
+      "scores_date": "2026-06-01",
+      "pt_low": null,
+      "pt_high": null,
+      "dip_zone_low": 650,
+      "dip_zone_high": 650,
+      "trim_trigger": null,
+      "sell_trigger": "NEVER SELL",
+      "notes": "Core foundation. Dollar anchor. Never sell."
+    },
+    {
+      "ticker": "NVDA",
+      "name": "NVIDIA Corp",
+      "shares": 29.727,
+      "cost_per_share": 154.17,
+      "conviction": 5,
+      "sector": "AI Semis",
+      "cs": 88,
+      "ms": 82,
+      "scores_date": "2026-06-01",
+      "pt_low": 295,
+      "pt_high": 295,
+      "dip_zone_low": 200,
+      "dip_zone_high": 210,
+      "trim_trigger": 382,
+      "sell_trigger": "capex cuts by hyperscalers",
+      "notes": "Anchor. ~21% of NAV — over 20% ceiling, don't add. Macro scenario flagged trimming to 18-20% pre-FOMC."
+    },
+    {
+      "ticker": "AVGO",
+      "name": "Broadcom",
+      "shares": 8,
+      "cost_per_share": 424.53,
+      "conviction": 5,
+      "sector": "AI Semis",
+      "cs": 91,
+      "ms": 85,
+      "scores_date": "2026-06-01",
+      "lots": [
+        {
+          "shares": 6,
+          "cost": 415.55,
+          "date": "seed"
+        },
+        {
+          "shares": 1,
+          "cost": 453.5,
+          "date": "2026-06-02"
+        },
+        {
+          "shares": 1,
+          "cost": 449.5,
+          "date": "2026-06-02"
+        }
+      ],
+      "pt_low": 463,
+      "pt_high": 582,
+      "dip_zone_low": 410,
+      "dip_zone_high": 420,
+      "trim_trigger": 602,
+      "sell_trigger": "ASIC pulled by hyperscalers",
+      "notes": "Highest CS in book. Jun5: below cost AND below dip zone — strongest add if capital frees. Left FY AI-chip outlook unchanged Jun3 print = the selloff spark."
+    },
+    {
+      "ticker": "ANET",
+      "name": "Arista Networks",
+      "shares": 17,
+      "cost_per_share": 145.01,
+      "conviction": 5,
+      "sector": "AI Infra/Networking",
+      "cs": 87,
+      "ms": 80,
+      "scores_date": "2026-06-01",
+      "pt_low": 187,
+      "pt_high": 187,
+      "dip_zone_low": 140,
+      "dip_zone_high": 145,
+      "trim_trigger": 235,
+      "sell_trigger": null,
+      "notes": "AI back-end networking leader. Below PT — hold, no add."
+    },
+    {
+      "ticker": "AMAT",
+      "name": "Applied Materials",
+      "shares": 6,
+      "cost_per_share": 431.9,
+      "conviction": 4,
+      "sector": "AI Semis",
+      "cs": 87,
+      "ms": 83,
+      "scores_date": "2026-06-01",
+      "pt_low": 500,
+      "pt_high": 575,
+      "dip_zone_low": 420,
+      "dip_zone_high": 425,
+      "trim_trigger": 590,
+      "sell_trigger": "WFE cycle down",
+      "notes": "Record Q2 beat. WFE leverage. Add zone $420-425 below."
+    },
+    {
+      "ticker": "ETN",
+      "name": "Eaton Corp",
+      "shares": 5,
+      "cost_per_share": 395.19,
+      "conviction": 4,
+      "sector": "Power/Energy",
+      "cs": 83,
+      "ms": 76,
+      "scores_date": "2026-06-01",
+      "pt_low": 464,
+      "pt_high": 464,
+      "dip_zone_low": 395,
+      "dip_zone_high": 415,
+      "trim_trigger": 586,
+      "sell_trigger": null,
+      "notes": "DC orders +240%. In dip zone $395-415 — add candidate, near cost."
+    },
+    {
+      "ticker": "APH",
+      "name": "Amphenol",
+      "shares": 12,
+      "cost_per_share": 133.11,
+      "conviction": 4,
+      "sector": "AI Infra/Networking",
+      "cs": 88,
+      "ms": 86,
+      "scores_date": "2026-06-01",
+      "lots": [
+        {
+          "shares": 4,
+          "cost": 121.79,
+          "date": "seed"
+        },
+        {
+          "shares": 2,
+          "cost": 121.82,
+          "date": "seed"
+        },
+        {
+          "shares": 4,
+          "cost": 141.2,
+          "date": "seed"
+        },
+        {
+          "shares": 2,
+          "cost": 150.86,
+          "date": "2026-06-02",
+          "derived": true
+        }
+      ],
+      "pt_low": 145,
+      "pt_high": 182,
+      "dip_zone_low": 130,
+      "dip_zone_high": 135,
+      "trim_trigger": 237,
+      "sell_trigger": null,
+      "notes": "Connector compounder. +58% rev (CommScope). Dip zone below."
+    },
+    {
+      "ticker": "APLD",
+      "name": "Applied Digital",
+      "shares": 35,
+      "cost_per_share": 26.49,
+      "conviction": 4,
+      "sector": "AI Infra/Networking",
+      "cs": 63,
+      "ms": 77,
+      "scores_date": "2026-06-01",
+      "pt_low": 58,
+      "pt_high": 97,
+      "dip_zone_low": 40,
+      "dip_zone_high": 43,
+      "trim_trigger": 75,
+      "sell_trigger": "lease cancellation",
+      "notes": "$31B contracted thesis. Win review OPEN. Trim watch >$75. Add $40-43."
+    },
+    {
+      "ticker": "MRVL",
+      "name": "Marvell Technology",
+      "shares": 6,
+      "cost_per_share": 194.33,
+      "conviction": 4,
+      "sector": "AI Semis",
+      "cs": 84,
+      "ms": 90,
+      "scores_date": "2026-06-01",
+      "pt_low": 340,
+      "pt_high": 400,
+      "dip_zone_low": 205,
+      "dip_zone_high": 215,
+      "trim_trigger": 390,
+      "sell_trigger": null,
+      "notes": "Best MS in book (90). Win review due (>+40%). PT base $340 (FINN PROJECTION) / bull $400 (sourced, post-Jensen); street consensus $231 lagging. Hold."
+    },
+    {
+      "ticker": "NOW",
+      "name": "ServiceNow",
+      "shares": 12,
+      "cost_per_share": 101.68,
+      "conviction": 4,
+      "sector": "AI Software",
+      "cs": 83,
+      "ms": 76,
+      "scores_date": "2026-06-01",
+      "pt_low": 143,
+      "pt_high": 236,
+      "dip_zone_low": 115,
+      "dip_zone_high": 120,
+      "trim_trigger": 186,
+      "sell_trigger": "ARR growth <20%",
+      "notes": "Agentic AI compounder. Undersized vs conviction — best next dollar. Dip $115-120."
+    },
+    {
+      "ticker": "CRDO",
+      "name": "Credo Technology",
+      "shares": 11,
+      "cost_per_share": 215.95,
+      "conviction": 4,
+      "sector": "AI Semis",
+      "cs": 83,
+      "ms": 85,
+      "scores_date": "2026-06-03",
+      "lots": [
+        {
+          "shares": 1,
+          "cost": 219.38,
+          "date": "2026-06-02"
+        },
+        {
+          "shares": 3,
+          "cost": 220.37,
+          "date": "2026-06-02"
+        },
+        {
+          "shares": 2,
+          "cost": 219.34,
+          "date": "2026-06-02"
+        },
+        {
+          "shares": 5,
+          "cost": 211.26,
+          "date": "2026-06-03",
+          "derived": true
+        }
+      ],
+      "pt_low": 240,
+      "pt_high": 300,
+      "trim_trigger": null,
+      "dip_zone_low": 190,
+      "dip_zone_high": 215,
+      "sell_trigger": "AEC/optical share loss to MRVL/AVGO",
+      "notes": "Conviction 4 confirmed Jun3. SerDes/AEC/optical. PT $240-300 sourced (TD Cowen/Jefferies/Mizuho/Roth)."
+    },
+    {
+      "ticker": "ORCL",
+      "name": "Oracle",
+      "shares": 5,
+      "cost_per_share": 192.84,
+      "conviction": 3,
+      "sector": "AI Software",
+      "cs": 76,
+      "ms": 70,
+      "scores_date": "2026-06-01",
+      "pt_low": 261,
+      "pt_high": 261,
+      "dip_zone_low": 185,
+      "dip_zone_high": 190,
+      "trim_trigger": 339,
+      "sell_trigger": null,
+      "notes": "OCI/AI-cloud re-rate. Earnings Jun10 AC (5d) — HOLD into print; now also an AI-demand referendum. Prior 2sh trim -$3.36 unreconciled."
+    }
   ],
-
   "fmp_targets": {
     "_source": "FMP analyst price-target-consensus (§FEED), pulled 2026-06-04. CONFIRMED. Reconcile curated PTs against these on render.",
-    "NVDA": {"consensus":309.46,"median":294,"high":500,"low":139,"curated":"295","fit":"aligned"},
-    "AVGO": {"consensus":489.80,"median":495,"high":582,"low":400,"curated":"463-582","fit":"aligned"},
-    "ANET": {"consensus":183.30,"median":183,"high":200,"low":164,"curated":"187","fit":"aligned"},
-    "AMAT": {"consensus":518.36,"median":520,"high":575,"low":425,"curated":"500-575","fit":"aligned"},
-    "ETN": {"consensus":409.36,"median":413,"high":500,"low":295,"curated":"464","fit":"DIVERGENT — curated above street"},
-    "APH": {"consensus":180.89,"median":178,"high":215,"low":165,"curated":"145-182","fit":"aligned"},
-    "APLD": {"consensus":63.88,"median":65.5,"high":99,"low":40,"curated":"58-97","fit":"aligned"},
-    "MRVL": {"consensus":231.52,"median":235,"high":321,"low":155,"curated":"340-400","fit":"DIVERGENT — intentional post-Jensen FINN PROJECTION; street lagging"},
-    "NOW": {"consensus":153.30,"median":135,"high":236,"low":85,"curated":"143-236","fit":"aligned"},
-    "ORCL": {"consensus":249.70,"median":240,"high":320,"low":160,"curated":"261","fit":"slightly above consensus; pre Jun10 print"},
-    "CRDO": {"consensus":253.60,"median":255,"high":300,"low":200,"curated":"240-300","fit":"aligned"},
-    "VOO": {"note":"ETF — no analyst PT"}
+    "NVDA": {
+      "consensus": 309.46,
+      "median": 294,
+      "high": 500,
+      "low": 139,
+      "curated": "295",
+      "fit": "aligned"
+    },
+    "AVGO": {
+      "consensus": 489.8,
+      "median": 495,
+      "high": 582,
+      "low": 400,
+      "curated": "463-582",
+      "fit": "aligned"
+    },
+    "ANET": {
+      "consensus": 183.3,
+      "median": 183,
+      "high": 200,
+      "low": 164,
+      "curated": "187",
+      "fit": "aligned"
+    },
+    "AMAT": {
+      "consensus": 518.36,
+      "median": 520,
+      "high": 575,
+      "low": 425,
+      "curated": "500-575",
+      "fit": "aligned"
+    },
+    "ETN": {
+      "consensus": 409.36,
+      "median": 413,
+      "high": 500,
+      "low": 295,
+      "curated": "464",
+      "fit": "DIVERGENT — curated above street"
+    },
+    "APH": {
+      "consensus": 180.89,
+      "median": 178,
+      "high": 215,
+      "low": 165,
+      "curated": "145-182",
+      "fit": "aligned"
+    },
+    "APLD": {
+      "consensus": 63.88,
+      "median": 65.5,
+      "high": 99,
+      "low": 40,
+      "curated": "58-97",
+      "fit": "aligned"
+    },
+    "MRVL": {
+      "consensus": 231.52,
+      "median": 235,
+      "high": 321,
+      "low": 155,
+      "curated": "340-400",
+      "fit": "DIVERGENT — intentional post-Jensen FINN PROJECTION; street lagging"
+    },
+    "NOW": {
+      "consensus": 153.3,
+      "median": 135,
+      "high": 236,
+      "low": 85,
+      "curated": "143-236",
+      "fit": "aligned"
+    },
+    "ORCL": {
+      "consensus": 249.7,
+      "median": 240,
+      "high": 320,
+      "low": 160,
+      "curated": "261",
+      "fit": "slightly above consensus; pre Jun10 print"
+    },
+    "CRDO": {
+      "consensus": 253.6,
+      "median": 255,
+      "high": 300,
+      "low": 200,
+      "curated": "240-300",
+      "fit": "aligned"
+    },
+    "VOO": {
+      "note": "ETF — no analyst PT"
+    }
   },
-
   "trades": [
-    {"date":"2026-05-12","ticker":"APLD","action":"trim","shares":10,"avg_sell":43.54,"realized_pnl":217.46,"tracking":"pre-May29"},
-    {"date":"2026-05-15","ticker":"HOOD","action":"exit","shares":8.18,"avg_sell":78.05,"realized_pnl":289.36,"tracking":"pre-May29"},
-    {"date":"2026-05-18","ticker":"APLD","action":"trim","shares":20,"avg_sell":41.50,"realized_pnl":383.81,"tracking":"pre-May29"},
-    {"date":"2026-05-18","ticker":"NVDA","action":"trim","shares":6,"avg_sell":226.15,"realized_pnl":489.93,"tracking":"pre-May29"},
-    {"date":"2026-05-18","ticker":"MU","action":"exit","shares":2,"avg_sell":724.80,"realized_pnl":176.50,"tracking":"pre-May29"},
-    {"date":"2026-05-21","ticker":"APLD","action":"trim","shares":5,"avg_sell":46.53,"realized_pnl":117.65,"tracking":"pre-May29"},
-    {"date":"2026-05-26","ticker":"NVDA","action":"trim","shares":2,"avg_sell":212.76,"realized_pnl":129.73,"tracking":"pre-May29","note":"basis ~$147.90; confirmed"},
-    {"date":"2026-06-01","ticker":"NU","action":"exit","shares":5,"avg_sell":12.98,"cost":13.17,"realized_pnl":-0.95},
-    {"date":"2026-06-01","ticker":"CEG","action":"exit","shares":4,"avg_sell":269.49,"cost":278.70,"realized_pnl":-36.84,"re_entry":"$260-270 ~Jul1"},
-    {"date":"2026-06-02","ticker":"MRVL","action":"trim","shares":2,"avg_sell":279.61,"realized_pnl":196.19},
-    {"date":"2026-06-02","ticker":"ETN","action":"trim","shares":1,"avg_sell":412.77,"realized_pnl":13.77},
-    {"date":"2026-06-03","ticker":"AMD","action":"exit","shares":3,"avg_sell":526.41,"cost":436.98,"realized_pnl":268.28,"note":"sell derived from realized"},
-    {"date":"2026-06-03","ticker":"DRAM","action":"exit","shares":7,"avg_sell":68.71,"cost":53.73,"realized_pnl":104.87,"note":"sell derived from realized"},
-    {"date":"2026-06-03","ticker":"NVDA","action":"trim","shares":1,"avg_sell":215.01,"cost":154.17,"realized_pnl":60.84,"note":"sell derived from realized"}
+    {
+      "date": "2026-05-12",
+      "ticker": "APLD",
+      "action": "trim",
+      "shares": 10,
+      "avg_sell": 43.54,
+      "realized_pnl": 217.46,
+      "tracking": "pre-May29"
+    },
+    {
+      "date": "2026-05-15",
+      "ticker": "HOOD",
+      "action": "exit",
+      "shares": 8.18,
+      "avg_sell": 78.05,
+      "realized_pnl": 289.36,
+      "tracking": "pre-May29"
+    },
+    {
+      "date": "2026-05-18",
+      "ticker": "APLD",
+      "action": "trim",
+      "shares": 20,
+      "avg_sell": 41.5,
+      "realized_pnl": 383.81,
+      "tracking": "pre-May29"
+    },
+    {
+      "date": "2026-05-18",
+      "ticker": "NVDA",
+      "action": "trim",
+      "shares": 6,
+      "avg_sell": 226.15,
+      "realized_pnl": 489.93,
+      "tracking": "pre-May29"
+    },
+    {
+      "date": "2026-05-18",
+      "ticker": "MU",
+      "action": "exit",
+      "shares": 2,
+      "avg_sell": 724.8,
+      "realized_pnl": 176.5,
+      "tracking": "pre-May29"
+    },
+    {
+      "date": "2026-05-21",
+      "ticker": "APLD",
+      "action": "trim",
+      "shares": 5,
+      "avg_sell": 46.53,
+      "realized_pnl": 117.65,
+      "tracking": "pre-May29"
+    },
+    {
+      "date": "2026-05-26",
+      "ticker": "NVDA",
+      "action": "trim",
+      "shares": 2,
+      "avg_sell": 212.76,
+      "realized_pnl": 129.73,
+      "tracking": "pre-May29",
+      "note": "basis ~$147.90; confirmed"
+    },
+    {
+      "date": "2026-06-01",
+      "ticker": "NU",
+      "action": "exit",
+      "shares": 5,
+      "avg_sell": 12.98,
+      "cost": 13.17,
+      "realized_pnl": -0.95
+    },
+    {
+      "date": "2026-06-01",
+      "ticker": "CEG",
+      "action": "exit",
+      "shares": 4,
+      "avg_sell": 269.49,
+      "cost": 278.7,
+      "realized_pnl": -36.84,
+      "re_entry": "$260-270 ~Jul1"
+    },
+    {
+      "date": "2026-06-02",
+      "ticker": "MRVL",
+      "action": "trim",
+      "shares": 2,
+      "avg_sell": 279.61,
+      "realized_pnl": 196.19
+    },
+    {
+      "date": "2026-06-02",
+      "ticker": "ETN",
+      "action": "trim",
+      "shares": 1,
+      "avg_sell": 412.77,
+      "realized_pnl": 13.77
+    },
+    {
+      "date": "2026-06-03",
+      "ticker": "AMD",
+      "action": "exit",
+      "shares": 3,
+      "avg_sell": 526.41,
+      "cost": 436.98,
+      "realized_pnl": 268.28,
+      "note": "sell derived from realized"
+    },
+    {
+      "date": "2026-06-03",
+      "ticker": "DRAM",
+      "action": "exit",
+      "shares": 7,
+      "avg_sell": 68.71,
+      "cost": 53.73,
+      "realized_pnl": 104.87,
+      "note": "sell derived from realized"
+    },
+    {
+      "date": "2026-06-03",
+      "ticker": "NVDA",
+      "action": "trim",
+      "shares": 1,
+      "avg_sell": 215.01,
+      "cost": 154.17,
+      "realized_pnl": 60.84,
+      "note": "sell derived from realized"
+    }
   ],
   "unreconciled": [
-    {"ticker":"ORCL","shares":2,"avg_sell":191.16,"cost":192.84,"realized_pnl":-3.36,"action":"trim","issue":"In old v1.0 file, absent from $2,410.60 total. Confirm execution; if yes total becomes $2,407.24."}
+    {
+      "ticker": "ORCL",
+      "shares": 2,
+      "avg_sell": 191.16,
+      "cost": 192.84,
+      "realized_pnl": -3.36,
+      "action": "trim",
+      "issue": "In old v1.0 file, absent from $2,410.60 total. Confirm execution; if yes total becomes $2,407.24."
+    }
   ],
-  "realized_breakdown": {"pre_May29":1804.44,"Jun1":-37.79,"Jun2":209.96,"Jun3":433.99,"total":2410.60,"note":"Excludes unreconciled ORCL -$3.36."},
-
+  "realized_breakdown": {
+    "pre_May29": 1804.44,
+    "Jun1": -37.79,
+    "Jun2": 209.96,
+    "Jun3": 433.99,
+    "total": 2410.6,
+    "note": "Excludes unreconciled ORCL -$3.36."
+  },
   "nav_history": {
     "measure_note": "EOD-close measure ADOPTED Jun5. Legacy May29-Jun3 rows = intraday PEAK; Jun4 = current intraday; Jun5 onward = EOD close. De-mix by backfilling EOD closes if available.",
     "append_rule": "GNF appends one verified NAV per session {date, nav, type, realized_pnl_cum}. Broker total only — never estimated.",
     "snapshots": [
-      {"date":"2026-05-29","nav":29814.90,"type":"peak","verified":true},
-      {"date":"2026-06-01","nav":30793.89,"type":"peak","verified":true},
-      {"date":"2026-06-02","nav":31813.49,"type":"peak","verified":true},
-      {"date":"2026-06-03","nav":32029.95,"type":"peak","verified":true,"note":"all-time high / HWM"},
-      {"date":"2026-06-04","nav":30636.78,"type":"current","realized_pnl_cum":2410.60,"verified":true,"note":"reconciled to broker-confirmed; -4.4% off HWM"},
-      {"date":"2026-06-05","nav":28555.66,"type":"eod_close","realized_pnl_cum":2410.60,"verified":true,"note":"broker EOD close; -6.8% vs Jun4 / -10.8% off HWM; broad AI/semis selloff; FIRST EOD-close point"}
+      {
+        "date": "2026-05-29",
+        "nav": 29814.9,
+        "type": "peak",
+        "verified": true
+      },
+      {
+        "date": "2026-06-01",
+        "nav": 30793.89,
+        "type": "peak",
+        "verified": true
+      },
+      {
+        "date": "2026-06-02",
+        "nav": 31813.49,
+        "type": "peak",
+        "verified": true
+      },
+      {
+        "date": "2026-06-03",
+        "nav": 32029.95,
+        "type": "peak",
+        "verified": true,
+        "note": "all-time high / HWM"
+      },
+      {
+        "date": "2026-06-04",
+        "nav": 30636.78,
+        "type": "current",
+        "realized_pnl_cum": 2410.6,
+        "verified": true,
+        "note": "reconciled to broker-confirmed; -4.4% off HWM"
+      },
+      {
+        "date": "2026-06-05",
+        "nav": 28555.66,
+        "type": "eod_close",
+        "realized_pnl_cum": 2410.6,
+        "verified": true,
+        "note": "broker EOD close; -6.8% vs Jun4 / -10.8% off HWM; broad AI/semis selloff; FIRST EOD-close point"
+      }
     ]
   },
-
   "scores": {
     "stale_rule_days": 7,
-    "rescore_schedule": {"owned":"weekly","radar":"on_demand","next_due":"2026-06-08","overdue":false},
+    "rescore_schedule": {
+      "owned": "weekly",
+      "radar": "on_demand",
+      "next_due": "2026-06-08",
+      "overdue": false
+    },
     "current_note": "Live CS/MS per owned name live in `positions` (scores_date Jun1; CRDO Jun3). History archived below.",
     "history": [
-      {"date":"2026-05-27","note":"Full rescore. MRVL reset post Q1; APLD upgraded on $31B backlog.","scores":[{"tk":"TSM","cs":91,"ms":84},{"tk":"AVGO","cs":89,"ms":82},{"tk":"MSFT","cs":88,"ms":74},{"tk":"VRT","cs":87,"ms":85},{"tk":"ANET","cs":86,"ms":78},{"tk":"NVDA","cs":85,"ms":80},{"tk":"APH","cs":85,"ms":82},{"tk":"VOO","cs":84,"ms":78},{"tk":"AMAT","cs":83,"ms":79},{"tk":"MRVL","cs":81,"ms":86},{"tk":"NOW","cs":81,"ms":74},{"tk":"ETN","cs":80,"ms":72},{"tk":"CRDO","cs":80,"ms":86},{"tk":"AMD","cs":76,"ms":84},{"tk":"ORCL","cs":76,"ms":68},{"tk":"DRAM","cs":68,"ms":72},{"tk":"APLD","cs":62,"ms":76}]},
-      {"date":"2026-06-01","note":"Fresh rescore. Movers: AMAT/AMD/MRVL/APH/ETN.","scores":[{"tk":"AVGO","cs":91,"ms":85},{"tk":"NVDA","cs":88,"ms":82},{"tk":"APH","cs":88,"ms":86},{"tk":"AMAT","cs":87,"ms":83},{"tk":"ANET","cs":87,"ms":80},{"tk":"MRVL","cs":84,"ms":90},{"tk":"VOO","cs":84,"ms":79},{"tk":"NOW","cs":83,"ms":76},{"tk":"ETN","cs":83,"ms":76},{"tk":"AMD","cs":82,"ms":88},{"tk":"ORCL","cs":76,"ms":70},{"tk":"DRAM","cs":69,"ms":74},{"tk":"APLD","cs":63,"ms":77}]},
-      {"date":"2026-06-03","note":"CRDO rescored as owned; conviction 4 confirmed.","scores":[{"tk":"CRDO","cs":83,"ms":85}]}
+      {
+        "date": "2026-05-27",
+        "note": "Full rescore. MRVL reset post Q1; APLD upgraded on $31B backlog.",
+        "scores": [
+          {
+            "tk": "TSM",
+            "cs": 91,
+            "ms": 84
+          },
+          {
+            "tk": "AVGO",
+            "cs": 89,
+            "ms": 82
+          },
+          {
+            "tk": "MSFT",
+            "cs": 88,
+            "ms": 74
+          },
+          {
+            "tk": "VRT",
+            "cs": 87,
+            "ms": 85
+          },
+          {
+            "tk": "ANET",
+            "cs": 86,
+            "ms": 78
+          },
+          {
+            "tk": "NVDA",
+            "cs": 85,
+            "ms": 80
+          },
+          {
+            "tk": "APH",
+            "cs": 85,
+            "ms": 82
+          },
+          {
+            "tk": "VOO",
+            "cs": 84,
+            "ms": 78
+          },
+          {
+            "tk": "AMAT",
+            "cs": 83,
+            "ms": 79
+          },
+          {
+            "tk": "MRVL",
+            "cs": 81,
+            "ms": 86
+          },
+          {
+            "tk": "NOW",
+            "cs": 81,
+            "ms": 74
+          },
+          {
+            "tk": "ETN",
+            "cs": 80,
+            "ms": 72
+          },
+          {
+            "tk": "CRDO",
+            "cs": 80,
+            "ms": 86
+          },
+          {
+            "tk": "AMD",
+            "cs": 76,
+            "ms": 84
+          },
+          {
+            "tk": "ORCL",
+            "cs": 76,
+            "ms": 68
+          },
+          {
+            "tk": "DRAM",
+            "cs": 68,
+            "ms": 72
+          },
+          {
+            "tk": "APLD",
+            "cs": 62,
+            "ms": 76
+          }
+        ]
+      },
+      {
+        "date": "2026-06-01",
+        "note": "Fresh rescore. Movers: AMAT/AMD/MRVL/APH/ETN.",
+        "scores": [
+          {
+            "tk": "AVGO",
+            "cs": 91,
+            "ms": 85
+          },
+          {
+            "tk": "NVDA",
+            "cs": 88,
+            "ms": 82
+          },
+          {
+            "tk": "APH",
+            "cs": 88,
+            "ms": 86
+          },
+          {
+            "tk": "AMAT",
+            "cs": 87,
+            "ms": 83
+          },
+          {
+            "tk": "ANET",
+            "cs": 87,
+            "ms": 80
+          },
+          {
+            "tk": "MRVL",
+            "cs": 84,
+            "ms": 90
+          },
+          {
+            "tk": "VOO",
+            "cs": 84,
+            "ms": 79
+          },
+          {
+            "tk": "NOW",
+            "cs": 83,
+            "ms": 76
+          },
+          {
+            "tk": "ETN",
+            "cs": 83,
+            "ms": 76
+          },
+          {
+            "tk": "AMD",
+            "cs": 82,
+            "ms": 88
+          },
+          {
+            "tk": "ORCL",
+            "cs": 76,
+            "ms": 70
+          },
+          {
+            "tk": "DRAM",
+            "cs": 69,
+            "ms": 74
+          },
+          {
+            "tk": "APLD",
+            "cs": 63,
+            "ms": 77
+          }
+        ]
+      },
+      {
+        "date": "2026-06-03",
+        "note": "CRDO rescored as owned; conviction 4 confirmed.",
+        "scores": [
+          {
+            "tk": "CRDO",
+            "cs": 83,
+            "ms": 85
+          }
+        ]
+      }
     ]
   },
-
   "thesis": [
-    {"ticker":"NVDA","conviction":5,"thesis":"Dominant AI compute platform; CUDA moat + supply-constrained datacenter GPU demand.","key_metric":"Datacenter rev growth + hyperscaler capex","breaks_if":"Hyperscaler capex cuts or credible CUDA-class competition at scale","last_confirmed":"2026-05"},
-    {"ticker":"AVGO","conviction":5,"thesis":"Custom AI silicon (ASIC) + networking; multi-hyperscaler design wins compounding.","key_metric":"AI semi rev YoY + AI order book","breaks_if":"Hyperscaler pulls ASIC in-house / order book stalls","last_confirmed":"2026-06-03"},
-    {"ticker":"ANET","conviction":5,"thesis":"AI back-end Ethernet networking leader; share gains as clusters scale.","key_metric":"Cloud/AI revenue mix + gross margin","breaks_if":"Loses major hyperscaler to Infiniband/whitebox at scale","last_confirmed":"2026-05"},
-    {"ticker":"VOO","conviction":5,"thesis":"Core S&P 500 foundation — dollar anchor, not a thesis trade.","key_metric":"n/a","breaks_if":"Never sell","last_confirmed":"n/a"},
-    {"ticker":"AMAT","conviction":4,"thesis":"WFE leverage to the entire AI buildout; picks-and-shovels to every fab.","key_metric":"WFE bookings + China exposure","breaks_if":"WFE capex cycle rolls over","last_confirmed":"2026-05"},
-    {"ticker":"MRVL","conviction":4,"thesis":"Custom silicon + optical/copper AI connectivity; multiple Tier-1 hyperscaler engagements ramping.","key_metric":"Custom silicon / DC revenue ramp","breaks_if":"Tier-1 custom program slips or canceled","last_confirmed":"2026-05","catalyst":"Jensen 'next trillion-$' Computex Jun2"},
-    {"ticker":"APH","conviction":4,"thesis":"Connector/interconnect compounder riding AI DC content growth + M&A (CommScope).","key_metric":"Organic rev growth + IT-datacom","breaks_if":"DC content growth stalls / integration missteps","last_confirmed":"2026-05"},
-    {"ticker":"CRDO","conviction":4,"thesis":"AI connectivity — AEC, SerDes, optical DSP; copper-to-optical transition tailwind.","key_metric":"Optical rev ramp (FY27 >$600M) + customer diversification","breaks_if":"AEC/optical share loss to MRVL/AVGO; concentration shock","last_confirmed":"2026-06-01"},
-    {"ticker":"ETN","conviction":4,"thesis":"Electrification + datacenter power; grid/DC capex supercycle beneficiary.","key_metric":"DC/electrical orders + backlog","breaks_if":"DC power orders decelerate sharply","last_confirmed":"2026-05","note":"DC orders +240%"},
-    {"ticker":"NOW","conviction":4,"thesis":"Agentic-AI enterprise software compounder; workflow platform with pricing power.","key_metric":"Subscription ARR growth (>20%) + cRPO","breaks_if":"ARR growth <20%","last_confirmed":"2026-04"},
-    {"ticker":"APLD","conviction":4,"thesis":"AI datacenter/neocloud infra; $31B contracted backlog re-rated the story.","key_metric":"Contracted backlog + lease execution","breaks_if":"Lease cancellation / financing falls through","last_confirmed":"2026-05"},
-    {"ticker":"ORCL","conviction":3,"thesis":"OCI/AI-cloud re-rate; RPO backlog + multicloud database growth.","key_metric":"RPO ($553B) + OCI revenue growth","breaks_if":"RPO growth stalls / AI capacity margin compresses","last_confirmed":"2026-03","note":"Q4 print Jun10 — update after"}
+    {
+      "ticker": "NVDA",
+      "conviction": 5,
+      "thesis": "Dominant AI compute platform; CUDA moat + supply-constrained datacenter GPU demand.",
+      "key_metric": "Datacenter rev growth + hyperscaler capex",
+      "breaks_if": "Hyperscaler capex cuts or credible CUDA-class competition at scale",
+      "last_confirmed": "2026-05"
+    },
+    {
+      "ticker": "AVGO",
+      "conviction": 5,
+      "thesis": "Custom AI silicon (ASIC) + networking; multi-hyperscaler design wins compounding.",
+      "key_metric": "AI semi rev YoY + AI order book",
+      "breaks_if": "Hyperscaler pulls ASIC in-house / order book stalls",
+      "last_confirmed": "2026-06-03"
+    },
+    {
+      "ticker": "ANET",
+      "conviction": 5,
+      "thesis": "AI back-end Ethernet networking leader; share gains as clusters scale.",
+      "key_metric": "Cloud/AI revenue mix + gross margin",
+      "breaks_if": "Loses major hyperscaler to Infiniband/whitebox at scale",
+      "last_confirmed": "2026-05"
+    },
+    {
+      "ticker": "VOO",
+      "conviction": 5,
+      "thesis": "Core S&P 500 foundation — dollar anchor, not a thesis trade.",
+      "key_metric": "n/a",
+      "breaks_if": "Never sell",
+      "last_confirmed": "n/a"
+    },
+    {
+      "ticker": "AMAT",
+      "conviction": 4,
+      "thesis": "WFE leverage to the entire AI buildout; picks-and-shovels to every fab.",
+      "key_metric": "WFE bookings + China exposure",
+      "breaks_if": "WFE capex cycle rolls over",
+      "last_confirmed": "2026-05"
+    },
+    {
+      "ticker": "MRVL",
+      "conviction": 4,
+      "thesis": "Custom silicon + optical/copper AI connectivity; multiple Tier-1 hyperscaler engagements ramping.",
+      "key_metric": "Custom silicon / DC revenue ramp",
+      "breaks_if": "Tier-1 custom program slips or canceled",
+      "last_confirmed": "2026-05",
+      "catalyst": "Jensen 'next trillion-$' Computex Jun2"
+    },
+    {
+      "ticker": "APH",
+      "conviction": 4,
+      "thesis": "Connector/interconnect compounder riding AI DC content growth + M&A (CommScope).",
+      "key_metric": "Organic rev growth + IT-datacom",
+      "breaks_if": "DC content growth stalls / integration missteps",
+      "last_confirmed": "2026-05"
+    },
+    {
+      "ticker": "CRDO",
+      "conviction": 4,
+      "thesis": "AI connectivity — AEC, SerDes, optical DSP; copper-to-optical transition tailwind.",
+      "key_metric": "Optical rev ramp (FY27 >$600M) + customer diversification",
+      "breaks_if": "AEC/optical share loss to MRVL/AVGO; concentration shock",
+      "last_confirmed": "2026-06-01"
+    },
+    {
+      "ticker": "ETN",
+      "conviction": 4,
+      "thesis": "Electrification + datacenter power; grid/DC capex supercycle beneficiary.",
+      "key_metric": "DC/electrical orders + backlog",
+      "breaks_if": "DC power orders decelerate sharply",
+      "last_confirmed": "2026-05",
+      "note": "DC orders +240%"
+    },
+    {
+      "ticker": "NOW",
+      "conviction": 4,
+      "thesis": "Agentic-AI enterprise software compounder; workflow platform with pricing power.",
+      "key_metric": "Subscription ARR growth (>20%) + cRPO",
+      "breaks_if": "ARR growth <20%",
+      "last_confirmed": "2026-04"
+    },
+    {
+      "ticker": "APLD",
+      "conviction": 4,
+      "thesis": "AI datacenter/neocloud infra; $31B contracted backlog re-rated the story.",
+      "key_metric": "Contracted backlog + lease execution",
+      "breaks_if": "Lease cancellation / financing falls through",
+      "last_confirmed": "2026-05"
+    },
+    {
+      "ticker": "ORCL",
+      "conviction": 3,
+      "thesis": "OCI/AI-cloud re-rate; RPO backlog + multicloud database growth.",
+      "key_metric": "RPO ($553B) + OCI revenue growth",
+      "breaks_if": "RPO growth stalls / AI capacity margin compresses",
+      "last_confirmed": "2026-03",
+      "note": "Q4 print Jun10 — update after"
+    }
   ],
-
   "earnings": {
     "imminent_rule": "owned earnings within 7d = EARN IMMINENT flag + scenario auto-fires at GMF",
     "imminent": [
-      {"ticker":"ORCL","date":"2026-06-10","when":"after close","days_out":5,"status":"CONFIRMED (FMP + Oracle IR)","fiscal":"Q4 FY2026","eps_est":1.96,"rev_est":19103220000,
-       "last_4":[{"q":"2026-03-10","eps":1.79,"est":1.70,"r":"beat"},{"q":"2025-12-10","eps":2.26,"est":1.64,"r":"big beat"},{"q":"2025-09-09","eps":1.47,"est":1.48,"r":"slight miss"},{"q":"2025-06-11","eps":1.70,"est":1.64,"r":"beat"}],
-       "note":"3 of last 4 beats. Hold into print. Verify exact day-of. 5sh @ $192.84."}
+      {
+        "ticker": "ORCL",
+        "date": "2026-06-10",
+        "when": "after close",
+        "days_out": 5,
+        "status": "CONFIRMED (FMP + Oracle IR)",
+        "fiscal": "Q4 FY2026",
+        "eps_est": 1.96,
+        "rev_est": 19103220000,
+        "last_4": [
+          {
+            "q": "2026-03-10",
+            "eps": 1.79,
+            "est": 1.7,
+            "r": "beat"
+          },
+          {
+            "q": "2025-12-10",
+            "eps": 2.26,
+            "est": 1.64,
+            "r": "big beat"
+          },
+          {
+            "q": "2025-09-09",
+            "eps": 1.47,
+            "est": 1.48,
+            "r": "slight miss"
+          },
+          {
+            "q": "2025-06-11",
+            "eps": 1.7,
+            "est": 1.64,
+            "r": "beat"
+          }
+        ],
+        "note": "3 of last 4 beats. Hold into print. Verify exact day-of. 5sh @ $192.84."
+      }
     ],
     "owned": [
-      {"ticker":"NVDA","date":"2026-08-26","eps_est":2.07,"rev_est":91588900000,"streak":"4/4 beats"},
-      {"ticker":"AVGO","date":"2026-09-03","eps_est":3.12,"rev_est":28768950000,"streak":"4/4 beats","note":"reported Jun3 (beat, -12.6% reaction)"},
-      {"ticker":"ANET","date":"2026-08-04","eps_est":0.89,"rev_est":2825157000,"streak":"4/4 beats"},
-      {"ticker":"AMAT","date":"2026-08-13","eps_est":3.35,"rev_est":8943914000,"streak":"4/4 beats"},
-      {"ticker":"ETN","date":"2026-08-04","eps_est":3.07,"rev_est":8155544000,"streak":"4/4 beats"},
-      {"ticker":"APH","date":"2026-07-29","eps_est":1.15,"rev_est":8179830000,"streak":"4/4 beats"},
-      {"ticker":"NOW","date":"2026-07-22","eps_est":0.86,"rev_est":3926700000,"streak":"3 beats / 1 inline"},
-      {"ticker":"APLD","date":"2026-07-29","eps_est":-0.26,"rev_est":92418820,"streak":"pre-profit","note":"watch revenue + backlog over EPS"},
-      {"ticker":"MRVL","date":"2026-08-27","eps_est":0.91,"rev_est":2692172000,"streak":"3 beats / 1 inline"},
-      {"ticker":"CRDO","date":"2026-09-02","eps_est":1.16,"rev_est":470407100,"streak":"4/4 beats","note":"reported Jun1 (beat, -15.6% reaction)"},
-      {"ticker":"VOO","date":null,"status":"N/A — ETF"}
+      {
+        "ticker": "NVDA",
+        "date": "2026-08-26",
+        "eps_est": 2.07,
+        "rev_est": 91588900000,
+        "streak": "4/4 beats"
+      },
+      {
+        "ticker": "AVGO",
+        "date": "2026-09-03",
+        "eps_est": 3.12,
+        "rev_est": 28768950000,
+        "streak": "4/4 beats",
+        "note": "reported Jun3 (beat, -12.6% reaction)"
+      },
+      {
+        "ticker": "ANET",
+        "date": "2026-08-04",
+        "eps_est": 0.89,
+        "rev_est": 2825157000,
+        "streak": "4/4 beats"
+      },
+      {
+        "ticker": "AMAT",
+        "date": "2026-08-13",
+        "eps_est": 3.35,
+        "rev_est": 8943914000,
+        "streak": "4/4 beats"
+      },
+      {
+        "ticker": "ETN",
+        "date": "2026-08-04",
+        "eps_est": 3.07,
+        "rev_est": 8155544000,
+        "streak": "4/4 beats"
+      },
+      {
+        "ticker": "APH",
+        "date": "2026-07-29",
+        "eps_est": 1.15,
+        "rev_est": 8179830000,
+        "streak": "4/4 beats"
+      },
+      {
+        "ticker": "NOW",
+        "date": "2026-07-22",
+        "eps_est": 0.86,
+        "rev_est": 3926700000,
+        "streak": "3 beats / 1 inline"
+      },
+      {
+        "ticker": "APLD",
+        "date": "2026-07-29",
+        "eps_est": -0.26,
+        "rev_est": 92418820,
+        "streak": "pre-profit",
+        "note": "watch revenue + backlog over EPS"
+      },
+      {
+        "ticker": "MRVL",
+        "date": "2026-08-27",
+        "eps_est": 0.91,
+        "rev_est": 2692172000,
+        "streak": "3 beats / 1 inline"
+      },
+      {
+        "ticker": "CRDO",
+        "date": "2026-09-02",
+        "eps_est": 1.16,
+        "rev_est": 470407100,
+        "streak": "4/4 beats",
+        "note": "reported Jun1 (beat, -15.6% reaction)"
+      },
+      {
+        "ticker": "VOO",
+        "date": null,
+        "status": "N/A — ETF"
+      }
     ],
     "gap_note": "After ORCL (Jun10), no owned earnings until NOW (Jul22) — ~6wk quiet. Then Q2 cluster: NOW Jul22 · APH+APLD Jul29 · ANET+ETN Aug4 · AMAT Aug13 · NVDA Aug26 · MRVL Aug27 · CRDO Sep2 · AVGO Sep3.",
     "watchlist": [
-      {"ticker":"TSM","date":"2026-07-16","tier":"watch"},{"ticker":"GEV","date":"2026-07-22","tier":"watch"},{"ticker":"GOOGL","date":"2026-07-22","tier":"re-entry","note":"monitor expires Jun20"},{"ticker":"CLS","date":"2026-07-27","tier":"T2"},{"ticker":"EQT","date":"2026-07-28","tier":"gameplan"},{"ticker":"MSFT","date":"2026-07-29","tier":"T2"},{"ticker":"LRCX","date":"2026-07-29","tier":"T2"},{"ticker":"VRT","date":"2026-07-29","tier":"watch"},{"ticker":"PLTR","date":"2026-08-03","tier":"T1"},{"ticker":"ALAB","date":"2026-08-04","tier":"T2"},{"ticker":"AMD","date":"2026-08-04","tier":"re-entry","note":"$430-440; monitor to Jul3"},{"ticker":"IONQ","date":"2026-08-05","tier":"T2"},{"ticker":"VST","date":"2026-08-06","tier":"watch"},{"ticker":"RKLB","date":"2026-08-06","tier":"space"},{"ticker":"CEG","date":"2026-08-06","tier":"re-entry","note":"$260-270; monitor to Jul3"},{"ticker":"NBIS","date":"2026-08-06","tier":"re-entry","note":"monitor expires Jun20"},{"ticker":"MP","date":"2026-08-06","tier":"gameplan"},{"ticker":"CLSK","date":"2026-08-06","tier":"T2"},{"ticker":"LUNR","date":"2026-08-06","tier":"space"},{"ticker":"ASTS","date":"2026-08-10","tier":"space"},{"ticker":"CRWV","date":"2026-08-11","tier":"T2"},{"ticker":"COHR","date":"2026-08-12","tier":"T2"},{"ticker":"NU","date":"2026-08-13","tier":"re-entry","note":"monitor to Jul1"},{"ticker":"CORZ","date":"2026-08-14","tier":"T2"},{"ticker":"FN","date":"2026-08-17","tier":"T2"},{"ticker":"AMBA","date":"2026-08-27","tier":"T1"},{"ticker":"IREN","date":"2026-08-27","tier":"T2"},{"ticker":"DELL","date":"2026-08-27","tier":"T2"},{"ticker":"RBRK","date":"2026-09-08","tier":"T2"}
+      {
+        "ticker": "TSM",
+        "date": "2026-07-16",
+        "tier": "watch"
+      },
+      {
+        "ticker": "GEV",
+        "date": "2026-07-22",
+        "tier": "watch"
+      },
+      {
+        "ticker": "GOOGL",
+        "date": "2026-07-22",
+        "tier": "re-entry",
+        "note": "monitor expires Jun20"
+      },
+      {
+        "ticker": "CLS",
+        "date": "2026-07-27",
+        "tier": "T2"
+      },
+      {
+        "ticker": "EQT",
+        "date": "2026-07-28",
+        "tier": "gameplan"
+      },
+      {
+        "ticker": "MSFT",
+        "date": "2026-07-29",
+        "tier": "T2"
+      },
+      {
+        "ticker": "LRCX",
+        "date": "2026-07-29",
+        "tier": "T2"
+      },
+      {
+        "ticker": "VRT",
+        "date": "2026-07-29",
+        "tier": "watch"
+      },
+      {
+        "ticker": "PLTR",
+        "date": "2026-08-03",
+        "tier": "T1"
+      },
+      {
+        "ticker": "ALAB",
+        "date": "2026-08-04",
+        "tier": "T2"
+      },
+      {
+        "ticker": "AMD",
+        "date": "2026-08-04",
+        "tier": "re-entry",
+        "note": "$430-440; monitor to Jul3"
+      },
+      {
+        "ticker": "IONQ",
+        "date": "2026-08-05",
+        "tier": "T2"
+      },
+      {
+        "ticker": "VST",
+        "date": "2026-08-06",
+        "tier": "watch"
+      },
+      {
+        "ticker": "RKLB",
+        "date": "2026-08-06",
+        "tier": "space"
+      },
+      {
+        "ticker": "CEG",
+        "date": "2026-08-06",
+        "tier": "re-entry",
+        "note": "$260-270; monitor to Jul3"
+      },
+      {
+        "ticker": "NBIS",
+        "date": "2026-08-06",
+        "tier": "re-entry",
+        "note": "monitor expires Jun20"
+      },
+      {
+        "ticker": "MP",
+        "date": "2026-08-06",
+        "tier": "gameplan"
+      },
+      {
+        "ticker": "CLSK",
+        "date": "2026-08-06",
+        "tier": "T2"
+      },
+      {
+        "ticker": "LUNR",
+        "date": "2026-08-06",
+        "tier": "space"
+      },
+      {
+        "ticker": "ASTS",
+        "date": "2026-08-10",
+        "tier": "space"
+      },
+      {
+        "ticker": "CRWV",
+        "date": "2026-08-11",
+        "tier": "T2"
+      },
+      {
+        "ticker": "COHR",
+        "date": "2026-08-12",
+        "tier": "T2"
+      },
+      {
+        "ticker": "NU",
+        "date": "2026-08-13",
+        "tier": "re-entry",
+        "note": "monitor to Jul1"
+      },
+      {
+        "ticker": "CORZ",
+        "date": "2026-08-14",
+        "tier": "T2"
+      },
+      {
+        "ticker": "FN",
+        "date": "2026-08-17",
+        "tier": "T2"
+      },
+      {
+        "ticker": "AMBA",
+        "date": "2026-08-27",
+        "tier": "T1"
+      },
+      {
+        "ticker": "IREN",
+        "date": "2026-08-27",
+        "tier": "T2"
+      },
+      {
+        "ticker": "DELL",
+        "date": "2026-08-27",
+        "tier": "T2"
+      },
+      {
+        "ticker": "RBRK",
+        "date": "2026-09-08",
+        "tier": "T2"
+      }
     ],
-    "not_swept": ["HLIT","INFQ","PENG","BB","RDW","LAES","PDYN","UMAC","WYFI","OSS","SATL","MDA","VOYG","KEEL"]
+    "not_swept": [
+      "HLIT",
+      "INFQ",
+      "PENG",
+      "BB",
+      "RDW",
+      "LAES",
+      "PDYN",
+      "UMAC",
+      "WYFI",
+      "OSS",
+      "SATL",
+      "MDA",
+      "VOYG",
+      "KEEL"
+    ]
   },
-
   "reviews": {
     "trigger_rules": "WIN +40% / LOSS -20% / any full exit. Open reviews carry as TODO.",
     "entries": [
-      {"id":1,"date":"2026-06-03","ticker":"AMD","type":"EXIT","outcome":"WIN","realized_pnl":268.28,"lesson":"Trimming the weakest-conviction name in a crowded sub-sector (semis) is a clean source of funds — not a thesis reversal. Re-entry $430-440, monitor to Jul3."},
-      {"id":2,"date":"2026-06-03","ticker":"DRAM","type":"EXIT","outcome":"WIN","realized_pnl":104.87,"lesson":"Small thematic sleeves fine to harvest + re-buy lower — HBM thesis intact, entry resets ($55-57)."},
-      {"id":3,"date":"2026-06-02","ticker":"MRVL","type":"TRIM","outcome":"WIN","realized_pnl":196.19,"lesson":"Trim into euphoric spikes (Jensen call) while retaining the core."},
-      {"id":4,"date":null,"ticker":"APLD","type":"WIN_REVIEW","outcome":"OPEN","context":"+67.8% on $31B contracted-revenue re-rate; multiple pre-May29 trims (+$718.92 across 35sh).","questions":["What signal preceded the re-rate?","Was sizing right at conviction 4 / CS62?","Trim discipline — too early or right?"]}
+      {
+        "id": 1,
+        "date": "2026-06-03",
+        "ticker": "AMD",
+        "type": "EXIT",
+        "outcome": "WIN",
+        "realized_pnl": 268.28,
+        "lesson": "Trimming the weakest-conviction name in a crowded sub-sector (semis) is a clean source of funds — not a thesis reversal. Re-entry $430-440, monitor to Jul3."
+      },
+      {
+        "id": 2,
+        "date": "2026-06-03",
+        "ticker": "DRAM",
+        "type": "EXIT",
+        "outcome": "WIN",
+        "realized_pnl": 104.87,
+        "lesson": "Small thematic sleeves fine to harvest + re-buy lower — HBM thesis intact, entry resets ($55-57)."
+      },
+      {
+        "id": 3,
+        "date": "2026-06-02",
+        "ticker": "MRVL",
+        "type": "TRIM",
+        "outcome": "WIN",
+        "realized_pnl": 196.19,
+        "lesson": "Trim into euphoric spikes (Jensen call) while retaining the core."
+      },
+      {
+        "id": 4,
+        "date": null,
+        "ticker": "APLD",
+        "type": "WIN_REVIEW",
+        "outcome": "OPEN",
+        "context": "+67.8% on $31B contracted-revenue re-rate; multiple pre-May29 trims (+$718.92 across 35sh).",
+        "questions": [
+          "What signal preceded the re-rate?",
+          "Was sizing right at conviction 4 / CS62?",
+          "Trim discipline — too early or right?"
+        ]
+      }
     ],
-    "patterns":["Trim-into-strength works repeatedly (NVDA/MRVL/APLD) — formalize a trim ladder above PT.","Lower-conviction names recycled for capital — conviction-based sizing working."],
-    "open_todo":"Write APLD win review (id4). Add a LOSS-review template."
+    "patterns": [
+      "Trim-into-strength works repeatedly (NVDA/MRVL/APLD) — formalize a trim ladder above PT.",
+      "Lower-conviction names recycled for capital — conviction-based sizing working."
+    ],
+    "open_todo": "Write APLD win review (id4). Add a LOSS-review template."
   },
-
   "watchlist": {
     "tiers": {
       "T1_radar": [
-        {"ticker":"AMBA","name":"Ambarella","cs":68,"ms":65,"scores_date":"2026-05-27","status":"zone TBD off earnings reaction","catalyst":"reported May28; edge-AI vision SoCs; show-me"},
-        {"ticker":"PLTR","name":"Palantir","cs":66,"ms":78,"scores_date":"2026-05-27","status":"watch only — needs meaningful pullback"}
+        {
+          "ticker": "AMBA",
+          "name": "Ambarella",
+          "cs": 68,
+          "ms": 65,
+          "scores_date": "2026-05-27",
+          "status": "zone TBD off earnings reaction",
+          "catalyst": "reported May28; edge-AI vision SoCs; show-me"
+        },
+        {
+          "ticker": "PLTR",
+          "name": "Palantir",
+          "cs": 66,
+          "ms": 78,
+          "scores_date": "2026-05-27",
+          "status": "watch only — needs meaningful pullback"
+        }
       ],
       "T2_radar": [
-        {"ticker":"IONQ","entry":"$54-58","note":"CS48/MS68"},{"ticker":"IREN","entry":"$50-55"},{"ticker":"CRWV","entry":"$70-80"},{"ticker":"ALAB","note":"NVDA-adjacent"},{"ticker":"RBRK"},{"ticker":"COHR"},{"ticker":"CLS"},{"ticker":"DELL"},{"ticker":"MSFT","note":"CS88/MS74"},{"ticker":"CLSK","entry":"$14-16"},{"ticker":"HLIT"},{"ticker":"INFQ","entry":"<$14","note":"spec"},{"ticker":"FN"},{"ticker":"LRCX"},{"ticker":"CORZ"},{"ticker":"PENG"},{"ticker":"BB"},{"ticker":"RDW","entry":"$12-14"},{"ticker":"LAES"},{"ticker":"PDYN"}
+        {
+          "ticker": "IONQ",
+          "entry": "$54-58",
+          "note": "CS48/MS68"
+        },
+        {
+          "ticker": "IREN",
+          "entry": "$50-55"
+        },
+        {
+          "ticker": "CRWV",
+          "entry": "$70-80"
+        },
+        {
+          "ticker": "ALAB",
+          "note": "NVDA-adjacent"
+        },
+        {
+          "ticker": "RBRK"
+        },
+        {
+          "ticker": "COHR"
+        },
+        {
+          "ticker": "CLS"
+        },
+        {
+          "ticker": "DELL"
+        },
+        {
+          "ticker": "MSFT",
+          "note": "CS88/MS74"
+        },
+        {
+          "ticker": "CLSK",
+          "entry": "$14-16"
+        },
+        {
+          "ticker": "HLIT"
+        },
+        {
+          "ticker": "INFQ",
+          "entry": "<$14",
+          "note": "spec"
+        },
+        {
+          "ticker": "FN"
+        },
+        {
+          "ticker": "LRCX"
+        },
+        {
+          "ticker": "CORZ"
+        },
+        {
+          "ticker": "PENG"
+        },
+        {
+          "ticker": "BB"
+        },
+        {
+          "ticker": "RDW",
+          "entry": "$12-14"
+        },
+        {
+          "ticker": "LAES"
+        },
+        {
+          "ticker": "PDYN"
+        }
       ],
-      "watch": ["TSM","VRT","GEV","WYFI","OSS","VST","SATL"],
-      "spec": ["UMAC"],
-      "skip": ["GCTS","HOVR","BKSY"],
-      "dropped": ["LWLG","DGXX","FLNC","PLAB"],
+      "watch": [
+        "TSM",
+        "VRT",
+        "GEV",
+        "WYFI",
+        "OSS",
+        "VST",
+        "SATL"
+      ],
+      "spec": [
+        "UMAC"
+      ],
+      "skip": [
+        "GCTS",
+        "HOVR",
+        "BKSY"
+      ],
+      "dropped": [
+        "LWLG",
+        "DGXX",
+        "FLNC",
+        "PLAB"
+      ],
       "post_sell_monitor": [
-        {"ticker":"NBIS","sold":"pre-May29","expires":"2026-06-20","note":"window expiring — decide within 2 sessions"},
-        {"ticker":"GOOGL","sold":"pre-May29","expires":"2026-06-20","note":"window expiring"},
-        {"ticker":"NU","sold":"2026-06-01","expires":"2026-07-01","re_entry":"$11.50-12.50"},
-        {"ticker":"CEG","sold":"2026-06-01","expires":"2026-07-01","re_entry":"$260-270"},
-        {"ticker":"AMD","sold":"2026-06-03","expires":"2026-07-03","re_entry":"$430-440","note":"CS82/MS88"},
-        {"ticker":"DRAM","sold":"2026-06-03","expires":"2026-07-03","re_entry":"$55-57","note":"18-20sh on dip"}
+        {
+          "ticker": "NBIS",
+          "sold": "pre-May29",
+          "expires": "2026-06-20",
+          "note": "window expiring — decide within 2 sessions"
+        },
+        {
+          "ticker": "GOOGL",
+          "sold": "pre-May29",
+          "expires": "2026-06-20",
+          "note": "window expiring"
+        },
+        {
+          "ticker": "NU",
+          "sold": "2026-06-01",
+          "expires": "2026-07-01",
+          "re_entry": "$11.50-12.50"
+        },
+        {
+          "ticker": "CEG",
+          "sold": "2026-06-01",
+          "expires": "2026-07-01",
+          "re_entry": "$260-270"
+        },
+        {
+          "ticker": "AMD",
+          "sold": "2026-06-03",
+          "expires": "2026-07-03",
+          "re_entry": "$430-440",
+          "note": "CS82/MS88"
+        },
+        {
+          "ticker": "DRAM",
+          "sold": "2026-06-03",
+          "expires": "2026-07-03",
+          "re_entry": "$55-57",
+          "note": "18-20sh on dip"
+        }
       ]
     },
     "canonical_tiers_named": {
-      "Foundation":["SPY","VOO"],"HighConviction":["NVDA","AMAT","ANET","MRVL","AVGO","APH","CRDO"],"Growth":["ORCL","NOW","MSFT"],"Infra":["APLD","KEEL"],"Energy":["CEG","ETN","EQT"],"Materials":["MP","LYSDY"],"Space":["RKLB","ASTS","MDA","LUNR","VOYG"]
+      "Foundation": [
+        "SPY",
+        "VOO"
+      ],
+      "HighConviction": [
+        "NVDA",
+        "AMAT",
+        "ANET",
+        "MRVL",
+        "AVGO",
+        "APH",
+        "CRDO"
+      ],
+      "Growth": [
+        "ORCL",
+        "NOW",
+        "MSFT"
+      ],
+      "Infra": [
+        "APLD",
+        "KEEL"
+      ],
+      "Energy": [
+        "CEG",
+        "ETN",
+        "EQT"
+      ],
+      "Materials": [
+        "MP",
+        "LYSDY"
+      ],
+      "Space": [
+        "RKLB",
+        "ASTS",
+        "MDA",
+        "LUNR",
+        "VOYG"
+      ]
     },
     "space_defense": {
       "names": [
-        {"ticker":"RKLB","name":"Rocket Lab","status":"active","pt":"$185-200","dip":"$130-138","thesis":"Defense book $1.3B. Space Force GEO $90M + HASTE $30M + Raytheon SBI. Neutron Q4'26. $3B ATM dilution risk."},
-        {"ticker":"ASTS","name":"AST SpaceMobile","status":"active","entry":"$115-120 starter / add >$125"},
-        {"ticker":"MDA","name":"MDA Space","status":"sold_flat","note":"sold 4sh @$44.80; add zone $38-42 if re-enter"},
-        {"ticker":"LUNR","name":"Intuitive Machines","status":"watch","dip":"$32-35"},
-        {"ticker":"VOYG","name":"Voyager Tech","status":"watch","dip":"$38-40"},
-        {"ticker":"SATL","name":"Satellogic","status":"radar","catalyst":"Oct Merlin launch"},
-        {"ticker":"RDW","name":"Redwire","status":"wait","entry":"$12-14"},
-        {"ticker":"KEEL","status":"deal_alert_trigger"},
-        {"ticker":"BKSY","status":"skip"}
+        {
+          "ticker": "RKLB",
+          "name": "Rocket Lab",
+          "status": "active",
+          "pt": "$185-200",
+          "dip": "$130-138",
+          "thesis": "Defense book $1.3B. Space Force GEO $90M + HASTE $30M + Raytheon SBI. Neutron Q4'26. $3B ATM dilution risk."
+        },
+        {
+          "ticker": "ASTS",
+          "name": "AST SpaceMobile",
+          "status": "active",
+          "entry": "$115-120 starter / add >$125"
+        },
+        {
+          "ticker": "MDA",
+          "name": "MDA Space",
+          "status": "sold_flat",
+          "note": "sold 4sh @$44.80; add zone $38-42 if re-enter"
+        },
+        {
+          "ticker": "LUNR",
+          "name": "Intuitive Machines",
+          "status": "watch",
+          "dip": "$32-35"
+        },
+        {
+          "ticker": "VOYG",
+          "name": "Voyager Tech",
+          "status": "watch",
+          "dip": "$38-40"
+        },
+        {
+          "ticker": "SATL",
+          "name": "Satellogic",
+          "status": "radar",
+          "catalyst": "Oct Merlin launch"
+        },
+        {
+          "ticker": "RDW",
+          "name": "Redwire",
+          "status": "wait",
+          "entry": "$12-14"
+        },
+        {
+          "ticker": "KEEL",
+          "status": "deal_alert_trigger"
+        },
+        {
+          "ticker": "BKSY",
+          "status": "skip"
+        }
       ],
-      "catalysts": {"SPCX_nasdaq_listing":"2026-06-12","SpaceX_IPO_window":"open"}
+      "catalysts": {
+        "SPCX_nasdaq_listing": "2026-06-12",
+        "SpaceX_IPO_window": "open"
+      }
     },
-    "adjacent_map": {"ETN":["BE","CMI","PWR"],"CEG":["BE","CMI","PWR"],"NVDA":["ALAB","CLS","MTSI"],"AMAT":["ALAB","CLS","MTSI"],"MRVL":["ALAB","CLS","MTSI"],"AVGO":["ALAB","CLS","MTSI"],"CRDO":["ALAB","CLS","MTSI"],"APLD":["CRWV","IREN","CORZ"],"IONQ":["QBTS","RGTI"]},
+    "adjacent_map": {
+      "ETN": [
+        "BE",
+        "CMI",
+        "PWR"
+      ],
+      "CEG": [
+        "BE",
+        "CMI",
+        "PWR"
+      ],
+      "NVDA": [
+        "ALAB",
+        "CLS",
+        "MTSI"
+      ],
+      "AMAT": [
+        "ALAB",
+        "CLS",
+        "MTSI"
+      ],
+      "MRVL": [
+        "ALAB",
+        "CLS",
+        "MTSI"
+      ],
+      "AVGO": [
+        "ALAB",
+        "CLS",
+        "MTSI"
+      ],
+      "CRDO": [
+        "ALAB",
+        "CLS",
+        "MTSI"
+      ],
+      "APLD": [
+        "CRWV",
+        "IREN",
+        "CORZ"
+      ],
+      "IONQ": [
+        "QBTS",
+        "RGTI"
+      ]
+    },
     "gameplan": {
-      "remaining_entries":[{"ticker":"MP","zone":"$60-63"},{"ticker":"EQT","zone":"$55-58","size":"$300-400"},{"ticker":"INFQ","zone":"<$14","size":"$200-300","type":"spec"},{"ticker":"DRAM","zone":"$55-57","size":"18-20sh","note":"re-entry, standing"}],
-      "conditional_entries":[{"ticker":"AMBA","zone":"TBD"},{"ticker":"AMAT","zone":"$420-425"},{"ticker":"IREN","zone":"$50-55"},{"ticker":"IONQ","zone":"$54-58"},{"ticker":"AMD","zone":"$430-440","note":"re-entry, monitor to Jul3"},{"ticker":"CRWV","zone":"$70-80"},{"ticker":"CLSK","zone":"$14-16"},{"ticker":"APLD","zone":"$40-43","note":"dip only"},{"ticker":"CEG","zone":"$260-270","note":"~Jul1"}],
-      "owned_adds":[{"ticker":"NOW","note":"undersized — best next dollar; ~$25 to PT $143"}]
-    }
+      "remaining_entries": [
+        {
+          "ticker": "MP",
+          "zone": "$60-63"
+        },
+        {
+          "ticker": "EQT",
+          "zone": "$55-58",
+          "size": "$300-400"
+        },
+        {
+          "ticker": "INFQ",
+          "zone": "<$14",
+          "size": "$200-300",
+          "type": "spec"
+        },
+        {
+          "ticker": "DRAM",
+          "zone": "$55-57",
+          "size": "18-20sh",
+          "note": "re-entry, standing"
+        }
+      ],
+      "conditional_entries": [
+        {
+          "ticker": "AMBA",
+          "zone": "TBD"
+        },
+        {
+          "ticker": "AMAT",
+          "zone": "$420-425"
+        },
+        {
+          "ticker": "IREN",
+          "zone": "$50-55"
+        },
+        {
+          "ticker": "IONQ",
+          "zone": "$54-58"
+        },
+        {
+          "ticker": "AMD",
+          "zone": "$430-440",
+          "note": "re-entry, monitor to Jul3"
+        },
+        {
+          "ticker": "CRWV",
+          "zone": "$70-80"
+        },
+        {
+          "ticker": "CLSK",
+          "zone": "$14-16"
+        },
+        {
+          "ticker": "APLD",
+          "zone": "$40-43",
+          "note": "dip only"
+        },
+        {
+          "ticker": "CEG",
+          "zone": "$260-270",
+          "note": "~Jul1"
+        }
+      ],
+      "owned_adds": [
+        {
+          "ticker": "NOW",
+          "note": "undersized — best next dollar; ~$25 to PT $143"
+        }
+      ]
+    },
+    "post_sell": [
+      {
+        "ticker": "DRAM",
+        "exit_date": "2026-06-03",
+        "exit_price": 68.71,
+        "realized_pnl": 105.0,
+        "reason": "recycle",
+        "reentry_zone": "$55-57",
+        "reentry_intent": "active",
+        "monitor_until": "2026-07-03",
+        "status": "monitoring"
+      },
+      {
+        "ticker": "MDA",
+        "exit_date": null,
+        "exit_price": 44.8,
+        "realized_pnl": 0.0,
+        "reason": "flat",
+        "reentry_zone": "$38",
+        "reentry_intent": "active",
+        "monitor_until": null,
+        "status": "monitoring",
+        "note": "sold_flat · space book"
+      },
+      {
+        "ticker": "AMD",
+        "exit_date": "2026-06-03",
+        "exit_price": 526.41,
+        "realized_pnl": 268.28,
+        "reason": "above-PT recycle",
+        "reentry_zone": "pullback TBD",
+        "reentry_intent": "watching",
+        "monitor_until": "2026-07-03",
+        "status": "monitoring"
+      },
+      {
+        "ticker": "HOOD",
+        "exit_date": "2026-05-15",
+        "exit_price": 78.05,
+        "realized_pnl": 289.36,
+        "reason": "tactical",
+        "reentry_zone": null,
+        "reentry_intent": "none",
+        "monitor_until": "2026-06-14",
+        "status": "monitoring"
+      },
+      {
+        "ticker": "MU",
+        "exit_date": "2026-05-18",
+        "exit_price": 724.8,
+        "realized_pnl": 176.5,
+        "reason": "tactical",
+        "reentry_zone": null,
+        "reentry_intent": "none",
+        "monitor_until": "2026-06-17",
+        "status": "monitoring"
+      },
+      {
+        "ticker": "CEG",
+        "exit_date": "2026-06-01",
+        "exit_price": 269.49,
+        "realized_pnl": -36.84,
+        "reason": "trim/loss",
+        "reentry_zone": null,
+        "reentry_intent": "none",
+        "monitor_until": "2026-07-01",
+        "status": "monitoring"
+      },
+      {
+        "ticker": "NU",
+        "exit_date": "2026-06-01",
+        "exit_price": 12.98,
+        "realized_pnl": -0.95,
+        "reason": "flat/cleanup",
+        "reentry_zone": null,
+        "reentry_intent": "none",
+        "monitor_until": "2026-07-01",
+        "status": "monitoring"
+      }
+    ]
   },
-
   "macro": {
     "as_of": "2026-06-05",
     "fed_funds": "3.50-3.75%",
@@ -256,7 +1795,6 @@
     "indexes_note": "Index levels via ETF proxies (SPY/QQQ/DIA/IWM single-quote); raw index + 10Y/VIX endpoints gated on Starter.",
     "refresh": "full refresh week of Jun16 (FOMC); add 10Y/2Y yields + DXY + WTI on next refresh"
   },
-
   "open_decisions": [
     "MRVL & APLD both >+40% — win reviews due (log, not trim) [Jun5 marks: MRVL +45.9%, APLD +46.5%]",
     "NVDA ~21% of NAV, over 20% ceiling (hold vs trim). Macro scenario: trim to 18-20% pre-FOMC to cut tail risk + free capital for AVGO",
@@ -264,7 +1802,6 @@
     "ORCL earnings Jun10 AC <7d — HOLD into print; confirm exact date vs IR; now also an AI-demand referendum post-selloff",
     "EOD-close measure ADOPTED Jun5 — backfill May29-Jun4 EOD closes to de-mix the curve if available"
   ],
-
   "session_handoff": {
     "session": "2026-06-05 (visual-standard session)",
     "summary": "VISUAL STANDARD v3.3 LOCKED (tokens + 8 components + library; canonical FINN_VISUAL_SYSTEM_v3_3.html; no bespoke CSS). Guide v1.1 rebuilt as onboarding front-door + registered. Fixed two stale STATE_INDEX tags (VISUAL_SYSTEM + SYSTEM_PROMPT wrongly 'pending'). Jun5 broker EOD close $28,555.66 logged; EOD-close measure adopted. Consolidated 10 data JSONs → this FINN_STATE.json. No trades.",
