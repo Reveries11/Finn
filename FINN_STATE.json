@@ -2,9 +2,9 @@
   "_meta": {
     "file": "FINN_STATE.json",
     "version": "1.0",
-    "rev": 5,
+    "rev": 6,
     "created": "2026-06-05",
-    "last_updated": "2026-06-08",
+    "last_updated": "2026-06-09",
     "purpose": "SINGLE consolidated state file — the canonical source of truth for all Finn portfolio data. Replaces the 10 separate JSONs (STATE_INDEX, POSITIONS_MASTER, WATCHLIST_MASTER, SCORES_SNAPSHOT, TRADE_LOG, NAV_HISTORY, MACRO_SNAPSHOT, THESIS_LEDGER, EARNINGS_CALENDAR, REVIEW_LOG). Structure files stay separate (SYSTEM_PROMPT.md, FINN_VISUAL_SYSTEM_v3_3.html, FINN_DASH_TEMPLATE_v3_2.html, FINN_SESSION_HANDOFF_TEMPLATE.md).",
     "read_first": "This file is the GMF read-first manifest. Anchors (below) are ground truth; every section + render must agree. memory = thin pointer + session deltas only.",
     "sections": [
@@ -49,20 +49,20 @@
     "last_trade_date": "2026-06-03",
     "scores_date": "2026-06-08",
     "scores_next_due": "2026-06-15",
-    "nav_last_eod_close": 28555.66,
-    "nav_last_eod_close_date": "2026-06-05",
+    "nav_last_eod_close": 29496.86,
+    "nav_last_eod_close_date": "2026-06-08",
     "nav_eod_close_captured": true,
     "nav_jun4_broker": 30636.78,
     "hwm": 32029.95,
     "hwm_date": "2026-06-03",
-    "drawdown_from_hwm_pct": -10.8,
-    "progress_to_50k_pct": 57.1,
-    "return_from_inception_pct": 3.8,
-    "nav_note": "Jun5 broker EOD close $28,555.66 (-6.8% vs Jun4, broad AI/semis selloff: AVGO unraised AI outlook + hot May jobs, 10Y 4.54%). EOD-close measure ADOPTED Jun5. No trades today."
+    "drawdown_from_hwm_pct": -7.9,
+    "progress_to_50k_pct": 59.0,
+    "return_from_inception_pct": 7.3,
+    "nav_note": "Jun8 broker EOD close $29,496.86 (+3.3% vs Jun5 $28,555.66) reconciled at Jun9 GMF -- Monday bounce; 2nd EOD-close point. Jun9 live intraday ~$28,841 (selloff resuming). $7.45 NVDA dividend posted (cash $16.62 to $24.05)."
   },
   "sync": {
     "protocol": "See SYSTEM_PROMPT §SYNC. Single-file model: track per-SECTION dirty flags here instead of per-file. GMF runs SYNC CHECK (anchors vs sections); GNF = one upload of this file + any touched structure file, then GNF UPLOAD VERIFICATION.",
-    "this_file_status": "rev5 — GNF close Jun8 (full-session handoff). Project=read-source; re-upload changed files to BOTH Project + GitHub.",
+    "this_file_status": "rev6 -- Jun9 mid-session: Jun8 EOD reconciled + cash/dividend update. Project=read-source; re-upload changed file to BOTH Project + GitHub.",
     "structure_files_separate": {
       "FINN_SYSTEM_PROMPT.md": "v3.1 (lean core + inlined skills + Phase 2 section + Jun8 corrections block)",
       "FINN_VISUAL_SYSTEM_v3_3.html": "v3.3 — master component library",
@@ -85,9 +85,9 @@
         "next_due": "2026-06-08"
       },
       "nav_history": {
-        "rev": 5,
-        "dirty": false,
-        "note": "Jun5 EOD logged"
+        "rev": 6,
+        "dirty": true,
+        "note": "Jun8 EOD $29,496.86 logged (2nd EOD-close point)"
       },
       "watchlist": {
         "rev": "2.0",
@@ -123,7 +123,8 @@
     "tracking_since": "2026-05-29",
     "realized_pnl_total": 2410.6,
     "capital_budget": "~$0 — fully deployed post-AVGO Jun3 add. Rebuilds as positions trim. Next dollar → NOW (undersized).",
-    "cash": 16.62
+    "cash": 24.05,
+    "cash_note": "Jun8 +$7.45 NVDA dividend (29.727 sh). Broker cash $24.05 (note: $16.62+$7.45=$24.07; 2-cent broker rounding). Dividend = income, NOT in realized $2,410.60."
   },
   "positions": [
     {
@@ -694,6 +695,14 @@
         "realized_pnl_cum": 2410.6,
         "verified": true,
         "note": "broker EOD close; -6.8% vs Jun4 / -10.8% off HWM; broad AI/semis selloff; FIRST EOD-close point"
+      },
+      {
+        "date": "2026-06-08",
+        "nav": 29496.86,
+        "type": "eod_close",
+        "realized_pnl_cum": 2410.6,
+        "verified": true,
+        "note": "broker EOD close; +3.3% vs Jun5 / -7.9% off HWM; Monday bounce. 2nd EOD-close point."
       }
     ]
   },
