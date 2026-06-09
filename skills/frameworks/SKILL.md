@@ -1,3 +1,8 @@
+---
+name: frameworks
+description: "Finn's decision frameworks for capital efficiency and exits. Use for any add/trim/sell/sizing decision, the exit / exit plan command, capital-allocation reviews, and the engine surface logic. Covers the capital-efficiency checklist (thesis intact, best use vs alternatives, sized to conviction), funding-source discipline (no add without naming what funds it), review triggers (trim >30% above PT, +40% WIN, -20% LOSS, risk floors, rebalance >25-35%), and the mechanical trim/sell-trigger model (per-ticker values read from FINN_STATE.json)."
+---
+
 <!-- skills/frameworks/SKILL.md — extracted from FINN_SYSTEM_PROMPT.md v3.0 (canonical inlined modules), 2026-06-06 -->
 
 # Capital Efficiency Rules

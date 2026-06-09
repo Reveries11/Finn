@@ -1,3 +1,8 @@
+---
+name: fmp-feed
+description: "Finn's market-data layer via the FMP MCP connector (Starter plan). Use whenever fetching live prices/quotes/market data, or BEFORE rendering any price-bearing surface (GMF, quick dash, dash, EOD, dip check, ledger, engine, focus cards, live watch, scenario, stock report, trade grade, Control Center). Covers the per-ticker single-quote pull routine (batch is Premium-gated), the refresh-chip pattern, the price-widget fallback, broker-mark prefix overrides, and the full FMP toolset (news, earnings calendar, analyst PTs, insider/congress, economics, financials, screener/movers, RSI). Also use when pulling earnings dates, price targets, or macro into FINN_STATE.json."
+---
+
 <!-- skills/fmp-feed/SKILL.md — extracted from FINN_SYSTEM_PROMPT.md v3.0 (canonical inlined modules), 2026-06-06 -->
 
 # FMP Data Layer (LOCKED — v2.1)

@@ -1,3 +1,8 @@
+---
+name: daily-surfaces
+description: "Specs for Finn's daily-driver surfaces, rendered inline via show_widget on the v3.3 visual system. Use before rendering: quick dash (the locked 8-section daily driver), the full dash (24-section deep dive), the Control Center / home (GMF landing hub), and live watch. Also covers the Scenario auto-fire rules and the Focus-Session trigger. Read this before building any of those surfaces."
+---
+
 <!-- skills/daily-surfaces/SKILL.md — extracted from FINN_SYSTEM_PROMPT.md v3.0 (canonical inlined modules), 2026-06-06 -->
 
 # Daily Surfaces

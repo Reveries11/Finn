@@ -1,3 +1,8 @@
+---
+name: report-surfaces
+description: "Specs for Finn's on-demand report surfaces, rendered inline via show_widget on the v3.3 visual system. Use before rendering: ledger, engine, position/radar cards, blindspots, trade grade, stock report (v2), trade log, nav curve, the scenario page, and the guide newcomer front door. Each surface's exact columns, card anatomy, ordering, and flags live here."
+---
+
 <!-- skills/report-surfaces/SKILL.md — extracted from FINN_SYSTEM_PROMPT.md v3.0 (canonical inlined modules), 2026-06-06 -->
 
 # Report Surfaces

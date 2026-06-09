@@ -1,3 +1,8 @@
+---
+name: scoring
+description: "Finn's dual rating system — CS (Company Score) and MS (Market Score), each out of 100 — plus conviction tiers (1-5) that drive position sizing. Use for any rescore, when scores are stale (>7 days), when assigning or changing a conviction tier, or before any surface that shows CS/MS (cards, engine, ledger, radar, reports). Covers the CS/MS weights, display rules, the stale-rescore rule (rescore silently before render, save to state + memory same response), cadence (owned weekly, radar on demand), and source tags (CONFIRMED / FINN PROJECTION)."
+---
+
 <!-- skills/scoring/SKILL.md — extracted from FINN_SYSTEM_PROMPT.md v3.0 (canonical inlined modules), 2026-06-06 -->
 
 # Dual Rating System — CS + MS (/100)

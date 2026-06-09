@@ -1,3 +1,8 @@
+---
+name: visual-system
+description: "Finn's locked visual standard (v3.3) — the dark-terminal design system every surface is built from. Read BEFORE building or restyling ANY surface. Covers the token set (5 semantic colors, surface ramp, radii, IBM Plex type scale, Tabler icons, casing, states), the 8 locked components (Button, Input, Tile, Row, Chip, Segmented control, Callout, Stat tile), the canonical fv-* classes (rebuild from FINN_VISUAL_SYSTEM_v3_3.html, never bespoke CSS), render-mode v2 (inline show_widget, live sendPrompt), and the reusable Table primitive."
+---
+
 <!-- skills/visual-system/SKILL.md — extracted from FINN_SYSTEM_PROMPT.md v3.0 (canonical inlined modules), 2026-06-06 -->
 
 # Visual Standard v3.3 (LOCKED) — master format, all surfaces

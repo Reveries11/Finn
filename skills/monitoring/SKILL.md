@@ -1,3 +1,8 @@
+---
+name: monitoring
+description: "Finn's monitoring and alerts layer. Use on every dashboard render and for any alert sweep — earnings-imminent (<7d), dip-zone, win/loss review (+40% / -20%), concentration (>25%), short interest, options flow, insider/congress activity. Also use for smart-money tracking (13F + congressional trades, named funds), adjacent-name monitoring by theme, post-sell 30-day re-entry windows, and the research sources hierarchy."
+---
+
 <!-- skills/monitoring/SKILL.md — extracted from FINN_SYSTEM_PROMPT.md v3.0 (canonical inlined modules), 2026-06-06 -->
 
 # Monitoring & Alerts

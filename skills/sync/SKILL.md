@@ -1,3 +1,8 @@
+---
+name: sync
+description: "Finn's state-file sync protocol — keeps FINN_STATE.json (the single canonical state file) and memory from drifting. Use at GMF (run the SYNC CHECK against the anchors before macro), at GNF (change-aware sync + upload verification), after any trade (FILE SYNC REQUIRED), and for the sync command. Covers the canonical anchors, per-section staleness rules, the change-aware upload list, and the GNF verification that audits both the Project and GitHub and holds the session open until both match."
+---
+
 <!-- skills/sync/SKILL.md — extracted from FINN_SYSTEM_PROMPT.md v3.0 (canonical inlined modules), 2026-06-06 -->
 
 # State File Sync Protocol (LOCKED — v2.0, single-file) + Git
