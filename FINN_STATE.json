@@ -2,7 +2,7 @@
   "_meta": {
     "file": "FINN_STATE.json",
     "version": "1.0",
-    "rev": 6,
+    "rev": 7,
     "created": "2026-06-05",
     "last_updated": "2026-06-09",
     "purpose": "SINGLE consolidated state file — the canonical source of truth for all Finn portfolio data. Replaces the 10 separate JSONs (STATE_INDEX, POSITIONS_MASTER, WATCHLIST_MASTER, SCORES_SNAPSHOT, TRADE_LOG, NAV_HISTORY, MACRO_SNAPSHOT, THESIS_LEDGER, EARNINGS_CALENDAR, REVIEW_LOG). Structure files stay separate (SYSTEM_PROMPT.md, FINN_VISUAL_SYSTEM_v3_3.html, FINN_DASH_TEMPLATE_v3_2.html, FINN_SESSION_HANDOFF_TEMPLATE.md).",
@@ -45,8 +45,8 @@
       "CRDO",
       "ORCL"
     ],
-    "net_realized_pnl": 2410.6,
-    "last_trade_date": "2026-06-03",
+    "net_realized_pnl": 2528.29,
+    "last_trade_date": "2026-06-09",
     "scores_date": "2026-06-08",
     "scores_next_due": "2026-06-15",
     "nav_last_eod_close": 29496.86,
@@ -62,7 +62,7 @@
   },
   "sync": {
     "protocol": "See SYSTEM_PROMPT §SYNC. Single-file model: track per-SECTION dirty flags here instead of per-file. GMF runs SYNC CHECK (anchors vs sections); GNF = one upload of this file + any touched structure file, then GNF UPLOAD VERIFICATION.",
-    "this_file_status": "rev6 -- Jun9 mid-session: Jun8 EOD reconciled + cash/dividend update. Project=read-source; re-upload changed file to BOTH Project + GitHub.",
+    "this_file_status": "rev7 -- Jun9 trade: NVDA -2 @ $206.27 (realized +$117.69) -> AVGO +1 @ $387.12 (half-starter). Re-upload to BOTH Project + GitHub.",
     "structure_files_separate": {
       "FINN_SYSTEM_PROMPT.md": "v3.1 (lean core + inlined skills + Phase 2 section + Jun8 corrections block)",
       "FINN_VISUAL_SYSTEM_v3_3.html": "v3.3 — master component library",
@@ -71,13 +71,13 @@
     },
     "sections": {
       "positions": {
-        "rev": "2.1",
-        "dirty": false
+        "rev": "2.2",
+        "dirty": true
       },
       "trades": {
-        "rev": "Jun5",
-        "dirty": false,
-        "note": "NVDA 05/26 +$129.73 confirmed; ORCL -$3.36 unreconciled"
+        "rev": "Jun9",
+        "dirty": true,
+        "note": "Jun9 NVDA trim +$117.69 logged; AVGO add (open, in positions)"
       },
       "scores": {
         "rev": "Jun3",
@@ -121,9 +121,9 @@
     "soft_floor": 20000,
     "concern_threshold": 15000,
     "tracking_since": "2026-05-29",
-    "realized_pnl_total": 2410.6,
-    "capital_budget": "~$0 — fully deployed post-AVGO Jun3 add. Rebuilds as positions trim. Next dollar → NOW (undersized).",
-    "cash": 24.05,
+    "realized_pnl_total": 2528.29,
+    "capital_budget": "~$49 cash after the Jun9 NVDA->AVGO rotation. ~Half the NVDA-funded add slot still dry for a better AVGO entry post-FOMC / QCOM.",
+    "cash": 49.47,
     "cash_note": "Jun8 +$7.45 NVDA dividend (29.727 sh). Broker cash $24.05 (note: $16.62+$7.45=$24.07; 2-cent broker rounding). Dividend = income, NOT in realized $2,410.60."
   },
   "positions": [
@@ -148,8 +148,8 @@
     {
       "ticker": "NVDA",
       "name": "NVIDIA Corp",
-      "shares": 29.727,
-      "cost_per_share": 154.17,
+      "shares": 27.727,
+      "cost_per_share": 154.66,
       "conviction": 5,
       "sector": "AI Semis",
       "cs": 88,
@@ -161,13 +161,13 @@
       "dip_zone_high": 210,
       "trim_trigger": 382,
       "sell_trigger": "capex cuts by hyperscalers",
-      "notes": "Anchor. ~21% of NAV — over 20% ceiling, don't add. Macro scenario flagged trimming to 18-20% pre-FOMC."
+      "notes": "Anchor. Trimmed 2 sh @ $206.27 Jun9 (realized +$117.69) to fund the AVGO half-starter -- pulled NVDA back toward the 20% ceiling. Don't add."
     },
     {
       "ticker": "AVGO",
       "name": "Broadcom",
-      "shares": 8,
-      "cost_per_share": 424.53,
+      "shares": 9,
+      "cost_per_share": 420.37,
       "conviction": 5,
       "sector": "AI Semis",
       "cs": 90,
@@ -188,6 +188,11 @@
           "shares": 1,
           "cost": 449.5,
           "date": "2026-06-02"
+        },
+        {
+          "shares": 1,
+          "cost": 387.12,
+          "date": "2026-06-09"
         }
       ],
       "pt_low": 463,
@@ -196,7 +201,7 @@
       "dip_zone_high": 420,
       "trim_trigger": 602,
       "sell_trigger": "ASIC pulled by hyperscalers",
-      "notes": "Highest CS in book. Jun5: below cost AND below dip zone — strongest add if capital frees. Left FY AI-chip outlook unchanged Jun3 print = the selloff spark."
+      "notes": "Highest CS in book. Jun9: added 1 sh @ $387.12 (half-starter into the dislocation, NVDA-funded); ~half the slot still dry for post-FOMC / QCOM Jun24. Below cost AND dip zone."
     },
     {
       "ticker": "ANET",
@@ -630,6 +635,16 @@
       "cost": 154.17,
       "realized_pnl": 60.84,
       "note": "sell derived from realized"
+    },
+    {
+      "date": "2026-06-09",
+      "ticker": "NVDA",
+      "action": "trim",
+      "shares": 2,
+      "avg_sell": 206.27,
+      "cost": 147.43,
+      "realized_pnl": 117.69,
+      "note": "funded AVGO half-starter; FIFO lot basis ~$147.43"
     }
   ],
   "unreconciled": [
@@ -648,8 +663,9 @@
     "Jun1": -37.79,
     "Jun2": 209.96,
     "Jun3": 433.99,
-    "total": 2410.6,
-    "note": "Excludes unreconciled ORCL -$3.36."
+    "total": 2528.29,
+    "note": "Excludes unreconciled ORCL -$3.36.",
+    "Jun9": 117.69
   },
   "nav_history": {
     "measure_note": "EOD-close measure ADOPTED Jun5. Legacy May29-Jun3 rows = intraday PEAK; Jun4 = current intraday; Jun5 onward = EOD close. De-mix by backfilling EOD closes if available.",
@@ -1872,8 +1888,8 @@
   },
   "open_decisions": [
     "MRVL & APLD both >+40% — win reviews due (log, not trim) [Jun5 marks: MRVL +45.9%, APLD +46.5%]",
-    "NVDA ~21% of NAV, over 20% ceiling (hold vs trim). Macro scenario: trim to 18-20% pre-FOMC to cut tail risk + free capital for AVGO",
-    "AVGO $393 below cost ($424.53) AND below dip zone $410-420 — strongest add if capital frees; PT $487/$582. Capital ~$0",
+    "NVDA trimmed 2 sh @ $206.27 Jun9 -> pulled back toward the 20% ceiling (~19-20%, recompute at next live render). Further trim capacity if a larger AVGO add is wanted.",
+    "AVGO half-starter executed Jun9: +1 sh @ $387.12 (now 9 sh @ ~$420.37 avg). ~Half the NVDA-funded slot still dry for a better entry post-FOMC (Jun16-17) / QCOM (Jun24). Still below cost + dip zone.",
     "ORCL earnings Jun10 AC <7d — HOLD into print; confirm exact date vs IR; now also an AI-demand referendum post-selloff",
     "EOD-close measure ADOPTED Jun5 — backfill May29-Jun4 EOD closes to de-mix the curve if available"
   ],
