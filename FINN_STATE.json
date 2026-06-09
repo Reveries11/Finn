@@ -2,9 +2,9 @@
   "_meta": {
     "file": "FINN_STATE.json",
     "version": "1.0",
-    "rev": 2,
+    "rev": 5,
     "created": "2026-06-05",
-    "last_updated": "2026-06-06",
+    "last_updated": "2026-06-08",
     "purpose": "SINGLE consolidated state file — the canonical source of truth for all Finn portfolio data. Replaces the 10 separate JSONs (STATE_INDEX, POSITIONS_MASTER, WATCHLIST_MASTER, SCORES_SNAPSHOT, TRADE_LOG, NAV_HISTORY, MACRO_SNAPSHOT, THESIS_LEDGER, EARNINGS_CALENDAR, REVIEW_LOG). Structure files stay separate (SYSTEM_PROMPT.md, FINN_VISUAL_SYSTEM_v3_3.html, FINN_DASH_TEMPLATE_v3_2.html, FINN_SESSION_HANDOFF_TEMPLATE.md).",
     "read_first": "This file is the GMF read-first manifest. Anchors (below) are ground truth; every section + render must agree. memory = thin pointer + session deltas only.",
     "sections": [
@@ -47,8 +47,8 @@
     ],
     "net_realized_pnl": 2410.6,
     "last_trade_date": "2026-06-03",
-    "scores_date": "2026-06-01",
-    "scores_next_due": "2026-06-08",
+    "scores_date": "2026-06-08",
+    "scores_next_due": "2026-06-15",
     "nav_last_eod_close": 28555.66,
     "nav_last_eod_close_date": "2026-06-05",
     "nav_eod_close_captured": true,
@@ -62,9 +62,9 @@
   },
   "sync": {
     "protocol": "See SYSTEM_PROMPT §SYNC. Single-file model: track per-SECTION dirty flags here instead of per-file. GMF runs SYNC CHECK (anchors vs sections); GNF = one upload of this file + any touched structure file, then GNF UPLOAD VERIFICATION.",
-    "this_file_status": "rev1 — NEW consolidated file. Upload to project; then DELETE the 10 superseded JSONs (anchors live here now).",
+    "this_file_status": "rev5 — GNF close Jun8 (full-session handoff). Project=read-source; re-upload changed files to BOTH Project + GitHub.",
     "structure_files_separate": {
-      "FINN_SYSTEM_PROMPT.md": "v2.5 (file-map → single state file; §SYNC per-section)",
+      "FINN_SYSTEM_PROMPT.md": "v3.1 (lean core + inlined skills + Phase 2 section + Jun8 corrections block)",
       "FINN_VISUAL_SYSTEM_v3_3.html": "v3.3 — master component library",
       "FINN_DASH_TEMPLATE_v3_2.html": "v3.2 — backfill to v3.3 (Track 1 P3)",
       "FINN_SESSION_HANDOFF_TEMPLATE.md": "v1.0"
@@ -134,8 +134,8 @@
       "conviction": 5,
       "sector": "Foundation",
       "cs": 84,
-      "ms": 79,
-      "scores_date": "2026-06-01",
+      "ms": 77,
+      "scores_date": "2026-06-08",
       "pt_low": null,
       "pt_high": null,
       "dip_zone_low": 650,
@@ -152,8 +152,8 @@
       "conviction": 5,
       "sector": "AI Semis",
       "cs": 88,
-      "ms": 82,
-      "scores_date": "2026-06-01",
+      "ms": 77,
+      "scores_date": "2026-06-08",
       "pt_low": 295,
       "pt_high": 295,
       "dip_zone_low": 200,
@@ -169,9 +169,9 @@
       "cost_per_share": 424.53,
       "conviction": 5,
       "sector": "AI Semis",
-      "cs": 91,
-      "ms": 85,
-      "scores_date": "2026-06-01",
+      "cs": 90,
+      "ms": 71,
+      "scores_date": "2026-06-08",
       "lots": [
         {
           "shares": 6,
@@ -205,8 +205,8 @@
       "conviction": 5,
       "sector": "AI Infra/Networking",
       "cs": 87,
-      "ms": 80,
-      "scores_date": "2026-06-01",
+      "ms": 75,
+      "scores_date": "2026-06-08",
       "pt_low": 187,
       "pt_high": 187,
       "dip_zone_low": 140,
@@ -223,8 +223,8 @@
       "conviction": 4,
       "sector": "AI Semis",
       "cs": 87,
-      "ms": 83,
-      "scores_date": "2026-06-01",
+      "ms": 81,
+      "scores_date": "2026-06-08",
       "pt_low": 500,
       "pt_high": 575,
       "dip_zone_low": 420,
@@ -241,8 +241,8 @@
       "conviction": 4,
       "sector": "Power/Energy",
       "cs": 83,
-      "ms": 76,
-      "scores_date": "2026-06-01",
+      "ms": 72,
+      "scores_date": "2026-06-08",
       "pt_low": 464,
       "pt_high": 464,
       "dip_zone_low": 395,
@@ -259,8 +259,8 @@
       "conviction": 4,
       "sector": "AI Infra/Networking",
       "cs": 88,
-      "ms": 86,
-      "scores_date": "2026-06-01",
+      "ms": 79,
+      "scores_date": "2026-06-08",
       "lots": [
         {
           "shares": 4,
@@ -300,8 +300,8 @@
       "conviction": 4,
       "sector": "AI Infra/Networking",
       "cs": 63,
-      "ms": 77,
-      "scores_date": "2026-06-01",
+      "ms": 74,
+      "scores_date": "2026-06-08",
       "pt_low": 58,
       "pt_high": 97,
       "dip_zone_low": 40,
@@ -318,8 +318,8 @@
       "conviction": 4,
       "sector": "AI Semis",
       "cs": 84,
-      "ms": 90,
-      "scores_date": "2026-06-01",
+      "ms": 81,
+      "scores_date": "2026-06-08",
       "pt_low": 340,
       "pt_high": 400,
       "dip_zone_low": 205,
@@ -336,8 +336,8 @@
       "conviction": 4,
       "sector": "AI Software",
       "cs": 83,
-      "ms": 76,
-      "scores_date": "2026-06-01",
+      "ms": 71,
+      "scores_date": "2026-06-08",
       "pt_low": 143,
       "pt_high": 236,
       "dip_zone_low": 115,
@@ -354,8 +354,8 @@
       "conviction": 4,
       "sector": "AI Semis",
       "cs": 83,
-      "ms": 85,
-      "scores_date": "2026-06-03",
+      "ms": 82,
+      "scores_date": "2026-06-08",
       "lots": [
         {
           "shares": 1,
@@ -395,8 +395,8 @@
       "conviction": 3,
       "sector": "AI Software",
       "cs": 76,
-      "ms": 70,
-      "scores_date": "2026-06-01",
+      "ms": 66,
+      "scores_date": "2026-06-08",
       "pt_low": 261,
       "pt_high": 261,
       "dip_zone_low": 185,
@@ -702,10 +702,10 @@
     "rescore_schedule": {
       "owned": "weekly",
       "radar": "on_demand",
-      "next_due": "2026-06-08",
+      "next_due": "2026-06-15",
       "overdue": false
     },
-    "current_note": "Live CS/MS per owned name live in `positions` (scores_date Jun1; CRDO Jun3). History archived below.",
+    "current_note": "Live CS/MS per owned name live in `positions` (scores_date Jun8). History archived below.",
     "history": [
       {
         "date": "2026-05-27",
@@ -877,6 +877,72 @@
             "tk": "CRDO",
             "cs": 83,
             "ms": 85
+          }
+        ]
+      },
+      {
+        "date": "2026-06-08",
+        "note": "Weekly rescore. CS held across the book (theses intact through a macro/price selloff — AVGO -1 only); MS cooled book-wide after the Jun5 selloff, hardest AVGO/MRVL/APH. No conviction-tier changes.",
+        "scores": [
+          {
+            "tk": "VOO",
+            "cs": 84,
+            "ms": 77
+          },
+          {
+            "tk": "NVDA",
+            "cs": 88,
+            "ms": 77
+          },
+          {
+            "tk": "AVGO",
+            "cs": 90,
+            "ms": 71
+          },
+          {
+            "tk": "ANET",
+            "cs": 87,
+            "ms": 75
+          },
+          {
+            "tk": "AMAT",
+            "cs": 87,
+            "ms": 81
+          },
+          {
+            "tk": "ETN",
+            "cs": 83,
+            "ms": 72
+          },
+          {
+            "tk": "APH",
+            "cs": 88,
+            "ms": 79
+          },
+          {
+            "tk": "APLD",
+            "cs": 63,
+            "ms": 74
+          },
+          {
+            "tk": "MRVL",
+            "cs": 84,
+            "ms": 81
+          },
+          {
+            "tk": "NOW",
+            "cs": 83,
+            "ms": 71
+          },
+          {
+            "tk": "CRDO",
+            "cs": 83,
+            "ms": 82
+          },
+          {
+            "tk": "ORCL",
+            "cs": 76,
+            "ms": 66
           }
         ]
       }
@@ -1803,13 +1869,14 @@
     "EOD-close measure ADOPTED Jun5 — backfill May29-Jun4 EOD closes to de-mix the curve if available"
   ],
   "session_handoff": {
-    "session": "2026-06-05 (visual-standard session)",
-    "summary": "VISUAL STANDARD v3.3 LOCKED (tokens + 8 components + library; canonical FINN_VISUAL_SYSTEM_v3_3.html; no bespoke CSS). Guide v1.1 rebuilt as onboarding front-door + registered. Fixed two stale STATE_INDEX tags (VISUAL_SYSTEM + SYSTEM_PROMPT wrongly 'pending'). Jun5 broker EOD close $28,555.66 logged; EOD-close measure adopted. Consolidated 10 data JSONs → this FINN_STATE.json. No trades.",
+    "session": "2026-06-08 (full session — re-sync, audit, rescore, surfaces, design prep)",
+    "summary": "Big infrastructure session, NO trades. (1) Full monolith-vs-skills audit: every surface + behavioral spec INTACT — nothing abbreviated in the v3.0 refactor; the recurring drift was render-from-memory + Project-lagging-GitHub. (2) Re-synced the Project (FINN_STATE.json rev5 + FINN_SYSTEM_PROMPT.md v3.2). (3) Jun8 weekly rescore — CS held across the book, MS cooled post Jun5 selloff (no tier changes). (4) Rebuilt quick dash + Control Center + guide to their locked specs. (5) LOCKED Jun8: QD Focus Cards = rich §13 card (PT + Add Zone + rec badge, conviction→CS), full content at every column count, 4/3/2 grid; GMF renders the Control Center live-on-render (cockpit artifact demoted to design ref); Project is the read-source (re-upload to both, git=backup); Control Center jump chips = priced (price · day% · zone dot). (6) Added YAML frontmatter to all 8 skills (Phase-3 auto-load). (7) Reconstructed FINN_CLAUDE_DESIGN_BRIEF.md + FINN_ROADMAP.md. NEXT = Claude Design (Phase 2) per the brief → Phase 3 Next.js. Live NAV ~$29,631 intraday (~2pm Jun8, +3.8%); Jun5 EOD anchor $28,555.66; Jun8 EOD close to be broker-reconciled at next GMF.",
     "next_agenda": [
-      "Data Spec (Track 2) — location-by-location, FIELDS/SOURCE/REFRESH/LOGIC; start home status strip",
-      "Visual Library (Track 1) — P1 Panel/Chrome/Table, pulled in as surfaced",
-      "v3.3 Phase 3 backfill — home/dash/guide/scenario (lowercase-mono command labels, control radius 8, one-primary-per-view)",
-      "ORCL Jun10 print (hold) · rescore Jun8 · MRVL+APLD win reviews · FOMC Jun16-17"
+      "Claude Design (Phase 2) — new canvas: paste FINN_CLAUDE_DESIGN_BRIEF.md + attach v3.3 / cockpit / state + tab screenshots; order home→positions→ledger→watchlist→trades→earnings→scenario → export",
+      "Phase 3 — Next.js via Claude Code from the design export (live prices solved server-side)",
+      "Reconcile Jun8 EOD close (broker-confirmed) at next GMF",
+      "ORCL Q4 print Wed Jun10 AC — hold into print; scenario auto-fires",
+      "MRVL + APLD win reviews open (log, don't trim); FOMC Jun16-17"
     ]
   }
 }
