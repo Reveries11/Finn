@@ -2,7 +2,7 @@
   "_meta": {
     "file": "FINN_STATE.json",
     "version": "1.0",
-    "rev": 7,
+    "rev": 14,
     "created": "2026-06-05",
     "last_updated": "2026-06-09",
     "purpose": "SINGLE consolidated state file — the canonical source of truth for all Finn portfolio data. Replaces the 10 separate JSONs (STATE_INDEX, POSITIONS_MASTER, WATCHLIST_MASTER, SCORES_SNAPSHOT, TRADE_LOG, NAV_HISTORY, MACRO_SNAPSHOT, THESIS_LEDGER, EARNINGS_CALENDAR, REVIEW_LOG). Structure files stay separate (SYSTEM_PROMPT.md, FINN_VISUAL_SYSTEM_v3_3.html, FINN_DASH_TEMPLATE_v3_2.html, FINN_SESSION_HANDOFF_TEMPLATE.md).",
@@ -62,7 +62,7 @@
   },
   "sync": {
     "protocol": "See SYSTEM_PROMPT §SYNC. Single-file model: track per-SECTION dirty flags here instead of per-file. GMF runs SYNC CHECK (anchors vs sections); GNF = one upload of this file + any touched structure file, then GNF UPLOAD VERIFICATION.",
-    "this_file_status": "rev7 -- Jun9 trade: NVDA -2 @ $206.27 (realized +$117.69) -> AVGO +1 @ $387.12 (half-starter). Re-upload to BOTH Project + GitHub.",
+    "this_file_status": "rev14 -- Jun9 GNF: session handoff written. FULL A1-A6 + trade + Jun8 reconcile. Re-upload to BOTH Project + GitHub (read-source still on rev7 until uploaded).",
     "structure_files_separate": {
       "FINN_SYSTEM_PROMPT.md": "v3.1 (lean core + inlined skills + Phase 2 section + Jun8 corrections block)",
       "FINN_VISUAL_SYSTEM_v3_3.html": "v3.3 — master component library",
@@ -108,9 +108,49 @@
         "note": "APLD win review OPEN"
       },
       "macro": {
-        "rev": "Jun3+jobs",
-        "dirty": false,
-        "note": "full refresh week of Jun16 (FOMC)"
+        "rev": 12,
+        "dirty": true,
+        "note": "A5: market_structure + macro_sensitivity added"
+      },
+      "calls_log": {
+        "rev": 8,
+        "dirty": true,
+        "note": "A1: 3 seeded calls (AVGO ADD executed, ANET WATCH, ORCL HOLD)"
+      },
+      "news_watch": {
+        "rev": 9,
+        "dirty": true,
+        "note": "A2: read-through map + scan list"
+      },
+      "last_scan": {
+        "rev": 9,
+        "dirty": true,
+        "note": "A2: Jun9 baseline (5 items)"
+      },
+      "clusters": {
+        "rev": 10,
+        "dirty": true,
+        "note": "A3: 6 theme clusters"
+      },
+      "risk": {
+        "rev": 10,
+        "dirty": true,
+        "note": "A3: concentration + correlation + beta + stress tests"
+      },
+      "fundamentals": {
+        "rev": 11,
+        "dirty": true,
+        "note": "A4: AVGO+APLD seeded; rest on refresh"
+      },
+      "catalysts": {
+        "rev": 13,
+        "dirty": true,
+        "note": "A6: 15-event forward calendar"
+      },
+      "session_handoff": {
+        "rev": 14,
+        "dirty": true,
+        "note": "Jun9 GNF handoff"
       }
     }
   },
@@ -1884,7 +1924,69 @@
     "cut_odds_jun": "~28-36% (~70% hold)",
     "may_jobs": "+172k vs ~88k est (HOT, printed Jun5) — unemployment 4.3%; spiked 10Y to 4.54% (2wk high), rate-hike fears",
     "indexes_note": "Index levels via ETF proxies (SPY/QQQ/DIA/IWM single-quote); raw index + 10Y/VIX endpoints gated on Starter.",
-    "refresh": "full refresh week of Jun16 (FOMC); add 10Y/2Y yields + DXY + WTI on next refresh"
+    "refresh": "full refresh week of Jun16 (FOMC); add 10Y/2Y yields + DXY + WTI on next refresh",
+    "market_structure": {
+      "as_of": "2026-06-09 ~2pm ET",
+      "spy_day_pct": -1.3,
+      "qqq_day_pct": -1.15,
+      "vix": 19.87,
+      "vix_chg_pct": 5.0,
+      "vix_read": "~20, +5% -- mildly elevated, not panic (52wk 13-35; 50d avg 18.8)",
+      "hy_credit": "HYG +0.1% -- calm, no risk-off (credit unbothered)",
+      "breadth": "narrow: QQQ -1.15% ~ SPY, so broad tech held; the hit is concentrated in custom-silicon (-5 to -13%). Formal A/D + %>200dma = refinement.",
+      "verdict": "SECTOR-SPECIFIC, NOT SYSTEMIC -- index mild, Nasdaq not leading down, credit calm, VIX contained. The custom-silicon trade is unwinding; the market isn't breaking."
+    },
+    "macro_sensitivity": {
+      "rates_up_10y": {
+        "hit_hardest": [
+          "NOW",
+          "ORCL",
+          "APLD",
+          "MRVL",
+          "CRDO",
+          "AVGO"
+        ],
+        "insulated": [
+          "VOO",
+          "ETN",
+          "APH"
+        ],
+        "why": "long-duration / high-multiple growth derates most as the discount rate rises"
+      },
+      "ai_capex_pause": {
+        "hit_hardest": [
+          "NVDA",
+          "AVGO",
+          "MRVL",
+          "ANET",
+          "CRDO",
+          "AMAT",
+          "APLD"
+        ],
+        "insulated": [
+          "VOO",
+          "NOW",
+          "ORCL"
+        ],
+        "why": "~71% of the book is AI-semis & hardware; a hyperscaler capex slowdown hits the whole cluster"
+      },
+      "risk_off_broad": {
+        "hit_hardest": [
+          "MRVL",
+          "AVGO",
+          "APLD",
+          "NOW"
+        ],
+        "insulated": [
+          "VOO"
+        ],
+        "why": "portfolio beta ~1.4-1.6 amplifies broad drawdowns"
+      },
+      "fomc_jun16_17": {
+        "watch": "hawkish dot plot / no-cut -> rates_up_10y path -> the high-multiple growth names; AI-semis already fragile on sentiment",
+        "note": "the near-term dated macro event"
+      }
+    }
   },
   "open_decisions": [
     "MRVL & APLD both >+40% — win reviews due (log, not trim) [Jun5 marks: MRVL +45.9%, APLD +46.5%]",
@@ -1894,14 +1996,539 @@
     "EOD-close measure ADOPTED Jun5 — backfill May29-Jun4 EOD closes to de-mix the curve if available"
   ],
   "session_handoff": {
-    "session": "2026-06-08 (full session — re-sync, audit, rescore, surfaces, design prep)",
-    "summary": "Big infrastructure session, NO trades. (1) Full monolith-vs-skills audit: every surface + behavioral spec INTACT — nothing abbreviated in the v3.0 refactor; the recurring drift was render-from-memory + Project-lagging-GitHub. (2) Re-synced the Project (FINN_STATE.json rev5 + FINN_SYSTEM_PROMPT.md v3.2). (3) Jun8 weekly rescore — CS held across the book, MS cooled post Jun5 selloff (no tier changes). (4) Rebuilt quick dash + Control Center + guide to their locked specs. (5) LOCKED Jun8: QD Focus Cards = rich §13 card (PT + Add Zone + rec badge, conviction→CS), full content at every column count, 4/3/2 grid; GMF renders the Control Center live-on-render (cockpit artifact demoted to design ref); Project is the read-source (re-upload to both, git=backup); Control Center jump chips = priced (price · day% · zone dot). (6) Added YAML frontmatter to all 8 skills (Phase-3 auto-load). (7) Reconstructed FINN_CLAUDE_DESIGN_BRIEF.md + FINN_ROADMAP.md. NEXT = Claude Design (Phase 2) per the brief → Phase 3 Next.js. Live NAV ~$29,631 intraday (~2pm Jun8, +3.8%); Jun5 EOD anchor $28,555.66; Jun8 EOD close to be broker-reconciled at next GMF.",
+    "date": "2026-06-09",
+    "summary": "Major build session. (1) Executed the NVDA->AVGO rotation: trimmed 2 NVDA @ $206.27 (+$117.69 realized) -> added 1 AVGO @ $387.12 (half-starter); realized now $2,528.29, NVDA back under the 20% ceiling. (2) Reconciled Jun8 EOD close $29,496.86. (3) Built the full A1-A6 intelligence layer (prompt v3.3->v3.9, 6 new skills, +8 state sections): A1 rec contract (calls_log, DATA/READ/TAKE), A2 news engine (news_watch+last_scan), A3 risk layer (clusters+risk+stress), A4 fundamentals (AVGO/APLD seeded), A5 market structure + macro linkage, A6 catalyst calendar. (4) Pruned/updated 7 stale memory edits. (5) Claude Design Phase 2: brief v1->v2->v3 (now visual-agnostic); reviewed 6 builds -> the full 28-surface 'Command Deck' system (Space Grotesk + JetBrains Mono; mint/coral/gold; the Observatory orbital map). Created FINN_ROADMAP.md.",
+    "nav_note": "Jun9 live NAV ~$28.6-28.8K intraday (down ~3% on the day, custom-silicon selloff). Jun9 EOD close to be broker-reconciled at next GMF (same as the Jun8 pattern). Last confirmed EOD = Jun8 $29,496.86.",
+    "open_items": [
+      "ORCL Q4 prints Jun10 AC + CPI (May, est 4.2% YoY) same day -- hold ORCL into print",
+      "AVGO: half the NVDA-funded slot still dry for a better entry post-FOMC (Jun16-17) / QCOM Investor Day (Jun24)",
+      "ANET: WATCH -- add ~5 sh on a dip to $140-145 (tagged $145.37 today)",
+      "APLD win review still open (+49%)",
+      "Roadmap: A7 calibration log (start logging) + Phase 3 / Track B backend pending",
+      "Claude Design depth pass queued (msg sent): deepen Position detail (News/Fundamentals tabs), Scenario (A1 inline + stress + related rail + what-if), Home interactions; tweaks = dip-check zone colors, exit sort toggle, NAV-curve hover, green/mint split. OPEN DECISION: does Command Deck replace v3.3 as the render standard?"
+    ],
     "next_agenda": [
-      "Claude Design (Phase 2) — new canvas: paste FINN_CLAUDE_DESIGN_BRIEF.md + attach v3.3 / cockpit / state + tab screenshots; order home→positions→ledger→watchlist→trades→earnings→scenario → export",
-      "Phase 3 — Next.js via Claude Code from the design export (live prices solved server-side)",
-      "Reconcile Jun8 EOD close (broker-confirmed) at next GMF",
-      "ORCL Q4 print Wed Jun10 AC — hold into print; scenario auto-fires",
-      "MRVL + APLD win reviews open (log, don't trim); FOMC Jun16-17"
-    ]
+      "Reconcile Jun9 EOD close (broker-confirmed)",
+      "ORCL + CPI Jun10 reaction",
+      "Confirm the A1-A6 upload landed (read-source should = rev14 + prompt v3.9 + 6 skills)",
+      "Phase 2 Claude Design depth pass + start the A7 calibration log"
+    ],
+    "uploads_pending": "rev14 + prompt v3.9 + 6 new skills + brief v3 + roadmap -> BOTH Project + GitHub (this GNF manifest)."
+  },
+  "calls_log": [
+    {
+      "id": "call_20260609_AVGO_1",
+      "date": "2026-06-09",
+      "ticker": "AVGO",
+      "call": "ADD",
+      "size": "half-starter (+1 sh @ $387.12)",
+      "confidence": 70,
+      "tier": "MEDIUM",
+      "basis": "FINN PROJECTION",
+      "price_at_call": 387.12,
+      "drivers": [
+        "[DATA] $382 below cost ($420.37 avg) and the $410-420 dip zone; street PT $400-582 entirely above spot, 51 Buy / 0 Sell (FMP, Jun9)",
+        "[DATA] $35B Anthropic custom-chip + networking deal, Apollo/Blackstone-financed (Reuters/Barron's, Jun9)",
+        "[READ] Selling on the ByteDance-Qualcomm custom-silicon sentiment, not AVGO fundamentals -- a dislocation, not a thesis break",
+        "[TAKE] Highest-CS name (90); worth a partial add funded by trimming over-ceiling NVDA"
+      ],
+      "assumption": "No hyperscaler pulls ASIC in-house and the Anthropic deal scales as announced",
+      "flip": "QCOM Investor Day (Jun24) or a hyperscaler showing real custom-silicon share loss; a Broadcom design-win loss",
+      "risk": "Adds to custom-silicon concentration; FOMC (Jun16-17) macro risk to the whole complex",
+      "status": "executed",
+      "outcome": null
+    },
+    {
+      "id": "call_20260609_ANET_1",
+      "date": "2026-06-09",
+      "ticker": "ANET",
+      "call": "WATCH",
+      "size": "add ~5 sh on a dip to $140-145",
+      "confidence": 72,
+      "tier": "MEDIUM",
+      "basis": "FINN PROJECTION",
+      "price_at_call": 149.09,
+      "drivers": [
+        "[DATA] $149, above the $140-145 add zone; street PT $164-200 entirely above spot, 39 Buy / 0 Sell (FMP, Jun9)",
+        "[DATA] Launched a 1.6T AI-fabric product + twice-raised FY guidance (Business Wire/SA, Jun9)",
+        "[READ] Quality conviction-5 name selling on sector sentiment; the dip is the opportunity, not a warning",
+        "[TAKE] Don't chase at $149 (above zone, no-DCA); set the alert at $140-145"
+      ],
+      "assumption": "Ethernet keeps winning the AI back-end vs Infiniband/whitebox",
+      "flip": "Loses a major hyperscaler to Infiniband/whitebox at scale; AVGO networking takes share",
+      "risk": "AI-capex pessimism / hawkish FOMC pressures the multiple before it reaches the zone",
+      "status": "open",
+      "outcome": null
+    },
+    {
+      "id": "call_20260609_ORCL_1",
+      "date": "2026-06-09",
+      "ticker": "ORCL",
+      "call": "HOLD",
+      "size": "into the Jun10 print",
+      "confidence": 80,
+      "tier": "HIGH",
+      "basis": "CONFIRMED",
+      "price_at_call": 201.62,
+      "drivers": [
+        "[DATA] Reports Jun10 after close (<7d); 3 of last 4 quarters beat (FMP, Jun9)",
+        "[READ] Binary event with two-sided risk -- no edge in trading ahead of it",
+        "[TAKE] Hold into the print; reassess on the reaction"
+      ],
+      "assumption": "Position size is appropriate to carry the event risk",
+      "flip": "The print itself resets the call (guide / OCI growth / margins)",
+      "risk": "A guide miss or capex/margin disappointment gaps it down",
+      "status": "open",
+      "outcome": null
+    }
+  ],
+  "news_watch": {
+    "scan_each_session": [
+      "holdings news",
+      "read_through tickers",
+      "regulatory_themes",
+      "macro_calendar",
+      "smart_money filings"
+    ],
+    "read_through_map": {
+      "NVDA": [
+        "AMD",
+        "AVGO",
+        "MRVL",
+        "TSM"
+      ],
+      "AVGO": [
+        "QCOM",
+        "MRVL",
+        "ANET"
+      ],
+      "MRVL": [
+        "QCOM",
+        "AVGO",
+        "ALAB",
+        "CRDO"
+      ],
+      "ANET": [
+        "AVGO",
+        "CSCO",
+        "NVDA"
+      ],
+      "CRDO": [
+        "MRVL",
+        "AVGO",
+        "ALAB",
+        "MTSI"
+      ],
+      "AMAT": [
+        "LRCX",
+        "KLAC",
+        "ASML",
+        "TSM"
+      ],
+      "ETN": [
+        "BE",
+        "CMI",
+        "PWR",
+        "VRT"
+      ],
+      "APH": [
+        "TEL",
+        "GLW"
+      ],
+      "APLD": [
+        "CRWV",
+        "IREN",
+        "CORZ",
+        "NBIS"
+      ],
+      "NOW": [
+        "CRM",
+        "MSFT",
+        "PLTR"
+      ],
+      "ORCL": [
+        "MSFT",
+        "GOOGL",
+        "AMZN",
+        "SNOW"
+      ],
+      "VOO": [
+        "macro/breadth"
+      ]
+    },
+    "regulatory_themes": [
+      "AI chip export controls (China)",
+      "big-tech/cloud antitrust",
+      "data-center power & permitting",
+      "tariffs/trade",
+      "AI regulation"
+    ],
+    "macro_feeds": [
+      "FOMC",
+      "CPI/PCE",
+      "jobs",
+      "10Y yield",
+      "GDP"
+    ],
+    "smart_money": [
+      "13F filings",
+      "congress: Druckenmiller, Tepper, Tiger Global, TCI, Coatue, Point72"
+    ],
+    "note": "Extends watchlist.adjacent_map. The engine scans these every GMF/dash, classifies + materiality-scores for the book, and diffs vs last_scan. Spec: skills/news-engine."
+  },
+  "last_scan": {
+    "date": "2026-06-09",
+    "items": [
+      {
+        "id": "ns_20260609_1",
+        "headline": "ByteDance-Qualcomm custom-AI-silicon (ASIC) deal",
+        "class": "competitive",
+        "tickers": [
+          "MRVL",
+          "AVGO",
+          "CRDO"
+        ],
+        "materiality": "HIGH",
+        "net": "bearish (sentiment); change call? no -- theses intact",
+        "source": "Yahoo/24-7, Jun9"
+      },
+      {
+        "id": "ns_20260609_2",
+        "headline": "AVGO + Anthropic $35B custom-chip + networking buildout",
+        "class": "commercial",
+        "tickers": [
+          "AVGO"
+        ],
+        "materiality": "HIGH",
+        "net": "bullish; supports AVGO ADD",
+        "source": "Reuters/Barron's, Jun9"
+      },
+      {
+        "id": "ns_20260609_3",
+        "headline": "ORCL Q4 prints tomorrow AC",
+        "class": "earnings",
+        "tickers": [
+          "ORCL"
+        ],
+        "materiality": "HIGH",
+        "net": "binary; HOLD into print",
+        "source": "FMP/BofA/SA, Jun9"
+      },
+      {
+        "id": "ns_20260609_4",
+        "headline": "MRVL added to S&P 500 (eff Jun22)",
+        "class": "structural",
+        "tickers": [
+          "MRVL"
+        ],
+        "materiality": "MED",
+        "net": "bullish (forced buying)",
+        "source": "Yahoo/24-7, Jun9"
+      },
+      {
+        "id": "ns_20260609_5",
+        "headline": "ANET launches 1.6T AI-fabric + twice-raised FY guide",
+        "class": "product/guidance",
+        "tickers": [
+          "ANET"
+        ],
+        "materiality": "MED",
+        "net": "bullish; thesis-supportive",
+        "source": "Business Wire/SA, Jun9"
+      }
+    ],
+    "note": "Baseline scan under A2; next session diffs against this."
+  },
+  "clusters": {
+    "ai_compute_silicon": {
+      "tickers": [
+        "NVDA",
+        "AVGO",
+        "MRVL"
+      ],
+      "pct": 36.9,
+      "note": "GPU + custom ASIC"
+    },
+    "ai_networking_connectivity": {
+      "tickers": [
+        "ANET",
+        "CRDO",
+        "APH"
+      ],
+      "pct": 23.8,
+      "note": "Ethernet + AEC/optical + connectors"
+    },
+    "ai_infra_power": {
+      "tickers": [
+        "APLD",
+        "ETN"
+      ],
+      "pct": 11.7,
+      "note": "neocloud/DC + power/electrical"
+    },
+    "semicap_wfe": {
+      "tickers": [
+        "AMAT"
+      ],
+      "pct": 10.1,
+      "note": "wafer-fab equipment"
+    },
+    "broad_index": {
+      "tickers": [
+        "VOO"
+      ],
+      "pct": 9.4,
+      "note": "foundation"
+    },
+    "software_cloud": {
+      "tickers": [
+        "NOW",
+        "ORCL"
+      ],
+      "pct": 7.9,
+      "note": "enterprise AI software + cloud"
+    }
+  },
+  "risk": {
+    "as_of": "2026-06-09 (session feed ~1:40 ET)",
+    "nav_est": 28610,
+    "limits": {
+      "single_name_cap_pct": 20,
+      "soft_floor": 20000,
+      "concern_threshold": 15000
+    },
+    "concentration": {
+      "top_name": {
+        "ticker": "NVDA",
+        "pct": 19.6,
+        "note": "just under ceiling post Jun9 trim"
+      },
+      "top3_pct": 41.7,
+      "top5_pct": 60.0,
+      "ai_semis_supercluster_pct": 70.8,
+      "ai_buildout_theme_pct": 82
+    },
+    "correlation_read": "High intra-cluster: AI-silicon + networking moved together today (MRVL -13/AVGO -5/ANET -5/ORCL -5 vs VOO -1.3, APH +2.9). Effective independent bets ~3-4, not 12. Formal correlation matrix = refinement (needs price-history pulls).",
+    "beta_est": "~1.4-1.6 (high-beta growth; exact = per-name beta pull, pending)",
+    "drawdown_from_hwm_pct": -10.7,
+    "soft_floor_cushion_pct": 30.1,
+    "stress_tests": {
+      "ai_semis_-10pct": {
+        "nav_impact_pct": -7.1,
+        "nav_after": 26580
+      },
+      "broad_-10pct_at_beta1.5": {
+        "nav_impact_pct": -15,
+        "nav_after": 24300
+      },
+      "ai_derate_-20pct": {
+        "nav_impact_pct": -16,
+        "nav_after": 23900
+      }
+    },
+    "headline": "Per-name looks diversified (only NVDA >12%), but the THEME view shows one concentrated bet: ~71% AI-semis & hardware, ~82% the AI buildout. Today proved it -- the names bled together because they are one bet.",
+    "note": "Risk audit every session (mirrors the zone audit). Spec: skills/risk."
+  },
+  "fundamentals": {
+    "refresh": "weekly + at earnings (FMP metrics-ratios-ttm + income-statement-growth; annual on Starter, quarterly Premium). Seeded AVGO+APLD Jun9; rest populate on refresh.",
+    "AVGO": {
+      "as_of": "2026-06-09",
+      "fy": "FY2025",
+      "rev_growth_yoy": 23.9,
+      "gross_margin": 67.0,
+      "op_margin": 43.7,
+      "net_margin": 38.8,
+      "ebitda_growth_yoy": 45.4,
+      "ni_growth_yoy": 292,
+      "fcf_margin_est": 44,
+      "fcf_per_share": 6.9,
+      "share_dilution_yoy": 1.9,
+      "debt_to_equity": 0.74,
+      "interest_coverage": 11.0,
+      "net_debt": "low (debt/mktcap 3.5%)",
+      "pe_ttm": 63.5,
+      "ev_ebitda": 45.5,
+      "ps": 24.6,
+      "peg_ttm": 0.5,
+      "peg_fwd": 0.93,
+      "valuation_read": "rich absolute (P/E 63, EV/EBITDA 46) but PEG ~0.5-0.9 -> growth-justified",
+      "cs": 90,
+      "cs_support": "CONFIRMS CS 90 -- elite margins + operating leverage (+45% EBITDA on +24% rev) + ~44% FCF margin + clean balance sheet + minimal dilution; the multiple is the only caution"
+    },
+    "APLD": {
+      "as_of": "2026-06-09",
+      "fy": "FY2025",
+      "rev_growth_yoy": 57.7,
+      "gross_margin": 27.1,
+      "op_margin": -25.0,
+      "net_margin": -52.4,
+      "ebitda_margin": -11.1,
+      "fcf_per_share": -6.67,
+      "share_dilution_yoy": 76,
+      "debt_to_equity": 1.79,
+      "interest_coverage": -2.9,
+      "net_debt": "meaningful (debt/mktcap 23%)",
+      "pe_ttm": -61,
+      "ev_ebitda": "n/m (neg EBITDA)",
+      "ps": 33.7,
+      "peg_fwd": 0.95,
+      "valuation_read": "P/S 34 on losses; no earnings/FCF to anchor -- prices in a big turnaround",
+      "cs": 63,
+      "cs_support": "JUSTIFIES the capped CS 63 -- fast top-line (+58%) but unprofitable (-52% net margin), cash-burning (-$6.67/sh FCF), levered (D/E 1.8, can't cover interest), +76% share dilution. A buildout story, not a compounder."
+    }
+  },
+  "catalysts": {
+    "as_of": "2026-06-09",
+    "next": "CPI (May) + ORCL earnings -- both Jun 10 (tomorrow)",
+    "calendar": [
+      {
+        "date": "2026-06-10",
+        "event": "CPI (May)",
+        "type": "macro",
+        "impact": "high",
+        "tickers": [
+          "macro"
+        ],
+        "note": "YoY est 4.2% (hot, vs 3.8%); Core 2.9% -- hawkish risk into FOMC"
+      },
+      {
+        "date": "2026-06-10",
+        "event": "ORCL Q4 earnings (AC)",
+        "type": "earnings",
+        "impact": "high",
+        "tickers": [
+          "ORCL"
+        ],
+        "note": "HOLD into print; watch OCI / RPO / margins"
+      },
+      {
+        "date": "2026-06-11",
+        "event": "PPI (May)",
+        "type": "macro",
+        "impact": "med",
+        "tickers": [
+          "macro"
+        ]
+      },
+      {
+        "date": "2026-06-16",
+        "event": "FOMC begins",
+        "type": "macro",
+        "impact": "high",
+        "tickers": [
+          "macro"
+        ]
+      },
+      {
+        "date": "2026-06-17",
+        "event": "FOMC decision + dot plot + Powell",
+        "type": "macro",
+        "impact": "high",
+        "tickers": [
+          "macro"
+        ],
+        "note": "est hold 3.75%; the regime test -> rates path -> high-multiple names"
+      },
+      {
+        "date": "2026-06-20",
+        "event": "NBIS + GOOGL post-sell windows expire",
+        "type": "decision",
+        "impact": "med",
+        "tickers": [
+          "NBIS",
+          "GOOGL"
+        ]
+      },
+      {
+        "date": "2026-06-22",
+        "event": "MRVL added to S&P 500",
+        "type": "structural",
+        "impact": "med",
+        "tickers": [
+          "MRVL"
+        ],
+        "note": "forced index buying"
+      },
+      {
+        "date": "2026-06-24",
+        "event": "QCOM Investor Day",
+        "type": "competitive",
+        "impact": "high",
+        "tickers": [
+          "MRVL",
+          "AVGO",
+          "CRDO"
+        ],
+        "note": "custom-silicon read-through; ByteDance-ASIC follow-up"
+      },
+      {
+        "date": "2026-06-25",
+        "event": "PCE (May)",
+        "type": "macro",
+        "impact": "med",
+        "tickers": [
+          "macro"
+        ],
+        "note": "Fed's preferred gauge"
+      },
+      {
+        "date": "2026-07-01",
+        "event": "CEG re-entry zone ~ + ISM Mfg",
+        "type": "watchlist",
+        "impact": "med",
+        "tickers": [
+          "CEG"
+        ]
+      },
+      {
+        "date": "2026-07-02",
+        "event": "Jobs (Jun NFP)",
+        "type": "macro",
+        "impact": "high",
+        "tickers": [
+          "macro"
+        ],
+        "note": "est +70k vs 172k; unemp est 4.5%"
+      },
+      {
+        "date": "2026-07-03",
+        "event": "AMD re-entry watch",
+        "type": "watchlist",
+        "impact": "med",
+        "tickers": [
+          "AMD"
+        ]
+      },
+      {
+        "date": "2026-07-08",
+        "event": "FOMC minutes",
+        "type": "macro",
+        "impact": "med",
+        "tickers": [
+          "macro"
+        ]
+      },
+      {
+        "date": "2026-07-14",
+        "event": "CPI (Jun)",
+        "type": "macro",
+        "impact": "high",
+        "tickers": [
+          "macro"
+        ]
+      },
+      {
+        "date": "2026-08-04",
+        "event": "ANET earnings",
+        "type": "earnings",
+        "impact": "high",
+        "tickers": [
+          "ANET"
+        ],
+        "note": "owned cluster resumes: then MRVL Aug27, CRDO Sep2, AVGO Sep3"
+      }
+    ],
+    "auto_fire": "scenario auto-fires for owned names <7d (ORCL now); a major catalyst (FOMC, QCOM Investor Day, MRVL S&P add) also fires the relevant scenario/risk read.",
+    "note": "Web-source macro dates ~monthly; confirm earnings vs IR as names enter <7d. Spec: skills/catalysts."
   }
 }

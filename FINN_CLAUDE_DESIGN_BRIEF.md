@@ -1,64 +1,87 @@
-# Finn — Claude Design Brief
-<!-- Paste this as the FIRST message in a new Claude Design canvas. Then attach the 4 files listed under "What you're handed," and say: "start with home." Reconstructed + updated 2026-06-08. -->
+# FINN — CLAUDE DESIGN BRIEF (v3 · visual-system-agnostic)
+<!-- Phase 2 of the Finn frontend. Paste into a Claude Design canvas.
+     v3 (2026-06-09): the VISUAL SYSTEM IS INTENTIONALLY LEFT OPEN — Design defines the look.
+     This brief specifies WHAT to build (surfaces + the intelligence layer + data + behavior), not the styling.
+     Covers the full system incl. A1–A6. Supersedes v1/v2. -->
 
-## What Finn is
-Finn is a persistent portfolio-intelligence **cockpit** for an active retail investor concentrated in AI-infrastructure and semiconductor equities (portfolio ~$30K, milestones $50K → $100K). It tracks positions, scores every name (CS/MS, /100), surfaces decisions, and renders as a **dark-terminal** interface. You (Claude Design) are starting from a **fresh context** — you don't know Finn, its visual system, or its current build. This brief plus the four attached files bring you fully up to speed.
+## 0 · HOW TO USE THIS
+**Goal:** design the complete Finn frontend in Claude Design — *your* visual language — then **export → Phase 3 (Claude Code, Next.js)**.
 
-## Your job — and what NOT to do
-**Improve and pressure-test the *settled* design** — layout, hierarchy, information density, polish, micro-interactions — **surface by surface**, staying faithful to the v3.3 visual language.
-- **DO:** tighten hierarchy, fix alignment/spacing, raise scannability + legibility, propose sharper micro-interactions, and **flag weak spots honestly.**
-- **DON'T:** redesign from scratch, invent a new aesthetic, or re-spec *what data* each surface shows — the data spec is locked.
-- The output **seeds the Phase 3 Next.js build**, so think "production frontend," not concept art.
+**Attach alongside this brief:** `FINN_STATE.json` rev13 (the data shape + real values to populate with) and any screenshots of your current build to iterate on. **Do NOT anchor to a prior visual system** — the look is yours to define here.
 
-## The design language — v3.3 (see `FINN_VISUAL_SYSTEM_v3_3.html`)
-Dark terminal. Build from the canonical `fv-*` classes — **never bespoke CSS.**
-- **Color (5 roles + 12–14% dim):** violet `#8B7CF6` = action / conviction 5 · info `#5FAEF2` = conviction 4 · warn `#E5A93C` = caution / conviction 3 · pos `#46D17F` = gain · neg `#FB6F6F` = loss · teal `#5EE6D0` = market score (MS).
-- **Surface ramp:** bg `#090B0F` / bg2 `#0D1015` / panel `#12161D` / panel2 `#161B23` / elev `#1C222B` / line `#242A34`–`#323945` / ink `#E8EBEF`–`#646C77`. **Always dark, never transparent.** Radial violet glow, top-right.
-- **Radius:** chip 6 · control 8 · card 10 · panel 14.
-- **Type:** IBM Plex Sans (labels) + IBM Plex Mono (ALL numbers / tickers / commands / tags, tabular-nums). Scale: display 25 · value 17 · title 14 · body 12.5 · label 11 · micro 10 · nano 8.5. Weights 400 / 600 / 700.
-- **Icons:** Tabler outline, stroke 1.75.
-- **Casing:** section titles UPPER mono · command tokens lowercase mono · tickers UPPER mono · CTAs sentence sans.
-- **States:** hover = acc border + accdim bg (.15s); **LIFT (−2px) on tiles only**; active = accdim + acc border + acc2 text; input focus = acc border + 3px ring.
-- **8 locked components:** Button (primary / secondary / tertiary / status-pill) · Input (recessed field + Go + live suggestion dropdown) · Tile (icon-above-label, the only component that lifts) · Row (icon-box + body + trailing slot) · Chip (conviction-tinted, optional trailing value) · Segmented control (single-select, sticky) · Callout (chip / banner / box; color = severity) · Stat tile (hero / progress / delta).
+**Build order — one slice at a time:**
+Market Brief → Home → Positions (+ detail) → the intelligence surfaces (News, Risk, Macro, Scenario, Fundamentals) → Ledger / Trades / Engine / NAV curve → Planning (Gameplan, Catalyst Calendar, Weekly, Watchlist, Exit) → System (Guide, Reports). **Build one data-dense surface early (Ledger or Risk) to pressure-test the aesthetic on utilitarian content, not just the marquee views.**
 
-## Hard constraints (do not break)
-- **Price integrity:** nothing price-dependent renders without a live source — **blank beats wrong.** Price cells show `—` until the feed fires.
-- **Live prices** come from the FMP feed (per-ticker), not the UI fetching itself. **NAV is broker-confirmed, never estimated.**
-- **Interaction:** in the app every interactive element is a *semantic action* (Next.js = router push / API call). The design just needs to express each interaction clearly.
+---
 
-## The surfaces — design in this order
-7-tab nav: **home · positions · watchlist · ledger · trades · earnings · scenario**. `guide` lives in the **chrome** (tertiary, beside home / GMF) — not a tab. `reviews` is **not a tab** — it auto-fires in the home action queue when due (+40% / −20%).
+## 1 · WHAT FINN IS
+A persistent portfolio-**intelligence** co-pilot (not a dashboard) for an active, concentrated AI-infrastructure portfolio (~$28K → $50K → $100K). The differentiator is the reasoning layer (§4), not the tables.
 
-**1. home / Control Center** — the hub. Chrome (breadcrumb + home / GMF / guide + sync pill) · **5-tile status strip** (NAV · →$50K · Realized · Scores · Next earn; feed-driven, never hardcoded) · **Action Queue** ("⚡ needs attention" rows: status emoji + bold implication + one-line detail + CTA) · **command bar** ("jump anywhere" + suggestion dropdown) · **jump-to-position chips** — conviction-tinted, each showing **live price + day% + a zone dot** (green = at/below dip → add · amber = near PT/ceiling → watch · red = earnings <7d · grey = mid) — with a sticky **route toggle** (live watch / report / scenario / news) · **fired-today** callout · **5-row flight deck** · **categorized tiles** (Portfolio / Analysis / Planning / System). *Pressure-test:* does the eye land on what needs action first? Strip vs queue vs chips hierarchy.
+---
 
-**2. positions** — conviction-tiered **focus-card grid** (C5 = 4col / C4 = 3col / C3 = 2col; market-value desc within tier). Each card: ticker + name · price + cost + P&L% · CONV / CS / MS pills · **rec badge (ADD / HOLD / TRIM, highlighted)** · 2-line note (bold verdict + context) · **Price Target + Add-Zone boxes** · cost→PT progress bar · inline flags (WIN / DIP / EARN). **Cards carry full content at every column count — never drop fields to fit the grid.** Tap = **hybrid:** card → position detail (hosts scenario / news / live-watch). *Pressure-test:* card density at 4-col, rec-badge prominence, the progress bar's read.
+## 2 · LOOK & FEEL (open — only the non-negotiables)
+The visual system is yours to design. The only hard, *functional* principles:
+- **Numbers / tickers / prices are always monospace + tabular** (they must align and never reflow).
+- **Price integrity:** any price-bearing cell renders a placeholder (`—`) until the live feed fills it — never show an estimated price.
+- **Conviction is a first-class visual signal:** positions are tiered (C5 / C4 / C3) and every scored item carries **CS + MS** (0–100); use one consistent encoding for tier throughout.
+- **Lead with intelligence:** the reasoning (§4) is the hero; tables serve it.
+- Beyond these, the aesthetic — palette, layout metaphors, motion, signature views (e.g. an orbital portfolio map, an editorial brief) — is open. One caution: if a single hue is both your brand accent *and* your "gain/up" color, keep them distinguishable.
 
-**3. ledger** — the reusable **TABLE PRIMITIVE**: Ticker | Conv | Shares | Cost/sh | Price | P&L% | P&L$ | Mkt val | Wt% | CS | MS | Flags. Grouped by tier, sortable headers, row → detail. Trades / PT view / impact view all inherit this table.
+---
 
-**4. watchlist** — radar-first (T1 / T2 / watch ladder leads; thematic map secondary). In-zone signal = price vs entry zone. **Post-sell monitor:** auto-add on every exit, 30-day window → archive; two groups — active re-entry (zone + in-zone signal) vs monitor-only.
+## 3 · INTERACTION + STATE MODEL
+- **Semantic actions, bound per target:** every control is an *intent* — in chat = `sendPrompt`, in a prototype = local state, in Next.js = router/API. Design the intent.
+- **States, every surface:** skeleton → pulling → ready · partial-feed (per item) · feed-down (manual entry) · empty.
+- Tap-throughs: a position → its detail (scenario / news / fundamentals / live watch).
 
-**5. trades** — the Table primitive, **flat + chronological (oldest→newest, not sortable)** + realized-P&L tiles. The one fully file-driven surface (no live feed).
+---
 
-**6. earnings** — owned-name **earnings calendar:** dates, days-out, EPS / rev estimates, last-quarter beat history; imminent (<7d) flagged. Drives the home "Next earn" tile + the scenario auto-fire.
+## 4 · THE INTELLIGENCE LAYER (A1–A6) — the hero
+**Market Brief — the standing lead block (Home, Quick Dash, Full Dash).** Seven rows: **The Tape** (market structure) · **The Book** (key finding) · **News** (classified) · **Calls** (1–3 recs, contract format) · **Watching** (catalysts) · **Also** · **TL;DR** (one-liner).
 
-**7. scenario** — the **most synthesized** surface: bull / base / bear + probability + position-$ impact by case + verdict + monitoring checklist. Auto-fires on earnings <7d · major catalyst · PT breach · decision fork. The convergence point the other surfaces route into.
+**A1 · Recommendation Contract — a FORMAT used wherever a call appears** (Scenario, Brief Calls, position rec, alerts). Every ADD/HOLD/TRIM/WATCH shows: **CALL + size · CONFIDENCE nn/100 (band) · basis** → drivers tagged **DATA** (sourced) / **READ** (inference) / **TAKE** (judgment) → **ASSUMPTION · FLIP · RISK.** Compact view = the head; full contract on tap.
 
-## What you're handed (4 files)
-- **`FINN_CLAUDE_DESIGN_BRIEF.md`** — this brief (the alignment prompt; paste first).
-- **`FINN_VISUAL_SYSTEM_v3_3.html`** — the canonical design system (tokens + 8 components + showcase). Match this aesthetic exactly.
-- **`finn_cockpit.jsx`** — the current design, all surfaces built. This is what you're *improving on*, not replacing.
-- **`FINN_STATE.json`** — real portfolio data (positions, scores, watchlist, trades) to populate the surfaces.
+**A2 · News Intelligence.** Classified (earnings/guidance/M&A/regulatory/rating/competitive/macro) + **materiality-scored for the book** (HIGH/MED/LOW) + **read-through** (a rival's news → a held name) + net-assessment (bull/bear + *does it move the call*) + a **"what changed since last session"** diff. Rank by what moves the book; don't dump headlines.
 
-*(Recommended: also bring a **screenshot of each cockpit tab** — Claude Design may not render the `.jsx` cleanly, and a screenshot shows exactly what you're improving.)*
+**A3 · Portfolio Risk / Allocation.** Single-name %, top-3/5, **theme-cluster %** (the key view — the book is ~71% AI-semis even though no name tops 20%), correlation read, beta, soft-floor proximity, and **portfolio stress tests** (AI-semis −10%, broad −10%, AI-derate −20%).
 
-## Session flow
-1. Paste this brief; attach the four files (+ screenshots).
-2. Say **"start with home."**
-3. Per surface: you propose improvements + flag weaknesses → user reacts / iterates → **lock the surface** → next.
-4. Order: **home → positions → ledger → watchlist → trades → earnings → scenario.**
-5. Export the locked designs to code.
+**A4 · Fundamentals + Valuation.** Per-position revenue growth, margins, FCF, debt, dilution + P/E, EV/EBITDA, PEG vs the name's own range — a panel on the position detail; the basis for the CS score.
 
-## Handoff back (into Phase 3)
-- Improved designs + a short **"what changed and why" note per surface.**
-- The export becomes the scaffold the **Phase 3 Next.js** build starts from.
-- Anything genuinely better also gets folded back into `finn_cockpit.jsx` + the specs, so the two don't drift.
+**A5 · Market Structure + Macro.** Tape health (SPY/QQQ, VIX, HY credit, breadth → **systemic vs sector-specific**) + **macro→position linkage** (a rate spike hits NOW/ORCL/MRVL; an AI-capex pause hits the ~71% cluster).
+
+**A6 · Forward Catalyst Calendar.** One dated view — earnings + macro (CPI/PPI/PCE/jobs/FOMC) + conferences (investor days) + index adds + lockups + post-sell expiries. Drives scenario auto-fire + the Watching row + a "next catalyst" tile.
+
+---
+
+## 5 · THE SURFACES (full inventory)
+
+**Cockpit / daily**
+- **Home** — the hub: status strip (NAV · →$50K · Realized · Scores · Next catalyst) → **Action Queue** (recommended actions, A1 format) → command bar (jump anywhere) → jump-to-position chips (priced, conviction-tinted) → fired-today → flight deck (top-5) → category tiles.
+- **Quick Dash** — daily driver: Market Brief → snapshot → alerts → focus cards → engine → gameplan → radar → flex → launcher.
+- **Full Dash** — the deep multi-section view.
+
+**Portfolio**
+- **Positions** — conviction-tiered card grid; card = ticker/name, price/cost, P&L, CS/MS, **rec badge**, **PT box**, **dip-zone box**, progress bar, flags. → **Position detail** (scenario · news · fundamentals · live watch).
+- **Ledger** — the sortable, tiered table. **Engine** — capital efficiency (CS + MS per name + rationale). **NAV Curve** — equity curve vs milestones. **Trades** — chronological + realized tiles.
+
+**Analysis**
+- **Scenario** (bull/base/bear + $ impact + **portfolio stress** + verdict + monitoring) · **Risk/Allocation** (A3) · **News** (A2) · **Macro/Market Structure** (A5) · **Fundamentals** (A4) · **Dip Check** (owned vs dip zones + RSI) · **Smart Money** (13F + congress) · **Reviews** (win/loss) · **Rescore** (CS/MS) · **Blindspots** (contrarian self-check).
+
+**Planning**
+- **Gameplan** (active vs conditional entries + capital budget) · **Exit** (per-position triggers) · **Catalyst Calendar** (A6) · **Weekly Overview** · **Watchlist** (radar T1/T2 + post-sell monitor).
+
+**System**
+- **Guide** (newcomer front door) · **Reports / Finn Export** · **Sync** (state status).
+
+---
+
+## 6 · DATA SHAPE
+One canonical `FINN_STATE.json` (rev13). Sections: `anchors` · `portfolio` · `positions` (+ cost, conviction, cs/ms, pt, dip zone, triggers, lots) · `fmp_targets` · `fundamentals` (A4) · `trades` · `nav_history` · `scores` · `thesis` · `earnings` · `catalysts` (A6) · `reviews` · `watchlist` · `clusters` + `risk` (A3) · `macro` (+ `market_structure` + `macro_sensitivity`, A5) · `news_watch` + `last_scan` (A2) · `calls_log` (A1) · `open_decisions`. **Live prices come from the FMP feed, not the file.**
+
+---
+
+## 7 · GUARDRAILS
+- Numbers always monospace/tabular; price cells blank until the feed fills them.
+- Primary nav = `home · positions · watchlist · ledger · trades · earnings · scenario`; everything else reachable from the Home category tiles + the command bar.
+- Conviction tiers encoded consistently everywhere.
+- Lead with the **intelligence layer** (§4) — it's the point. The visual language is otherwise yours.
