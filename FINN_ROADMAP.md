@@ -1,6 +1,9 @@
 # FINN — INTELLIGENCE & CAPABILITY ROADMAP
 <!-- Companion to capabilities.md. Created 2026-06-09. The build plan beyond the current frontend phase. -->
 
+> **Companion to `FINN_FRONTEND_ROADMAP.md`** (the Design → Phase 3 frontend/ship plan). This file = the *brain*; that one = the *body*. The "Phase 3 backend" below is the **same Next.js deploy** that roadmap builds.
+> **STATUS (Jun 10):** Track A (**A1–A6**) is **BUILT ✅** — prompt v3.9, state rev15. A7 = start logging now. Track B remains Phase-3-gated.
+
 ## 0 · THE CONSTRAINT THAT SHAPES THIS ROADMAP
 Finn-in-chat is **pull-based** — it acts only when messaged. It cannot watch the market, scan news, or alert between sessions. The roadmap therefore splits in two:
 
@@ -53,7 +56,7 @@ Log every dated call + its confidence + a benchmark NAV-vs-SPY/QQQ mark. Pure da
 
 ### TRACK B — backend (Phase 3-gated)
 
-**B1 · Persistent automated state** — ends the manual two-place re-upload (the drift risk). *Foundational; unblocks B2/B3/B4.*
+**B1 · Persistent automated state** — ends the manual two-place re-upload (the drift risk). *Foundational; unblocks B2/B3/B4.* *(= **D2** in `FINN_FRONTEND_ROADMAP.md`.)*
 
 **B2 · Performance attribution / score calibration** — alpha vs SPY/QQQ, win rate, avg win/loss, and **do high-CS names outperform low-CS names**. Runs on A7's log. Makes the scoring falsifiable.
 
@@ -69,7 +72,7 @@ Log every dated call + its confidence + a benchmark NAV-vs-SPY/QQQ mark. Pure da
 
 ## 3 · SEQUENCED ROADMAP
 
-**Phase 2.5 — in-session intelligence (now, parallel with the Claude Design work):**
+**Phase 2.5 — in-session intelligence — ✅ A1–A6 DONE (Jun 9); A7 = start logging now:**
 1. **A1** Recommendation transparency (cheapest, highest trust-per-effort)
 2. **A2** News-intelligence engine (the headline upgrade)
 3. **A3** Portfolio risk layer
@@ -78,7 +81,7 @@ Log every dated call + its confidence + a benchmark NAV-vs-SPY/QQQ mark. Pure da
 6. **A5** Market structure + macro linkage
 7. **A6** Catalyst calendar
 
-**Phase 3 — backend (after the Next.js deploy):**
+**Phase 3 — backend (runs on the Next.js service built in `FINN_FRONTEND_ROADMAP.md`):**
 1. **B1** Persistent automated state *(do first — unblocks the rest)*
 2. **B2** Performance attribution + **B3** continuous monitoring / alerts
 3. **B4** Multi-portfolio / export decoupling

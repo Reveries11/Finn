@@ -2,10 +2,10 @@
   "_meta": {
     "file": "FINN_STATE.json",
     "version": "1.0",
-    "rev": 14,
+    "rev": 16,
     "created": "2026-06-05",
-    "last_updated": "2026-06-09",
-    "purpose": "SINGLE consolidated state file — the canonical source of truth for all Finn portfolio data. Replaces the 10 separate JSONs (STATE_INDEX, POSITIONS_MASTER, WATCHLIST_MASTER, SCORES_SNAPSHOT, TRADE_LOG, NAV_HISTORY, MACRO_SNAPSHOT, THESIS_LEDGER, EARNINGS_CALENDAR, REVIEW_LOG). Structure files stay separate (SYSTEM_PROMPT.md, FINN_VISUAL_SYSTEM_v3_3.html, FINN_DASH_TEMPLATE_v3_2.html, FINN_SESSION_HANDOFF_TEMPLATE.md).",
+    "last_updated": "2026-06-10",
+    "purpose": "SINGLE consolidated state file \u2014 the canonical source of truth for all Finn portfolio data. Replaces the 10 separate JSONs (STATE_INDEX, POSITIONS_MASTER, WATCHLIST_MASTER, SCORES_SNAPSHOT, TRADE_LOG, NAV_HISTORY, MACRO_SNAPSHOT, THESIS_LEDGER, EARNINGS_CALENDAR, REVIEW_LOG). Structure files stay separate (SYSTEM_PROMPT.md, FINN_VISUAL_SYSTEM_v3_3.html, FINN_DASH_TEMPLATE_v3_2.html, FINN_SESSION_HANDOFF_TEMPLATE.md).",
     "read_first": "This file is the GMF read-first manifest. Anchors (below) are ground truth; every section + render must agree. memory = thin pointer + session deltas only.",
     "sections": [
       "anchors",
@@ -49,24 +49,24 @@
     "last_trade_date": "2026-06-09",
     "scores_date": "2026-06-08",
     "scores_next_due": "2026-06-15",
-    "nav_last_eod_close": 29496.86,
-    "nav_last_eod_close_date": "2026-06-08",
+    "nav_last_eod_close": 29465.69,
+    "nav_last_eod_close_date": "2026-06-09",
     "nav_eod_close_captured": true,
     "nav_jun4_broker": 30636.78,
     "hwm": 32029.95,
     "hwm_date": "2026-06-03",
-    "drawdown_from_hwm_pct": -7.9,
-    "progress_to_50k_pct": 59.0,
-    "return_from_inception_pct": 7.3,
-    "nav_note": "Jun8 broker EOD close $29,496.86 (+3.3% vs Jun5 $28,555.66) reconciled at Jun9 GMF -- Monday bounce; 2nd EOD-close point. Jun9 live intraday ~$28,841 (selloff resuming). $7.45 NVDA dividend posted (cash $16.62 to $24.05)."
+    "drawdown_from_hwm_pct": -8.0,
+    "progress_to_50k_pct": 58.9,
+    "return_from_inception_pct": 7.1,
+    "nav_note": "Jun9 broker EOD close $29,465.69 confirmed + reconciled at Jun10 GMF -- -0.11% vs Jun8 (flat); intraday dipped ~$28.6K then recovered into the close. 3rd EOD-close point (Jun5 28,555.66 -> Jun8 29,496.86 -> Jun9 29,465.69). Jun10 live ~$29,774 (+1.0% vs Jun9 close). Sector rotation, not systemic."
   },
   "sync": {
-    "protocol": "See SYSTEM_PROMPT §SYNC. Single-file model: track per-SECTION dirty flags here instead of per-file. GMF runs SYNC CHECK (anchors vs sections); GNF = one upload of this file + any touched structure file, then GNF UPLOAD VERIFICATION.",
-    "this_file_status": "rev14 -- Jun9 GNF: session handoff written. FULL A1-A6 + trade + Jun8 reconcile. Re-upload to BOTH Project + GitHub (read-source still on rev7 until uploaded).",
+    "protocol": "See SYSTEM_PROMPT \u00a7SYNC. Single-file model: track per-SECTION dirty flags here instead of per-file. GMF runs SYNC CHECK (anchors vs sections); GNF = one upload of this file + any touched structure file, then GNF UPLOAD VERIFICATION.",
+    "this_file_status": "rev16 -- Jun10 GNF: ORCL Q4 actuals + HOLD outcome (A7) + CPI confirmed + session_handoff. Re-upload to BOTH Project + GitHub.",
     "structure_files_separate": {
       "FINN_SYSTEM_PROMPT.md": "v3.1 (lean core + inlined skills + Phase 2 section + Jun8 corrections block)",
-      "FINN_VISUAL_SYSTEM_v3_3.html": "v3.3 — master component library",
-      "FINN_DASH_TEMPLATE_v3_2.html": "v3.2 — backfill to v3.3 (Track 1 P3)",
+      "FINN_VISUAL_SYSTEM_v3_3.html": "v3.3 \u2014 master component library",
+      "FINN_DASH_TEMPLATE_v3_2.html": "v3.2 \u2014 backfill to v3.3 (Track 1 P3)",
       "FINN_SESSION_HANDOFF_TEMPLATE.md": "v1.0"
     },
     "sections": {
@@ -85,9 +85,9 @@
         "next_due": "2026-06-08"
       },
       "nav_history": {
-        "rev": 6,
+        "rev": 7,
         "dirty": true,
-        "note": "Jun8 EOD $29,496.86 logged (2nd EOD-close point)"
+        "note": "Jun9 EOD $29,465.69 logged (3rd EOD-close point)"
       },
       "watchlist": {
         "rev": "2.0",
@@ -95,7 +95,7 @@
       },
       "earnings": {
         "rev": "2.1",
-        "dirty": false,
+        "dirty": true,
         "note": "29-name sweep Jun5"
       },
       "thesis": {
@@ -259,7 +259,7 @@
       "dip_zone_high": 145,
       "trim_trigger": 235,
       "sell_trigger": null,
-      "notes": "AI back-end networking leader. Below PT — hold, no add."
+      "notes": "AI back-end networking leader. Below PT \u2014 hold, no add."
     },
     {
       "ticker": "AMAT",
@@ -295,7 +295,7 @@
       "dip_zone_high": 415,
       "trim_trigger": 586,
       "sell_trigger": null,
-      "notes": "DC orders +240%. In dip zone $395-415 — add candidate, near cost."
+      "notes": "DC orders +240%. In dip zone $395-415 \u2014 add candidate, near cost."
     },
     {
       "ticker": "APH",
@@ -390,7 +390,7 @@
       "dip_zone_high": 120,
       "trim_trigger": 186,
       "sell_trigger": "ARR growth <20%",
-      "notes": "Agentic AI compounder. Undersized vs conviction — best next dollar. Dip $115-120."
+      "notes": "Agentic AI compounder. Undersized vs conviction \u2014 best next dollar. Dip $115-120."
     },
     {
       "ticker": "CRDO",
@@ -449,11 +449,11 @@
       "dip_zone_high": 190,
       "trim_trigger": 339,
       "sell_trigger": null,
-      "notes": "OCI/AI-cloud re-rate. Earnings Jun10 AC (5d) — HOLD into print; now also an AI-demand referendum. Prior 2sh trim -$3.36 unreconciled."
+      "notes": "OCI/AI-cloud re-rate. Earnings Jun10 AC (5d) \u2014 HOLD into print; now also an AI-demand referendum. Prior 2sh trim -$3.36 unreconciled."
     }
   ],
   "fmp_targets": {
-    "_source": "FMP analyst price-target-consensus (§FEED), pulled 2026-06-04. CONFIRMED. Reconcile curated PTs against these on render.",
+    "_source": "FMP analyst price-target-consensus (\u00a7FEED), pulled 2026-06-04. CONFIRMED. Reconcile curated PTs against these on render.",
     "NVDA": {
       "consensus": 309.46,
       "median": 294,
@@ -492,7 +492,7 @@
       "high": 500,
       "low": 295,
       "curated": "464",
-      "fit": "DIVERGENT — curated above street"
+      "fit": "DIVERGENT \u2014 curated above street"
     },
     "APH": {
       "consensus": 180.89,
@@ -516,7 +516,7 @@
       "high": 321,
       "low": 155,
       "curated": "340-400",
-      "fit": "DIVERGENT — intentional post-Jensen FINN PROJECTION; street lagging"
+      "fit": "DIVERGENT \u2014 intentional post-Jensen FINN PROJECTION; street lagging"
     },
     "NOW": {
       "consensus": 153.3,
@@ -543,7 +543,7 @@
       "fit": "aligned"
     },
     "VOO": {
-      "note": "ETF — no analyst PT"
+      "note": "ETF \u2014 no analyst PT"
     }
   },
   "trades": [
@@ -709,7 +709,7 @@
   },
   "nav_history": {
     "measure_note": "EOD-close measure ADOPTED Jun5. Legacy May29-Jun3 rows = intraday PEAK; Jun4 = current intraday; Jun5 onward = EOD close. De-mix by backfilling EOD closes if available.",
-    "append_rule": "GNF appends one verified NAV per session {date, nav, type, realized_pnl_cum}. Broker total only — never estimated.",
+    "append_rule": "GNF appends one verified NAV per session {date, nav, type, realized_pnl_cum}. Broker total only \u2014 never estimated.",
     "snapshots": [
       {
         "date": "2026-05-29",
@@ -759,6 +759,14 @@
         "realized_pnl_cum": 2410.6,
         "verified": true,
         "note": "broker EOD close; +3.3% vs Jun5 / -7.9% off HWM; Monday bounce. 2nd EOD-close point."
+      },
+      {
+        "date": "2026-06-09",
+        "nav": 29465.69,
+        "type": "eod_close",
+        "realized_pnl_cum": 2528.29,
+        "verified": true,
+        "note": "broker EOD close; -0.11% vs Jun8 / -8.0% off HWM; intraday selloff to ~$28.6K bounced back into the close. 3rd EOD-close point."
       }
     ]
   },
@@ -947,7 +955,7 @@
       },
       {
         "date": "2026-06-08",
-        "note": "Weekly rescore. CS held across the book (theses intact through a macro/price selloff — AVGO -1 only); MS cooled book-wide after the Jun5 selloff, hardest AVGO/MRVL/APH. No conviction-tier changes.",
+        "note": "Weekly rescore. CS held across the book (theses intact through a macro/price selloff \u2014 AVGO -1 only); MS cooled book-wide after the Jun5 selloff, hardest AVGO/MRVL/APH. No conviction-tier changes.",
         "scores": [
           {
             "tk": "VOO",
@@ -1041,7 +1049,7 @@
     {
       "ticker": "VOO",
       "conviction": 5,
-      "thesis": "Core S&P 500 foundation — dollar anchor, not a thesis trade.",
+      "thesis": "Core S&P 500 foundation \u2014 dollar anchor, not a thesis trade.",
       "key_metric": "n/a",
       "breaks_if": "Never sell",
       "last_confirmed": "n/a"
@@ -1074,7 +1082,7 @@
     {
       "ticker": "CRDO",
       "conviction": 4,
-      "thesis": "AI connectivity — AEC, SerDes, optical DSP; copper-to-optical transition tailwind.",
+      "thesis": "AI connectivity \u2014 AEC, SerDes, optical DSP; copper-to-optical transition tailwind.",
       "key_metric": "Optical rev ramp (FY27 >$600M) + customer diversification",
       "breaks_if": "AEC/optical share loss to MRVL/AVGO; concentration shock",
       "last_confirmed": "2026-06-01"
@@ -1111,7 +1119,7 @@
       "key_metric": "RPO ($553B) + OCI revenue growth",
       "breaks_if": "RPO growth stalls / AI capacity margin compresses",
       "last_confirmed": "2026-03",
-      "note": "Q4 print Jun10 — update after"
+      "note": "Q4 print Jun10 \u2014 update after"
     }
   ],
   "earnings": {
@@ -1121,8 +1129,8 @@
         "ticker": "ORCL",
         "date": "2026-06-10",
         "when": "after close",
-        "days_out": 5,
-        "status": "CONFIRMED (FMP + Oracle IR)",
+        "days_out": 0,
+        "status": "REPORTED 2026-06-10 AC",
         "fiscal": "Q4 FY2026",
         "eps_est": 1.96,
         "rev_est": 19103220000,
@@ -1152,7 +1160,20 @@
             "r": "beat"
           }
         ],
-        "note": "3 of last 4 beats. Hold into print. Verify exact day-of. 5sh @ $192.84."
+        "note": "REPORTED: record business (RPO/OCI blowout) but stock -3% AH on capex/FCF. HOLD graded CORRECT. Next ~Sep 2026 (Q1 FY27). 5sh @ $192.84.",
+        "actual": {
+          "eps_ng": 2.11,
+          "eps_gaap": 1.45,
+          "rev": 19200000000,
+          "rpo": 638000000000,
+          "rpo_qoq_add": 85000000000,
+          "oci_iaas_growth_pct": 93,
+          "total_cloud": 9900000000,
+          "total_cloud_growth_pct": 47,
+          "result": "BEAT \u2014 record RPO ($553B->$638B) + OCI/IaaS +93%; EPS $2.11 vs $1.96, rev $19.2B vs $19.1B",
+          "stock_reaction": "reg close $201.26 (-2.2%); AH ~$195.2 (-3% more) on capex/FCF \"sell the news\"",
+          "streak": "4 of last 5 beats"
+        }
       }
     ],
     "owned": [
@@ -1232,10 +1253,10 @@
       {
         "ticker": "VOO",
         "date": null,
-        "status": "N/A — ETF"
+        "status": "N/A \u2014 ETF"
       }
     ],
-    "gap_note": "After ORCL (Jun10), no owned earnings until NOW (Jul22) — ~6wk quiet. Then Q2 cluster: NOW Jul22 · APH+APLD Jul29 · ANET+ETN Aug4 · AMAT Aug13 · NVDA Aug26 · MRVL Aug27 · CRDO Sep2 · AVGO Sep3.",
+    "gap_note": "After ORCL (Jun10), no owned earnings until NOW (Jul22) \u2014 ~6wk quiet. Then Q2 cluster: NOW Jul22 \u00b7 APH+APLD Jul29 \u00b7 ANET+ETN Aug4 \u00b7 AMAT Aug13 \u00b7 NVDA Aug26 \u00b7 MRVL Aug27 \u00b7 CRDO Sep2 \u00b7 AVGO Sep3.",
     "watchlist": [
       {
         "ticker": "TSM",
@@ -1415,7 +1436,7 @@
         "type": "EXIT",
         "outcome": "WIN",
         "realized_pnl": 268.28,
-        "lesson": "Trimming the weakest-conviction name in a crowded sub-sector (semis) is a clean source of funds — not a thesis reversal. Re-entry $430-440, monitor to Jul3."
+        "lesson": "Trimming the weakest-conviction name in a crowded sub-sector (semis) is a clean source of funds \u2014 not a thesis reversal. Re-entry $430-440, monitor to Jul3."
       },
       {
         "id": 2,
@@ -1424,7 +1445,7 @@
         "type": "EXIT",
         "outcome": "WIN",
         "realized_pnl": 104.87,
-        "lesson": "Small thematic sleeves fine to harvest + re-buy lower — HBM thesis intact, entry resets ($55-57)."
+        "lesson": "Small thematic sleeves fine to harvest + re-buy lower \u2014 HBM thesis intact, entry resets ($55-57)."
       },
       {
         "id": 3,
@@ -1445,13 +1466,13 @@
         "questions": [
           "What signal preceded the re-rate?",
           "Was sizing right at conviction 4 / CS62?",
-          "Trim discipline — too early or right?"
+          "Trim discipline \u2014 too early or right?"
         ]
       }
     ],
     "patterns": [
-      "Trim-into-strength works repeatedly (NVDA/MRVL/APLD) — formalize a trim ladder above PT.",
-      "Lower-conviction names recycled for capital — conviction-based sizing working."
+      "Trim-into-strength works repeatedly (NVDA/MRVL/APLD) \u2014 formalize a trim ladder above PT.",
+      "Lower-conviction names recycled for capital \u2014 conviction-based sizing working."
     ],
     "open_todo": "Write APLD win review (id4). Add a LOSS-review template."
   },
@@ -1473,7 +1494,7 @@
           "cs": 66,
           "ms": 78,
           "scores_date": "2026-05-27",
-          "status": "watch only — needs meaningful pullback"
+          "status": "watch only \u2014 needs meaningful pullback"
         }
       ],
       "T2_radar": [
@@ -1576,7 +1597,7 @@
           "ticker": "NBIS",
           "sold": "pre-May29",
           "expires": "2026-06-20",
-          "note": "window expiring — decide within 2 sessions"
+          "note": "window expiring \u2014 decide within 2 sessions"
         },
         {
           "ticker": "GOOGL",
@@ -1826,7 +1847,7 @@
       "owned_adds": [
         {
           "ticker": "NOW",
-          "note": "undersized — best next dollar; ~$25 to PT $143"
+          "note": "undersized \u2014 best next dollar; ~$25 to PT $143"
         }
       ]
     },
@@ -1852,7 +1873,7 @@
         "reentry_intent": "active",
         "monitor_until": null,
         "status": "monitoring",
-        "note": "sold_flat · space book"
+        "note": "sold_flat \u00b7 space book"
       },
       {
         "ticker": "AMD",
@@ -1912,17 +1933,17 @@
     ]
   },
   "macro": {
-    "as_of": "2026-06-05",
+    "as_of": "2026-06-10",
     "fed_funds": "3.50-3.75%",
     "fed_stance": "higher-for-longer; 3 straight holds",
     "next_fomc": "2026-06-16/17",
-    "fomc_note": "+ dot plot — the regime test. Fed projects 1 cut for 2026; market prices ~0.",
-    "cpi_headline": "3.8% (Apr, hot)",
+    "fomc_note": "+ dot plot \u2014 the regime test. Fed projects 1 cut for 2026; market prices ~0.",
+    "cpi_headline": "May 4.2% YoY (confirmed Jun10 \u2014 hot headline, in line w/ est, up from 3.8%)",
     "core_pce": "3.3% (above 2% target)",
     "unemployment": "~4.4%",
     "prime_rate": "6.75%",
     "cut_odds_jun": "~28-36% (~70% hold)",
-    "may_jobs": "+172k vs ~88k est (HOT, printed Jun5) — unemployment 4.3%; spiked 10Y to 4.54% (2wk high), rate-hike fears",
+    "may_jobs": "+172k vs ~88k est (HOT, printed Jun5) \u2014 unemployment 4.3%; spiked 10Y to 4.54% (2wk high), rate-hike fears",
     "indexes_note": "Index levels via ETF proxies (SPY/QQQ/DIA/IWM single-quote); raw index + 10Y/VIX endpoints gated on Starter.",
     "refresh": "full refresh week of Jun16 (FOMC); add 10Y/2Y yields + DXY + WTI on next refresh",
     "market_structure": {
@@ -1986,34 +2007,42 @@
         "watch": "hawkish dot plot / no-cut -> rates_up_10y path -> the high-multiple growth names; AI-semis already fragile on sentiment",
         "note": "the near-term dated macro event"
       }
+    },
+    "cpi_may": {
+      "yoy": 4.2,
+      "yoy_est": 4.2,
+      "mom": 0.2,
+      "mom_est": 0.3,
+      "core_yoy": 2.9,
+      "core_mom": 0.2,
+      "read": "Hot headline (base effects) but MoM cooled (0.2% vs 0.3%) + core MoM 0.2% \u2014 underlying pace softening. 10Y firm ~4.54%. Not the hawkish shock feared; FOMC Jun16-17 still ~hold.",
+      "confirmed": "2026-06-10"
     }
   },
   "open_decisions": [
-    "MRVL & APLD both >+40% — win reviews due (log, not trim) [Jun5 marks: MRVL +45.9%, APLD +46.5%]",
+    "MRVL & APLD both >+40% \u2014 win reviews due (log, not trim) [Jun5 marks: MRVL +45.9%, APLD +46.5%]",
     "NVDA trimmed 2 sh @ $206.27 Jun9 -> pulled back toward the 20% ceiling (~19-20%, recompute at next live render). Further trim capacity if a larger AVGO add is wanted.",
     "AVGO half-starter executed Jun9: +1 sh @ $387.12 (now 9 sh @ ~$420.37 avg). ~Half the NVDA-funded slot still dry for a better entry post-FOMC (Jun16-17) / QCOM (Jun24). Still below cost + dip zone.",
-    "ORCL earnings Jun10 AC <7d — HOLD into print; confirm exact date vs IR; now also an AI-demand referendum post-selloff",
-    "EOD-close measure ADOPTED Jun5 — backfill May29-Jun4 EOD closes to de-mix the curve if available"
+    "ORCL earnings Jun10 AC <7d \u2014 HOLD into print; confirm exact date vs IR; now also an AI-demand referendum post-selloff",
+    "EOD-close measure ADOPTED Jun5 \u2014 backfill May29-Jun4 EOD closes to de-mix the curve if available"
   ],
   "session_handoff": {
-    "date": "2026-06-09",
-    "summary": "Major build session. (1) Executed the NVDA->AVGO rotation: trimmed 2 NVDA @ $206.27 (+$117.69 realized) -> added 1 AVGO @ $387.12 (half-starter); realized now $2,528.29, NVDA back under the 20% ceiling. (2) Reconciled Jun8 EOD close $29,496.86. (3) Built the full A1-A6 intelligence layer (prompt v3.3->v3.9, 6 new skills, +8 state sections): A1 rec contract (calls_log, DATA/READ/TAKE), A2 news engine (news_watch+last_scan), A3 risk layer (clusters+risk+stress), A4 fundamentals (AVGO/APLD seeded), A5 market structure + macro linkage, A6 catalyst calendar. (4) Pruned/updated 7 stale memory edits. (5) Claude Design Phase 2: brief v1->v2->v3 (now visual-agnostic); reviewed 6 builds -> the full 28-surface 'Command Deck' system (Space Grotesk + JetBrains Mono; mint/coral/gold; the Observatory orbital map). Created FINN_ROADMAP.md.",
-    "nav_note": "Jun9 live NAV ~$28.6-28.8K intraday (down ~3% on the day, custom-silicon selloff). Jun9 EOD close to be broker-reconciled at next GMF (same as the Jun8 pattern). Last confirmed EOD = Jun8 $29,496.86.",
+    "date": "2026-06-10",
+    "summary": "Build + earnings session. (1) GMF; reconciled Jun9 broker EOD close $29,465.69 -> rev15 (3rd curve point; intraday dip ~$28.6K recovered into close). (2) Rendered dash + quick dash live; midday tape rolled risk-off (QQQ -1.2% leading SPY -0.8%), book -1.8% intraday. (3) DESIGN DECISION: adopted 'Command Deck' as the forward/Phase-3 visual standard ('v4' -- Space Grotesk + JetBrains Mono; mint/coral/gold; Observatory map). v3.3 FROZEN for chat until Phase 3. Persistence (cloud store vs DB) PARKED. (4) Big Sprint-0 build burst (Design capped till Sat): reconciled the TWO roadmaps -> FINN_ROADMAP.md = capability/brain (cross-refs + Track A marked done), FINN_FRONTEND_ROADMAP.md = ship/body (renamed off the colliding name); FINN_DATA_SPEC.md v1.0 (28/28 surfaces + derivation catalog); FINN_PHASE3_SPEC.md (FMP /api/portfolio route + Next.js arch); FINN_A7_CALIBRATION.md; FINN_BUTTON_AUDIT.md; FINN_DEMO_FIXTURE.json; FINN_DESIGN_CHANGE_SHEET.md (user filling during the 28-surface review). (5) ORCL Q4 printed AC: RECORD -- RPO $553B->$638B (+$85B), OCI/IaaS +93%, EPS ng $2.11 vs $1.96 beat, rev $19.2B beat; BUT stock -3% AH (~$195) on capex/FCF 'sell the news'. HOLD graded CORRECT (first A7 entry). CPI May confirmed: hot 4.2% YoY / cool 0.2% MoM.",
+    "nav_note": "Jun9 EOD close $29,465.69 confirmed (rev15). Jun10 EOD NOT captured -- reconcile at next GMF (4th curve point). Live mid-session ~$28,930 (11:15 ET); ORCL reg close $201.26. Don't reopen settled NAV w/o broker confirm.",
     "open_items": [
-      "ORCL Q4 prints Jun10 AC + CPI (May, est 4.2% YoY) same day -- hold ORCL into print",
-      "AVGO: half the NVDA-funded slot still dry for a better entry post-FOMC (Jun16-17) / QCOM Investor Day (Jun24)",
-      "ANET: WATCH -- add ~5 sh on a dip to $140-145 (tagged $145.37 today)",
-      "APLD win review still open (+49%)",
-      "Roadmap: A7 calibration log (start logging) + Phase 3 / Track B backend pending",
-      "Claude Design depth pass queued (msg sent): deepen Position detail (News/Fundamentals tabs), Scenario (A1 inline + stress + related rail + what-if), Home interactions; tweaks = dip-check zone colors, exit sort toggle, NAV-curve hover, green/mint split. OPEN DECISION: does Command Deck replace v3.3 as the render standard?"
+      "Reconcile Jun10 broker EOD close at GMF (4th curve point)",
+      "ORCL read-through at the OPEN: do AVGO/NVDA/ANET/MRVL trade UP on the $638B RPO / +93% OCI demand signal, or get dragged by the AI-capex/FCF sentiment that hit ORCL? Read is asymmetric -- our names SELL the gear ORCL must BUY (net positive); capex-OWNERS (ORCL, APLD-type) wear the FCF scrutiny.",
+      "ORCL stance: HOLD reaffirmed (thesis STRENGTHENED -- record demand; weakness is sentiment). C3, watch $185-190 zone, don't chase.",
+      "AVGO: half the NVDA-funded slot still dry till FOMC (Jun16-17) / QCOM Investor Day (Jun24)",
+      "ANET WATCH: add ~5sh on dip to $140-145 (was ~$151)",
+      "APLD win review open (+48%)",
+      "SATURDAY: Design usage returns -> use FINN_DESIGN_CHANGE_SHEET (user's per-surface changes) + FINN_DATA_SPEC to build the Design prompt; iterate the 28 surfaces in v4. OPEN: (a) color scheme -- user wants a more cohesive palette vs the current blue/purple/orange/red/green [parked review msg]; (b) mobile in-scope yes/no [needs user decision].",
+      "Sprint-0 leftover (only item not done): draft FINN_VISUAL_SYSTEM_v4 token spec (held for Sat w/ the real build).",
+      "Pending PROMPT edits (non-urgent): \u00a7Visual Standard -> v4-adopted note; promote the 28-surface cmd list into \u00a7COMMANDS (button-audit finding).",
+      "A7: log every new call with an outcome stub going forward; add bench (SPY/QQQ) to nav_history snapshots."
     ],
-    "next_agenda": [
-      "Reconcile Jun9 EOD close (broker-confirmed)",
-      "ORCL + CPI Jun10 reaction",
-      "Confirm the A1-A6 upload landed (read-source should = rev14 + prompt v3.9 + 6 skills)",
-      "Phase 2 Claude Design depth pass + start the A7 calibration log"
-    ],
-    "uploads_pending": "rev14 + prompt v3.9 + 6 new skills + brief v3 + roadmap -> BOTH Project + GitHub (this GNF manifest)."
+    "uploads_pending": "rev16 FINN_STATE.json + 7 build docs (FINN_FRONTEND_ROADMAP, FINN_ROADMAP[updated], FINN_DATA_SPEC, FINN_PHASE3_SPEC, FINN_A7_CALIBRATION, FINN_BUTTON_AUDIT, FINN_DESIGN_CHANGE_SHEET) + FINN_DEMO_FIXTURE.json -> BOTH Project + GitHub."
   },
   "calls_log": [
     {
@@ -2078,8 +2107,18 @@
       "assumption": "Position size is appropriate to carry the event risk",
       "flip": "The print itself resets the call (guide / OCI growth / margins)",
       "risk": "A guide miss or capex/margin disappointment gaps it down",
-      "status": "open",
-      "outcome": null
+      "status": "scored",
+      "outcome": {
+        "scored_date": "2026-06-10",
+        "horizon": "event",
+        "price_at_outcome": 195.2,
+        "return_since_call_pct": -3.18,
+        "bench": "QQQ",
+        "result": "HOLD CORRECT",
+        "confidence_was_calibrated": true,
+        "flip_triggered": "half \u2014 capex/FCF reframed reaction, but RPO ACCELERATED so thesis strengthened, not broken",
+        "notes": "Business = bull case (record RPO/OCI beat); stock = bear case (-3% AH on capex/FCF). HOLD right: holding cost ~$30 on the 5sh, trimming would have saved a rounding error and forfeited the read-through. First A7-graded call."
+      }
     }
   ],
   "news_watch": {
