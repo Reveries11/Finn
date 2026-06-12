@@ -2,7 +2,7 @@
   "_meta": {
     "file": "FINN_STATE.json",
     "version": "1.0",
-    "rev": 20,
+    "rev": 21,
     "created": "2026-06-05",
     "last_updated": "2026-06-11",
     "purpose": "SINGLE consolidated state file — the canonical source of truth for all Finn portfolio data. Replaces the 10 separate JSONs (STATE_INDEX, POSITIONS_MASTER, WATCHLIST_MASTER, SCORES_SNAPSHOT, TRADE_LOG, NAV_HISTORY, MACRO_SNAPSHOT, THESIS_LEDGER, EARNINGS_CALENDAR, REVIEW_LOG). Structure files stay separate (SYSTEM_PROMPT.md, FINN_VISUAL_SYSTEM_v3_3.html, FINN_DASH_TEMPLATE_v3_2.html, FINN_SESSION_HANDOFF_TEMPLATE.md).",
@@ -36,7 +36,7 @@
     ],
     "edit_rule": "On any data change, edit the section + bump rev + last_updated + flag the section dirty in `sync.sections`. One file = one upload at GNF.",
     "migration_note": "Consolidated Jun5 from the 10 source files (all read, not reconstructed). Verbose per-file reconciliation prose dropped; all actual data + decision-relevant flags preserved.",
-    "schema_version": "1.2",
+    "schema_version": "1.3",
     "sections_note": "Authoritative section enumeration (= actual top-level keys). sync.sections holds per-section status and must reconcile to this; prompt references this list by name.",
     "rev19_changelog": [
       "_meta.rev 18->19; schema_version 1.0->1.1",
@@ -95,7 +95,7 @@
       "_meta.sections rebuilt as authoritative enumeration (25 sections incl. params)",
       "_meta.sha256 computed (chain start; prev_sha=null): a9ccb461aedf…"
     ],
-    "prev_sha": "a9ccb461aedf296ab6cffb0765d72ed49d017f1f57f3fdb97d47ca829e9815df",
+    "prev_sha": "054ad2055e25627bef2b716c41ca91fa45e9ef651b352c9313aaf9198af9fe35",
     "sha_recipe": "sha256( json.dumps(obj_without_sha256, sort_keys=True, separators=(',',':'), ensure_ascii=False).encode('utf-8') )",
     "rev20_changelog": [
       "_meta.rev 19->20; schema_version 1.1->1.2",
@@ -114,7 +114,23 @@
       "sync.sections rebuilt: 25 entries == _meta.sections; stale_rule on all; rev coerced to int",
       "_meta.sha256 recomputed via canonical recipe; prev_sha=…9e9815df"
     ],
-    "sha256": "054ad2055e25627bef2b716c41ca91fa45e9ef651b352c9313aaf9198af9fe35"
+    "rev21_changelog": [
+      "watchlist.post_sell: MDA removed (9->8)",
+      "thesis ORCL: RPO $553B->$638B; last_confirmed 2026-03->2026-06 (Jun10 print strengthened)",
+      "thesis[*]: stale_rule warn>=90d added",
+      "params.sizing added (bands C5 8-16 / C4 4-8 / C3 1.5-4; starter 2; foundation floor 8; drift 1%/5d; resize 10d)",
+      "scores.stale_rule_days -> params.scores_stale_days (7)",
+      "calls_log AVGO: snapshot cs/ms/conviction_at_call (None/None/5); dropped confidence_was_calibrated",
+      "calls_log ANET: snapshot cs/ms/conviction_at_call (None/None/5); dropped confidence_was_calibrated",
+      "calls_log ORCL: snapshot cs/ms/conviction_at_call (None/None/3); dropped confidence_was_calibrated",
+      "NVDA.notes: stripped imperative/relative-date residue",
+      "MRVL.notes: stripped imperative/relative-date residue",
+      "ORCL.notes: stripped imperative/relative-date residue",
+      "open_decisions: 5 entries -> typed objects {id,text,source,requires_confirm,status}; text cleaned",
+      "NVDA: review_basis locked 'blended' (lots ask closed)",
+      "_meta rev 20->21; schema 1.2->1.3; prev_sha …8af9fe35"
+    ],
+    "sha256": "d9811a548774bdc41d444abd62449a970004aa982e0c3a91313e43466905a3c4"
   },
   "anchors": {
     "open_positions": 12,
@@ -348,14 +364,15 @@
       "dip_zone_high": 210,
       "trim_trigger": 382,
       "sell_trigger": "capex cuts by hyperscalers",
-      "notes": "Anchor. Trimmed 2 sh @ $206.27 Jun9 (realized +$117.69) to fund the AVGO half-starter -- pulled NVDA back toward the 20% ceiling. Don't add.",
+      "notes": "Anchor. Trimmed 2 sh @ $206.27 Jun9 (realized +$117.69) to fund the AVGO half-starter -- pulled NVDA back toward the 20% ceiling.",
       "pt_ref": [
         295,
         295
       ],
       "last_side": "below",
       "review_basis": "blended",
-      "trim_blessed": true
+      "trim_blessed": true,
+      "review_basis_note": "blended avg $154.66; FIFO lots not stored (operator: blended is fine)"
     },
     {
       "ticker": "AVGO",
@@ -555,7 +572,7 @@
       "dip_zone_high": 215,
       "trim_trigger": 390,
       "sell_trigger": "Tier-1 custom-silicon socket loss / hyperscaler in-sourcing",
-      "notes": "Best MS in book (90). Win review due (>+40%). PT base $340 (FINN PROJECTION) / bull $400 (sourced, post-Jensen); street consensus $231 lagging. Hold.",
+      "notes": ". Win review due (>+40%). PT base $340 (FINN PROJECTION) / bull $400 (sourced, post-Jensen); street consensus $231 lagging. Hold.",
       "pt_ref": [
         340,
         400
@@ -649,7 +666,7 @@
       "dip_zone_high": 190,
       "trim_trigger": 339,
       "sell_trigger": "OCI/RPO growth stalls or anchor-customer (OpenAI) commitment cut",
-      "notes": "OCI/AI-cloud re-rate. Earnings Jun10 AC (5d) — HOLD into print; now also an AI-demand referendum. Prior 2sh trim -$3.36 unreconciled.",
+      "notes": "OCI/AI-cloud re-rate. Earnings Jun10 AC; now also an AI-demand referendum. Prior 2sh trim -$3.36 unreconciled.",
       "pt_ref": [
         261,
         261
@@ -1035,7 +1052,6 @@
     ]
   },
   "scores": {
-    "stale_rule_days": 7,
     "rescore_schedule": {
       "owned": "weekly",
       "radar": "on_demand",
@@ -1291,35 +1307,40 @@
       "thesis": "Dominant AI compute platform; CUDA moat + supply-constrained datacenter GPU demand.",
       "key_metric": "Datacenter rev growth + hyperscaler capex",
       "breaks_if": "Hyperscaler capex cuts or credible CUDA-class competition at scale",
-      "last_confirmed": "2026-05"
+      "last_confirmed": "2026-05",
+      "stale_rule": "warn>=90d"
     },
     {
       "ticker": "AVGO",
       "thesis": "Custom AI silicon (ASIC) + networking; multi-hyperscaler design wins compounding.",
       "key_metric": "AI semi rev YoY + AI order book",
       "breaks_if": "Hyperscaler pulls ASIC in-house / order book stalls",
-      "last_confirmed": "2026-06-03"
+      "last_confirmed": "2026-06-03",
+      "stale_rule": "warn>=90d"
     },
     {
       "ticker": "ANET",
       "thesis": "AI back-end Ethernet networking leader; share gains as clusters scale.",
       "key_metric": "Cloud/AI revenue mix + gross margin",
       "breaks_if": "Loses major hyperscaler to Infiniband/whitebox at scale",
-      "last_confirmed": "2026-05"
+      "last_confirmed": "2026-05",
+      "stale_rule": "warn>=90d"
     },
     {
       "ticker": "VOO",
       "thesis": "Core S&P 500 foundation — dollar anchor, not a thesis trade.",
       "key_metric": "n/a",
       "breaks_if": "Never sell",
-      "last_confirmed": "n/a"
+      "last_confirmed": "n/a",
+      "stale_rule": "warn>=90d"
     },
     {
       "ticker": "AMAT",
       "thesis": "WFE leverage to the entire AI buildout; picks-and-shovels to every fab.",
       "key_metric": "WFE bookings + China exposure",
       "breaks_if": "WFE capex cycle rolls over",
-      "last_confirmed": "2026-05"
+      "last_confirmed": "2026-05",
+      "stale_rule": "warn>=90d"
     },
     {
       "ticker": "MRVL",
@@ -1327,21 +1348,24 @@
       "key_metric": "Custom silicon / DC revenue ramp",
       "breaks_if": "Tier-1 custom program slips or canceled",
       "last_confirmed": "2026-05",
-      "catalyst": "Jensen 'next trillion-$' Computex Jun2"
+      "catalyst": "Jensen 'next trillion-$' Computex Jun2",
+      "stale_rule": "warn>=90d"
     },
     {
       "ticker": "APH",
       "thesis": "Connector/interconnect compounder riding AI DC content growth + M&A (CommScope).",
       "key_metric": "Organic rev growth + IT-datacom",
       "breaks_if": "DC content growth stalls / integration missteps",
-      "last_confirmed": "2026-05"
+      "last_confirmed": "2026-05",
+      "stale_rule": "warn>=90d"
     },
     {
       "ticker": "CRDO",
       "thesis": "AI connectivity — AEC, SerDes, optical DSP; copper-to-optical transition tailwind.",
       "key_metric": "Optical rev ramp (FY27 >$600M) + customer diversification",
       "breaks_if": "AEC/optical share loss to MRVL/AVGO; concentration shock",
-      "last_confirmed": "2026-06-01"
+      "last_confirmed": "2026-06-01",
+      "stale_rule": "warn>=90d"
     },
     {
       "ticker": "ETN",
@@ -1349,29 +1373,33 @@
       "key_metric": "DC/electrical orders + backlog",
       "breaks_if": "DC power orders decelerate sharply",
       "last_confirmed": "2026-05",
-      "note": "DC orders +240%"
+      "note": "DC orders +240%",
+      "stale_rule": "warn>=90d"
     },
     {
       "ticker": "NOW",
       "thesis": "Agentic-AI enterprise software compounder; workflow platform with pricing power.",
       "key_metric": "Subscription ARR growth (>20%) + cRPO",
       "breaks_if": "ARR growth <20%",
-      "last_confirmed": "2026-04"
+      "last_confirmed": "2026-04",
+      "stale_rule": "warn>=90d"
     },
     {
       "ticker": "APLD",
       "thesis": "AI datacenter/neocloud infra; $31B contracted backlog re-rated the story.",
       "key_metric": "Contracted backlog + lease execution",
       "breaks_if": "Lease cancellation / financing falls through",
-      "last_confirmed": "2026-05"
+      "last_confirmed": "2026-05",
+      "stale_rule": "warn>=90d"
     },
     {
       "ticker": "ORCL",
       "thesis": "OCI/AI-cloud re-rate; RPO backlog + multicloud database growth.",
-      "key_metric": "RPO ($553B) + OCI revenue growth",
+      "key_metric": "RPO ($638B) + OCI revenue growth",
       "breaks_if": "RPO growth stalls / AI capacity margin compresses",
-      "last_confirmed": "2026-03",
-      "note": "Q4 print Jun10 — update after"
+      "last_confirmed": "2026-06",
+      "note": "Q4 print Jun10 — update after",
+      "stale_rule": "warn>=90d"
     }
   ],
   "earnings": {
@@ -2073,19 +2101,6 @@
         "status": "monitoring"
       },
       {
-        "ticker": "MDA",
-        "exit_date": null,
-        "exit_price": 44.8,
-        "realized_pnl": 0.0,
-        "reason": "flat",
-        "reentry_zone": "$38",
-        "reentry_intent": "active",
-        "monitor_until": null,
-        "status": "monitoring",
-        "note": "sold_flat · space book",
-        "_todo": "needs exit_date + monitor_until (currently null — window can't expire)"
-      },
-      {
         "ticker": "AMD",
         "exit_date": "2026-06-03",
         "exit_price": 526.41,
@@ -2242,11 +2257,41 @@
     }
   },
   "open_decisions": [
-    "MRVL & APLD both >+40% — win reviews due (log, not trim)",
-    "NVDA trimmed 2 sh @ $206.27 Jun9 -> pulled back toward the 20% ceiling (~19-20%, recompute at next live render). Further trim capacity if a larger AVGO add is wanted.",
-    "AVGO half-starter executed Jun9: +1 sh @ $387.12 (now 9 sh @ ~$420.37 avg). ~Half the NVDA-funded slot still dry for a better entry post-FOMC (Jun16-17) / QCOM (Jun24). Still below cost + dip zone.",
-    "ORCL earnings Jun10 AC <7d — HOLD into print; confirm exact date vs IR; now also an AI-demand referendum post-selloff",
-    "EOD-close measure ADOPTED Jun5 — backfill May29-Jun4 EOD closes to de-mix the curve if available"
+    {
+      "id": "od1",
+      "text": "MRVL & APLD both >+40% — win reviews due (log, not trim)",
+      "source": "operator",
+      "requires_confirm": true,
+      "status": "open"
+    },
+    {
+      "id": "od2",
+      "text": "NVDA trimmed 2 sh @ $206.27 Jun9 -> pulled back toward the 20% ceiling (~19-20%, recompute at next live render). Further trim capacity if a larger AVGO add is wanted.",
+      "source": "operator",
+      "requires_confirm": true,
+      "status": "open"
+    },
+    {
+      "id": "od3",
+      "text": "AVGO half-starter executed Jun9: +1 sh @ $387.12 (now 9 sh @ ~$420.37 avg). ~Half the NVDA-funded slot still dry for a better entry post-FOMC (Jun16-17) / QCOM (Jun24). Still below cost + dip zone.",
+      "source": "operator",
+      "requires_confirm": false,
+      "status": "open"
+    },
+    {
+      "id": "od4",
+      "text": "ORCL earnings Jun10 AC; confirm exact date vs IR; now also an AI-demand referendum post-selloff",
+      "source": "operator",
+      "requires_confirm": false,
+      "status": "open"
+    },
+    {
+      "id": "od5",
+      "text": "EOD-close measure ADOPTED Jun5 — backfill May29-Jun4 EOD closes to de-mix the curve if available",
+      "source": "operator",
+      "requires_confirm": false,
+      "status": "open"
+    }
   ],
   "session_handoff": {
     "date": "2026-06-11",
@@ -2284,7 +2329,10 @@
       "flip": "QCOM Investor Day (Jun24) or a hyperscaler showing real custom-silicon share loss; a Broadcom design-win loss",
       "risk": "Adds to custom-silicon concentration; FOMC (Jun16-17) macro risk to the whole complex",
       "status": "executed",
-      "outcome": null
+      "outcome": null,
+      "cs_at_call": null,
+      "ms_at_call": null,
+      "conviction_at_call": 5
     },
     {
       "id": "call_20260609_ANET_1",
@@ -2306,7 +2354,10 @@
       "flip": "Loses a major hyperscaler to Infiniband/whitebox at scale; AVGO networking takes share",
       "risk": "AI-capex pessimism / hawkish FOMC pressures the multiple before it reaches the zone",
       "status": "open",
-      "outcome": null
+      "outcome": null,
+      "cs_at_call": null,
+      "ms_at_call": null,
+      "conviction_at_call": 5
     },
     {
       "id": "call_20260609_ORCL_1",
@@ -2334,10 +2385,12 @@
         "return_since_call_pct": -3.18,
         "bench": "QQQ",
         "result": "HOLD CORRECT",
-        "confidence_was_calibrated": true,
         "flip_triggered": "half — capex/FCF reframed reaction, but RPO ACCELERATED so thesis strengthened, not broken",
         "notes": "Business = bull case (record RPO/OCI beat); stock = bear case (-3% AH on capex/FCF). HOLD right: holding cost ~$30 on the 5sh, trimming would have saved a rounding error and forfeited the read-through. First A7-graded call."
-      }
+      },
+      "cs_at_call": null,
+      "ms_at_call": null,
+      "conviction_at_call": 3
     }
   ],
   "news_watch": {
@@ -2817,6 +2870,30 @@
       "per_leg_usd": 0.05,
       "nav_usd": 1.0
     },
-    "live_max_age_s": 120
+    "live_max_age_s": 120,
+    "sizing": {
+      "bands_pct_nav": {
+        "c5": [
+          8,
+          16
+        ],
+        "c4": [
+          4,
+          8
+        ],
+        "c3": [
+          1.5,
+          4
+        ]
+      },
+      "foundation_floor_pct": 8,
+      "starter_pct": 2.0,
+      "min_position_pct": 1.5,
+      "drift_tolerance_pct_nav": 1.0,
+      "drift_sessions": 5,
+      "resize_deadline_sessions": 10,
+      "cash_min_pct": 0.0
+    },
+    "scores_stale_days": 7
   }
 }
