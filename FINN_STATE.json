@@ -2,7 +2,7 @@
   "_meta": {
     "file": "FINN_STATE.json",
     "version": "1.0",
-    "rev": 19,
+    "rev": 20,
     "created": "2026-06-05",
     "last_updated": "2026-06-11",
     "purpose": "SINGLE consolidated state file — the canonical source of truth for all Finn portfolio data. Replaces the 10 separate JSONs (STATE_INDEX, POSITIONS_MASTER, WATCHLIST_MASTER, SCORES_SNAPSHOT, TRADE_LOG, NAV_HISTORY, MACRO_SNAPSHOT, THESIS_LEDGER, EARNINGS_CALENDAR, REVIEW_LOG). Structure files stay separate (SYSTEM_PROMPT.md, FINN_VISUAL_SYSTEM_v3_3.html, FINN_DASH_TEMPLATE_v3_2.html, FINN_SESSION_HANDOFF_TEMPLATE.md).",
@@ -36,7 +36,7 @@
     ],
     "edit_rule": "On any data change, edit the section + bump rev + last_updated + flag the section dirty in `sync.sections`. One file = one upload at GNF.",
     "migration_note": "Consolidated Jun5 from the 10 source files (all read, not reconstructed). Verbose per-file reconciliation prose dropped; all actual data + decision-relevant flags preserved.",
-    "schema_version": "1.1",
+    "schema_version": "1.2",
     "sections_note": "Authoritative section enumeration (= actual top-level keys). sync.sections holds per-section status and must reconcile to this; prompt references this list by name.",
     "rev19_changelog": [
       "_meta.rev 18->19; schema_version 1.0->1.1",
@@ -95,8 +95,26 @@
       "_meta.sections rebuilt as authoritative enumeration (25 sections incl. params)",
       "_meta.sha256 computed (chain start; prev_sha=null): a9ccb461aedf…"
     ],
-    "prev_sha": null,
-    "sha256": "a9ccb461aedf296ab6cffb0765d72ed49d017f1f57f3fdb97d47ca829e9815df"
+    "prev_sha": "a9ccb461aedf296ab6cffb0765d72ed49d017f1f57f3fdb97d47ca829e9815df",
+    "sha_recipe": "sha256( json.dumps(obj_without_sha256, sort_keys=True, separators=(',',':'), ensure_ascii=False).encode('utf-8') )",
+    "rev20_changelog": [
+      "_meta.rev 19->20; schema_version 1.1->1.2",
+      "nav_history += broker_eod 2026-05-29 29737.3",
+      "nav_history += broker_eod 2026-06-01 30656.06",
+      "nav_history += broker_eod 2026-06-02 31625.06",
+      "nav_history += broker_eod 2026-06-03 31106.78",
+      "nav_history += broker_eod 2026-06-04 30796.15",
+      "nav_history 2026-06-04 (fmp_intraday): verified->false",
+      "anchors: HWM->31625.06 (2026-06-02, broker_eod); drawdown_from_hwm_pct->-9.2; intraday_peak 32029.95 kept as labeled stat",
+      "portfolio.capital_budget: stale '~$49 cash' removed (defers to portfolio.cash 24.05)",
+      "APH: derived lot basis_source='computed'",
+      "CRDO: trim_trigger 300 blessed=true (operator Go)",
+      "CRDO: derived lot basis_source='computed'",
+      "catalysts.calendar: status added to 15 rows (date-derived)",
+      "sync.sections rebuilt: 25 entries == _meta.sections; stale_rule on all; rev coerced to int",
+      "_meta.sha256 recomputed via canonical recipe; prev_sha=…9e9815df"
+    ],
+    "sha256": "054ad2055e25627bef2b716c41ca91fa45e9ef651b352c9313aaf9198af9fe35"
   },
   "anchors": {
     "open_positions": 12,
@@ -121,12 +139,17 @@
     "nav_last_eod_close": 28704.58,
     "nav_last_eod_close_date": "2026-06-10",
     "nav_jun4_broker": 30636.78,
-    "hwm": 32029.95,
-    "hwm_date": "2026-06-03",
-    "drawdown_from_hwm_pct": -10.4,
+    "hwm": 31625.06,
+    "hwm_date": "2026-06-02",
+    "drawdown_from_hwm_pct": -9.2,
     "progress_to_50k_pct": 57.4,
     "return_from_inception_pct": 4.4,
-    "nav_note": "Jun10 broker EOD close $28,704.58 confirmed (4th EOD-close point) -- -2.58% vs Jun9 ($29,465.69); the midday risk-off the Jun10 handoff flagged. Curve: Jun5 28,555.66 -> Jun8 29,496.86 -> Jun9 29,465.69 -> Jun10 28,704.58. Jun11 EOD uncaptured — see tri-state recon."
+    "nav_note": "Jun10 broker EOD close $28,704.58 confirmed (4th EOD-close point) -- -2.58% vs Jun9 ($29,465.69); the midday risk-off the Jun10 handoff flagged. Curve: Jun5 28,555.66 -> Jun8 29,496.86 -> Jun9 29,465.69 -> Jun10 28,704.58. Jun11 EOD uncaptured — see tri-state recon.",
+    "hwm_basis": "broker_eod",
+    "drawdown_basis": "broker_eod",
+    "intraday_peak": 32029.95,
+    "intraday_peak_date": "2026-06-03",
+    "intraday_peak_note": "Jun3 intraday spike; NOT the drawdown basis (EOD-vs-EOD per AF-14)."
   },
   "sync": {
     "protocol": "See SYSTEM_PROMPT §SYNC. Single-file model: track per-SECTION dirty flags here instead of per-file. GMF runs SYNC CHECK (anchors vs sections); GNF = one upload of this file + any touched structure file, then GNF UPLOAD VERIFICATION.",
@@ -139,86 +162,143 @@
     },
     "sections": {
       "positions": {
-        "rev": "2.2",
-        "dirty": true
+        "rev": 2,
+        "dirty": true,
+        "stale_rule": "warn>=14d"
       },
       "trades": {
-        "rev": "Jun9",
+        "rev": 1,
         "dirty": true,
-        "note": "Jun9 NVDA trim +$117.69 logged; AVGO add (open, in positions)"
+        "note": "Jun9 NVDA trim +$117.69 logged; AVGO add (open, in positions)",
+        "stale_rule": "warn>=14d"
       },
       "scores": {
-        "rev": "Jun3",
+        "rev": 1,
         "dirty": false,
-        "next_due": "2026-06-08"
+        "next_due": "2026-06-08",
+        "stale_rule": "warn>=14d"
       },
       "nav_history": {
         "rev": 7,
         "dirty": true,
-        "note": "Jun9 EOD $29,465.69 logged (3rd EOD-close point)"
+        "note": "Jun9 EOD $29,465.69 logged (3rd EOD-close point)",
+        "stale_rule": "warn>=14d"
       },
       "watchlist": {
-        "rev": "2.0",
-        "dirty": false
+        "rev": 2,
+        "dirty": false,
+        "stale_rule": "warn>=14d"
       },
       "earnings": {
-        "rev": "2.1",
+        "rev": 2,
         "dirty": true,
-        "note": "29-name sweep Jun5"
+        "note": "29-name sweep Jun5",
+        "stale_rule": "warn>=14d"
       },
       "thesis": {
         "rev": 1,
-        "dirty": false
+        "dirty": false,
+        "stale_rule": "warn>=14d"
       },
       "reviews": {
         "rev": 1,
         "dirty": false,
-        "note": "APLD win review OPEN"
+        "note": "APLD win review OPEN",
+        "stale_rule": "warn>=14d"
       },
       "macro": {
         "rev": 12,
         "dirty": true,
-        "note": "A5: market_structure + macro_sensitivity added"
+        "note": "A5: market_structure + macro_sensitivity added",
+        "stale_rule": "warn>=14d"
       },
       "calls_log": {
         "rev": 8,
         "dirty": true,
-        "note": "A1: 3 seeded calls (AVGO ADD executed, ANET WATCH, ORCL HOLD)"
+        "note": "A1: 3 seeded calls (AVGO ADD executed, ANET WATCH, ORCL HOLD)",
+        "stale_rule": "warn>=14d"
       },
       "news_watch": {
         "rev": 9,
         "dirty": true,
-        "note": "A2: read-through map + scan list"
+        "note": "A2: read-through map + scan list",
+        "stale_rule": "warn>=14d"
       },
       "last_scan": {
         "rev": 9,
         "dirty": true,
-        "note": "A2: Jun9 baseline (5 items)"
+        "note": "A2: Jun9 baseline (5 items)",
+        "stale_rule": "warn>=14d"
       },
       "clusters": {
         "rev": 10,
         "dirty": true,
-        "note": "A3: 6 theme clusters"
+        "note": "A3: 6 theme clusters",
+        "stale_rule": "warn>=14d"
       },
       "risk": {
         "rev": 10,
         "dirty": true,
-        "note": "A3: concentration + correlation + beta + stress tests"
+        "note": "A3: concentration + correlation + beta + stress tests",
+        "stale_rule": "warn>=14d"
       },
       "fundamentals": {
         "rev": 11,
         "dirty": true,
-        "note": "A4: AVGO+APLD seeded; rest on refresh"
+        "note": "A4: AVGO+APLD seeded; rest on refresh",
+        "stale_rule": "warn>=14d"
       },
       "catalysts": {
         "rev": 13,
         "dirty": true,
-        "note": "A6: 15-event forward calendar"
+        "note": "A6: 15-event forward calendar",
+        "stale_rule": "warn>=14d"
       },
       "session_handoff": {
         "rev": 14,
         "dirty": true,
-        "note": "Jun9 GNF handoff"
+        "note": "Jun9 GNF handoff",
+        "stale_rule": "warn>=14d"
+      },
+      "anchors": {
+        "rev": 1,
+        "stale_rule": "warn>=14d",
+        "dirty": false
+      },
+      "fmp_targets": {
+        "rev": 1,
+        "stale_rule": "warn>=14d",
+        "dirty": false
+      },
+      "open_decisions": {
+        "rev": 1,
+        "stale_rule": "warn>=14d",
+        "dirty": false
+      },
+      "params": {
+        "rev": 1,
+        "stale_rule": "warn>=14d",
+        "dirty": false
+      },
+      "portfolio": {
+        "rev": 1,
+        "stale_rule": "warn>=14d",
+        "dirty": false
+      },
+      "realized_breakdown": {
+        "rev": 1,
+        "stale_rule": "warn>=14d",
+        "dirty": false
+      },
+      "sync": {
+        "rev": 1,
+        "stale_rule": "warn>=14d",
+        "dirty": false
+      },
+      "unreconciled": {
+        "rev": 1,
+        "stale_rule": "warn>=14d",
+        "dirty": false
       }
     }
   },
@@ -230,7 +310,7 @@
     "concern_threshold": 15000,
     "tracking_since": "2026-05-29",
     "realized_pnl_total": 2528.29,
-    "capital_budget": "~$49 cash after the Jun9 NVDA->AVGO rotation. ~Half the NVDA-funded add slot still dry for a better AVGO entry post-FOMC / QCOM.",
+    "capital_budget": "Minimal cash (see portfolio.cash); ~half the NVDA-funded AVGO add slot held dry for a post-FOMC/QCOM entry.",
     "cash": 24.05,
     "cash_note": "Broker cash $24.05 ($16.62 + $7.45 Jun8 NVDA dividend; 2-cent broker rounding). Dividend = income, not in realized. Realized P&L is the anchor value (do not restate here)."
   },
@@ -421,7 +501,8 @@
           "shares": 2,
           "cost": 150.86,
           "date": "2026-06-02",
-          "derived": true
+          "derived": true,
+          "basis_source": "computed"
         }
       ],
       "dip_zone_low": 130,
@@ -536,7 +617,8 @@
           "shares": 5,
           "cost": 211.26,
           "date": "2026-06-03",
-          "derived": true
+          "derived": true,
+          "basis_source": "computed"
         }
       ],
       "trim_trigger": 300,
@@ -550,7 +632,8 @@
       ],
       "last_side": "within",
       "review_basis": "per_lot",
-      "trim_blessed": false
+      "trim_blessed": true,
+      "trim_note": "300 = top of pt_ref band; blessed per operator Go (Jun12)."
     },
     {
       "ticker": "ORCL",
@@ -848,6 +931,13 @@
         "basis": "intraday_peak"
       },
       {
+        "date": "2026-05-29",
+        "nav": 29737.3,
+        "type": "eod_close",
+        "basis": "broker_eod",
+        "verified": true
+      },
+      {
         "date": "2026-06-01",
         "nav": 30793.89,
         "type": "peak",
@@ -855,11 +945,25 @@
         "basis": "intraday_peak"
       },
       {
+        "date": "2026-06-01",
+        "nav": 30656.06,
+        "type": "eod_close",
+        "basis": "broker_eod",
+        "verified": true
+      },
+      {
         "date": "2026-06-02",
         "nav": 31813.49,
         "type": "peak",
         "verified": false,
         "basis": "intraday_peak"
+      },
+      {
+        "date": "2026-06-02",
+        "nav": 31625.06,
+        "type": "eod_close",
+        "basis": "broker_eod",
+        "verified": true
       },
       {
         "date": "2026-06-03",
@@ -870,13 +974,27 @@
         "basis": "intraday_peak"
       },
       {
+        "date": "2026-06-03",
+        "nav": 31106.78,
+        "type": "eod_close",
+        "basis": "broker_eod",
+        "verified": true
+      },
+      {
         "date": "2026-06-04",
         "nav": 30636.78,
         "type": "current",
         "realized_pnl_cum": 2410.6,
-        "verified": true,
+        "verified": false,
         "note": "reconciled to broker-confirmed; -4.4% off HWM",
         "basis": "fmp_intraday"
+      },
+      {
+        "date": "2026-06-04",
+        "nav": 30796.15,
+        "type": "eod_close",
+        "basis": "broker_eod",
+        "verified": true
       },
       {
         "date": "2026-06-05",
@@ -2530,7 +2648,8 @@
         "tickers": [
           "macro"
         ],
-        "note": "YoY est 4.2% (hot, vs 3.8%); Core 2.9% -- hawkish risk into FOMC"
+        "note": "YoY est 4.2% (hot, vs 3.8%); Core 2.9% -- hawkish risk into FOMC",
+        "status": "occurred"
       },
       {
         "date": "2026-06-10",
@@ -2540,7 +2659,8 @@
         "tickers": [
           "ORCL"
         ],
-        "note": "HOLD into print; watch OCI / RPO / margins"
+        "note": "HOLD into print; watch OCI / RPO / margins",
+        "status": "occurred"
       },
       {
         "date": "2026-06-11",
@@ -2549,7 +2669,8 @@
         "impact": "med",
         "tickers": [
           "macro"
-        ]
+        ],
+        "status": "occurred"
       },
       {
         "date": "2026-06-16",
@@ -2558,7 +2679,8 @@
         "impact": "high",
         "tickers": [
           "macro"
-        ]
+        ],
+        "status": "upcoming"
       },
       {
         "date": "2026-06-17",
@@ -2568,7 +2690,8 @@
         "tickers": [
           "macro"
         ],
-        "note": "est hold 3.75%; the regime test -> rates path -> high-multiple names"
+        "note": "est hold 3.75%; the regime test -> rates path -> high-multiple names",
+        "status": "upcoming"
       },
       {
         "date": "2026-06-20",
@@ -2578,7 +2701,8 @@
         "tickers": [
           "NBIS",
           "GOOGL"
-        ]
+        ],
+        "status": "upcoming"
       },
       {
         "date": "2026-06-22",
@@ -2588,7 +2712,8 @@
         "tickers": [
           "MRVL"
         ],
-        "note": "forced index buying"
+        "note": "forced index buying",
+        "status": "upcoming"
       },
       {
         "date": "2026-06-24",
@@ -2600,7 +2725,8 @@
           "AVGO",
           "CRDO"
         ],
-        "note": "custom-silicon read-through; ByteDance-ASIC follow-up"
+        "note": "custom-silicon read-through; ByteDance-ASIC follow-up",
+        "status": "upcoming"
       },
       {
         "date": "2026-06-25",
@@ -2610,7 +2736,8 @@
         "tickers": [
           "macro"
         ],
-        "note": "Fed's preferred gauge"
+        "note": "Fed's preferred gauge",
+        "status": "upcoming"
       },
       {
         "date": "2026-07-01",
@@ -2619,7 +2746,8 @@
         "impact": "med",
         "tickers": [
           "CEG"
-        ]
+        ],
+        "status": "upcoming"
       },
       {
         "date": "2026-07-02",
@@ -2629,7 +2757,8 @@
         "tickers": [
           "macro"
         ],
-        "note": "est +70k vs 172k; unemp est 4.5%"
+        "note": "est +70k vs 172k; unemp est 4.5%",
+        "status": "upcoming"
       },
       {
         "date": "2026-07-03",
@@ -2638,7 +2767,8 @@
         "impact": "med",
         "tickers": [
           "AMD"
-        ]
+        ],
+        "status": "upcoming"
       },
       {
         "date": "2026-07-08",
@@ -2647,7 +2777,8 @@
         "impact": "med",
         "tickers": [
           "macro"
-        ]
+        ],
+        "status": "upcoming"
       },
       {
         "date": "2026-07-14",
@@ -2656,7 +2787,8 @@
         "impact": "high",
         "tickers": [
           "macro"
-        ]
+        ],
+        "status": "upcoming"
       },
       {
         "date": "2026-08-04",
@@ -2666,7 +2798,8 @@
         "tickers": [
           "ANET"
         ],
-        "note": "owned cluster resumes: then MRVL Aug27, CRDO Sep2, AVGO Sep3"
+        "note": "owned cluster resumes: then MRVL Aug27, CRDO Sep2, AVGO Sep3",
+        "status": "upcoming"
       }
     ],
     "auto_fire": "scenario auto-fires for owned names <7d (ORCL now); a major catalyst (FOMC, QCOM Investor Day, MRVL S&P add) also fires the relevant scenario/risk read.",
