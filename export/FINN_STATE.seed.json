@@ -1,0 +1,323 @@
+{
+  "_seed": {
+    "what_this_is": "A fresh-start seed for Finn (portfolio intelligence system). This is the DATA file. The engine (system prompt + 8 skills + visual system + templates) is separate and ships unchanged.",
+    "edition": "runtime (no dev/build docs). To extend Finn later, add the optional dev_pack files listed in _meta.dev_pack — nothing else needs rewiring.",
+    "tier": "B — engine + a starter AI/semiconductor playbook. The previous operator's watchlist, conviction framework, adjacency/read-through maps, and scoring/review methodology are carried as EXAMPLES so you can see a working setup. No positions, P&L, NAV history, scores, curated price targets, reviews, or call history travel with it.",
+    "example_convention": "Anything carrying inherited content is flagged \"_example\": true (on the object, or at the section root for whole-section examples). Examples are safe to keep, edit, or delete.",
+    "how_to_make_it_yours": [
+      "1. Set your config in `portfolio` (starting NAV, milestones, cash) and clear the anchors.",
+      "2. Add your real positions to `positions` as you buy (schema shown in `_example_position`).",
+      "3. Keep / edit / delete the example watchlist + maps to match your universe.",
+      "4. Or skip all of that and WIPE — see wipe_options below."
+    ],
+    "wipe_options": {
+      "command": "In Finn, type `wipe` (or `reset` / `fresh start`). Finn confirms once, then outputs a clean FINN_STATE.json with every `_example` block removed and all live sections empty. Upload that as your FINN_STATE.json.",
+      "file_swap": "Or just use the shipped FINN_STATE.blank.json (same schema, examples already removed) as your FINN_STATE.json.",
+      "manual": "Or delete every object/section flagged `_example` by hand."
+    },
+    "not_included_personal": "positions, trades, nav_history, realized P&L, CS/MS score values, curated price targets, review entries, call-log history, live macro snapshot, open decisions, session handoff, exit/post-sell ledger — all stripped.",
+    "data_integrity_note": "Finn never displays a price without a live source. This file holds NO prices. All quotes come from the operator's own FMP connector at render."
+  },
+
+  "_meta": {
+    "rev": 1,
+    "version": "seed-1.0",
+    "last_updated": null,
+    "read_first": "Load this file at the start of every session (GMF). All portfolio data lives here. The system prompt is the brain; this is the state.",
+    "edit_rule": "One canonical state file. Update it the same response any decision is made. Re-upload to the Project after changes (and to your backup repo if you keep one).",
+    "sections": [
+      "portfolio", "anchors", "positions", "fmp_targets", "trades", "nav_history",
+      "scores", "thesis", "reviews", "watchlist", "macro", "open_decisions",
+      "session_handoff", "calls_log", "news_watch", "last_scan",
+      "clusters", "risk", "fundamentals", "catalysts"
+    ],
+    "runtime_files": [
+      "FINN_SYSTEM_PROMPT.md (the brain)",
+      "skills/ (8 modules: fmp-feed, scoring, monitoring, frameworks, daily-surfaces, report-surfaces, sync, visual-system)",
+      "FINN_VISUAL_SYSTEM_v3_3.html",
+      "FINN_DASH_TEMPLATE_v3_2.html",
+      "FINN_SESSION_HANDOFF_TEMPLATE.md",
+      "FINN_STATE.json (this file, once configured/wiped)",
+      "FINN_SETUP.md (stand-up guide)"
+    ],
+    "dev_pack": {
+      "_note": "OPTIONAL. Add these to the Project only to build/extend Finn (e.g. the Phase-3 app). Runtime works without them; the prompt references them as optional so adding them is a clean drop-in.",
+      "files": [
+        "FINN_DATA_SPEC.md",
+        "FINN_PHASE3_SPEC.md",
+        "FINN_ROADMAP.md",
+        "FINN_FRONTEND_ROADMAP.md",
+        "FINN_BUTTON_AUDIT.md",
+        "FINN_DESIGN_CHANGE_SHEET.md",
+        "FINN_A7_CALIBRATION.md"
+      ]
+    }
+  },
+
+  "portfolio": {
+    "_set_these": "Replace the placeholders below with your own values, then clear this note.",
+    "inception_value": null,
+    "inception_date": null,
+    "milestones": [50000, 100000],
+    "cash": 0,
+    "soft_floor": null,
+    "concern_threshold": null,
+    "realized_pnl_total": 0,
+    "broker": "your broker (NAV reconciles off your broker's EOD close)"
+  },
+
+  "anchors": {
+    "_note": "Quick-reference snapshot Finn cross-checks at sync. Empty until you add positions and capture your first EOD NAV.",
+    "open_positions": 0,
+    "open_tickers": [],
+    "net_realized_pnl": 0,
+    "last_trade_date": null,
+    "scores_date": null,
+    "scores_next_due": null,
+    "nav_last_eod_close": null,
+    "nav_last_eod_close_date": null,
+    "progress_to_50k_pct": null,
+    "return_from_inception_pct": null,
+    "drawdown_from_hwm_pct": null,
+    "hwm": null,
+    "hwm_date": null,
+    "nav_note": null
+  },
+
+  "positions": [],
+  "_example_position": {
+    "_example": true,
+    "_note": "Field shape for a position. Delete this key; add real entries to the `positions` array.",
+    "ticker": "TICK",
+    "name": "Company Name",
+    "shares": 0,
+    "cost_basis": 0,
+    "conviction": 4,
+    "tier": "HighConviction",
+    "sector": "AI/semis",
+    "cs": null,
+    "ms": null,
+    "scores_date": null,
+    "pt_low": null,
+    "pt_high": null,
+    "dip_zone": null,
+    "trim_trigger": null,
+    "sell_trigger": null,
+    "notes": "",
+    "lots": [{"date": null, "shares": 0, "price": 0}]
+  },
+
+  "fmp_targets": {
+    "_note": "Your curated price targets per ticker (your judgment, not street consensus). Empty by design — add as you build conviction.",
+    "_example": {
+      "_example": true,
+      "pt_low": 0,
+      "pt_high": 0,
+      "source": "curated",
+      "note": "why this PT differs from street, if it does"
+    }
+  },
+
+  "trades": [],
+  "_trade_schema": {
+    "_example": true,
+    "_note": "Trade-log shape (kept oldest -> newest). Delete this key.",
+    "date": "YYYY-MM-DD",
+    "ticker": "TICK",
+    "action": "BUY | TRIM | SELL",
+    "shares": 0,
+    "price": 0,
+    "realized_pnl": 0,
+    "note": ""
+  },
+
+  "nav_history": [],
+  "_nav_history_note": "Append one entry per captured EOD close: {date, nav, source:'broker', note}. This builds your progress curve.",
+
+  "scores": {
+    "_note": "Methodology config is kept (this is how Finn scores). All score VALUES are stripped — rescore your own names.",
+    "stale_rule_days": 7,
+    "rescore_schedule": {
+      "owned": "weekly",
+      "radar": "on_demand",
+      "next_due": null,
+      "overdue": false
+    },
+    "system_note": "Dual rating: CS (Conviction Score, 1-100, durable thesis quality) + MS (Momentum/Setup Score, 1-100, timing). Live CS/MS per owned name live on each `positions` entry. Snapshots archived in history[].",
+    "history": [],
+    "_example_history_entry": {
+      "_example": true,
+      "date": "YYYY-MM-DD",
+      "note": "what changed this rescore",
+      "scores": [{"tk": "TICK", "cs": 0, "ms": 0}]
+    }
+  },
+
+  "thesis": [
+    {"_example": true, "ticker": "NVDA", "thesis": "Dominant AI compute platform; CUDA moat + supply-constrained datacenter GPU demand."},
+    {"_example": true, "ticker": "AVGO", "thesis": "Custom AI silicon (ASIC) + networking; multi-hyperscaler design wins compounding."},
+    {"_example": true, "ticker": "ANET", "thesis": "AI back-end Ethernet networking leader; share gains as clusters scale."},
+    {"_example": true, "ticker": "AMAT", "thesis": "WFE leverage to the entire AI buildout; picks-and-shovels to every fab."},
+    {"_example": true, "ticker": "APLD", "thesis": "AI datacenter/neocloud infra; large contracted backlog re-rated the story."},
+    {"_example": true, "ticker": "VOO", "thesis": "Core index foundation — a dollar anchor, not a thesis trade."}
+  ],
+  "_thesis_note": "Examples show the one-line-thesis pattern + the analytical voice. Replace with your own names.",
+
+  "reviews": {
+    "_note": "Trigger rules + patterns are methodology (kept). Specific review entries are stripped.",
+    "trigger_rules": "WIN +40% / LOSS -20% / any full exit. Open reviews carry as TODO.",
+    "entries": [],
+    "_example_entry": {
+      "_example": true,
+      "id": 0,
+      "date": null,
+      "ticker": "TICK",
+      "type": "WIN_REVIEW | LOSS_REVIEW | TRIM | EXIT",
+      "outcome": "OPEN | WIN | LOSS",
+      "context": "what happened",
+      "questions": ["What signal preceded the move?", "Was sizing right for the conviction?", "Trim/exit discipline — early, late, or right?"]
+    },
+    "patterns": [],
+    "open_todo": "Add a LOSS-review template the first time a name hits -20%."
+  },
+
+  "watchlist": {
+    "_example": true,
+    "_note": "STARTER AI/semis universe inherited from the previous operator. Keep, prune, or replace. This whole section is an example — `wipe` clears it entirely.",
+    "tiers": {
+      "T1_radar": [
+        {"ticker": "AMBA", "name": "Ambarella", "status": "zone TBD off earnings reaction", "catalyst": "edge-AI vision SoCs; show-me"},
+        {"ticker": "PLTR", "name": "Palantir", "status": "watch only — needs meaningful pullback"}
+      ],
+      "T2_radar": [
+        {"ticker": "IONQ", "entry": "$54-58"},
+        {"ticker": "IREN", "entry": "$50-55"},
+        {"ticker": "CRWV", "entry": "$70-80"},
+        {"ticker": "ALAB", "note": "NVDA-adjacent"},
+        {"ticker": "CLS"}, {"ticker": "COHR"}, {"ticker": "DELL"}, {"ticker": "FN"},
+        {"ticker": "LRCX"}, {"ticker": "CORZ"}, {"ticker": "RBRK"}, {"ticker": "HLIT"},
+        {"ticker": "MSFT"}, {"ticker": "CLSK", "entry": "$14-16"}, {"ticker": "BB"}
+      ],
+      "watch": ["TSM", "VRT", "GEV", "VST", "OSS"],
+      "spec": ["UMAC", "INFQ"],
+      "skip": ["GCTS", "HOVR", "BKSY"],
+      "post_sell_monitor": [
+        {"_example": true, "ticker": "TICK", "sold": "YYYY-MM-DD", "expires": "+30d", "re_entry": "$x-y", "note": "30-day post-exit re-entry watch — Finn flags if it hits the zone before expiry"}
+      ]
+    },
+    "canonical_tiers_named": {
+      "_note": "The previous operator's tier taxonomy. Color-coded sections used by the watchlist dashboard.",
+      "Foundation": ["VOO"],
+      "HighConviction": ["NVDA", "AMAT", "ANET", "MRVL", "AVGO", "APH", "CRDO"],
+      "Growth": ["ORCL", "NOW", "MSFT"],
+      "Infra": ["APLD"],
+      "Energy": ["ETN", "EQT", "CEG"],
+      "Materials": ["MP", "LYSDY"],
+      "Space": ["RKLB", "ASTS", "LUNR", "VOYG"]
+    },
+    "space_defense": {
+      "_note": "Optional thematic sleeve example.",
+      "names": [
+        {"ticker": "RKLB", "name": "Rocket Lab", "status": "active", "pt": "$185-200", "dip": "$130-138", "thesis": "Defense + launch; Neutron program; dilution risk to watch."},
+        {"ticker": "ASTS", "name": "AST SpaceMobile", "status": "active", "entry": "starter / add on confirmation"}
+      ],
+      "catalysts": {}
+    },
+    "adjacent_map": {
+      "_note": "When an owned name moves, these adjacents often move with it — Finn scans them for read-through and entry ideas.",
+      "ETN": ["BE", "CMI", "PWR"],
+      "NVDA": ["ALAB", "CLS", "MTSI"],
+      "AMAT": ["ALAB", "CLS", "MTSI"],
+      "MRVL": ["ALAB", "CLS", "MTSI"],
+      "AVGO": ["ALAB", "CLS", "MTSI"],
+      "CRDO": ["ALAB", "CLS", "MTSI"],
+      "APLD": ["CRWV", "IREN", "CORZ"],
+      "IONQ": ["QBTS", "RGTI"]
+    },
+    "gameplan": {
+      "_note": "Standing buy intents at defined zones (no DCA — adds on dips only).",
+      "remaining_entries": [
+        {"_example": true, "ticker": "TICK", "zone": "$x-y", "size": "$ or shares", "type": "core | spec"}
+      ],
+      "conditional_entries": [],
+      "owned_adds": []
+    }
+  },
+
+  "macro": {
+    "_note": "Live market snapshot is stripped (it's dated). The analytical MAPS below are scaffolding and are kept as examples.",
+    "as_of": null,
+    "market_structure": {
+      "tape": null, "vix": null, "credit": null, "rates": null, "note": null
+    },
+    "read_through_map": {
+      "_example": true,
+      "_note": "Earnings/news from key tickers that read through to your book. Edit to your universe.",
+      "NVDA": ["AMD", "AVGO", "MRVL", "TSM"],
+      "AVGO": ["QCOM", "MRVL", "ANET"],
+      "MRVL": ["QCOM", "AVGO", "ALAB", "CRDO"],
+      "ANET": ["AVGO", "CSCO", "NVDA"],
+      "CRDO": ["MRVL", "AVGO", "ALAB", "MTSI"],
+      "AMAT": ["LRCX", "KLAC", "ASML", "TSM"],
+      "ETN": ["BE", "CMI", "PWR", "VRT"],
+      "APLD": ["CRWV", "IREN", "CORZ", "NBIS"],
+      "NOW": ["CRM", "MSFT", "PLTR"],
+      "ORCL": ["MSFT", "GOOGL", "AMZN", "SNOW"]
+    },
+    "regulatory_themes": ["AI chip export controls (China)", "big-tech/cloud antitrust", "data-center power & permitting", "tariffs/trade", "AI regulation"],
+    "macro_feeds": ["FOMC", "CPI/PCE", "jobs", "10Y yield", "GDP"],
+    "smart_money": ["13F filings", "congress + notable funds (edit to your watchlist of investors)"],
+    "scaffolding_note": "The engine scans adjacents + read-through + smart-money every session, materiality-scores for the book, and diffs vs last_scan."
+  },
+
+  "open_decisions": [],
+  "_open_decisions_note": "Live forks awaiting your call (add zone, trim decision, etc.). Empty at start.",
+
+  "session_handoff": {
+    "_note": "Written at the end of each session (GNF) and read at the start of the next (GMF). Empty at start.",
+    "date": null,
+    "summary": null,
+    "open_items": [],
+    "nav_note": null,
+    "uploads_pending": null
+  },
+
+  "calls_log": {
+    "_note": "Finn's actionable calls + confidence + (later) outcome grades. The mechanic is methodology; history is stripped.",
+    "calls": [],
+    "_example_call": {
+      "_example": true,
+      "id": "YYYYMMDD_TICK_1",
+      "date": null,
+      "ticker": "TICK",
+      "call": "HOLD | ADD | TRIM | WATCH",
+      "confidence": 0,
+      "tag": "FINN PROJECTION | CONFIRMED",
+      "drivers": "why",
+      "flip": "what would change the call",
+      "status": "open",
+      "grade": null
+    }
+  },
+
+  "news_watch": {
+    "_note": "Targets the news engine tracks. Maps live in macro. Empty live results at start.",
+    "watch_targets": ["owned tickers", "read_through tickers", "adjacents", "regulatory_themes", "macro_calendar", "smart_money filings"],
+    "results": []
+  },
+
+  "last_scan": {"_note": "Last news/smart-money scan result, for session-over-session diffing. Empty at start.", "as_of": null, "items": []},
+
+  "clusters": {"_note": "Concentration view by sub-theme. Computed from your positions — empty until you hold names.", "groups": []},
+
+  "risk": {"_note": "Concentration + sizing guardrails. Set ceilings to taste.", "single_name_ceiling_pct": 20, "notes": "Example ceiling: trim any single name back under 20% of NAV."},
+
+  "fundamentals": {"_note": "Per-ticker fundamentals you web-source for scenario pages/reports (FMP Starter gives annuals only). Empty at start.", "tickers": {}},
+
+  "catalysts": {
+    "_note": "Earnings + macro calendar. Owned-name dates are stripped; the AUTO-FIRE rules (methodology) are kept.",
+    "auto_fire_rules": "A scenario page fires automatically when ANY is true: (a) an owned name has earnings <7 days, (b) a major catalyst on an owned name, (c) a price target is breached, (d) a live decision fork.",
+    "calendar": [],
+    "_example_event": {"_example": true, "date": "YYYY-MM-DD", "ticker": "TICK", "type": "earnings | macro", "confirmed": false}
+  }
+}

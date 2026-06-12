@@ -1,0 +1,124 @@
+{
+  "_note": "Blank Finn state — a clean starting point. Schema + methodology kept; no inherited content. Set your config in `portfolio`, then run `gmf`. See FINN_SETUP.md.",
+
+  "_meta": {
+    "rev": 1,
+    "version": "blank-1.0",
+    "last_updated": null,
+    "read_first": "Load at the start of every session (GMF). All portfolio data lives here. The system prompt is the brain; this is the state.",
+    "edit_rule": "One canonical state file. Update it the same response any decision is made. Re-upload to the Project after changes.",
+    "sections": [
+      "portfolio", "anchors", "positions", "fmp_targets", "trades", "nav_history",
+      "scores", "thesis", "reviews", "watchlist", "macro", "open_decisions",
+      "session_handoff", "calls_log", "news_watch", "last_scan",
+      "clusters", "risk", "fundamentals", "catalysts"
+    ],
+    "dev_pack": {
+      "_note": "OPTIONAL. Add to the Project only to build/extend Finn. Runtime works without them.",
+      "files": ["FINN_DATA_SPEC.md", "FINN_PHASE3_SPEC.md", "FINN_ROADMAP.md", "FINN_FRONTEND_ROADMAP.md", "FINN_BUTTON_AUDIT.md", "FINN_DESIGN_CHANGE_SHEET.md", "FINN_A7_CALIBRATION.md"]
+    }
+  },
+
+  "portfolio": {
+    "_set_these": "Replace placeholders, then clear this note.",
+    "inception_value": null,
+    "inception_date": null,
+    "milestones": [50000, 100000],
+    "cash": 0,
+    "soft_floor": null,
+    "concern_threshold": null,
+    "realized_pnl_total": 0,
+    "broker": null
+  },
+
+  "anchors": {
+    "open_positions": 0,
+    "open_tickers": [],
+    "net_realized_pnl": 0,
+    "last_trade_date": null,
+    "scores_date": null,
+    "scores_next_due": null,
+    "nav_last_eod_close": null,
+    "nav_last_eod_close_date": null,
+    "progress_to_50k_pct": null,
+    "return_from_inception_pct": null,
+    "drawdown_from_hwm_pct": null,
+    "hwm": null,
+    "hwm_date": null,
+    "nav_note": null
+  },
+
+  "positions": [],
+  "fmp_targets": {},
+  "trades": [],
+  "nav_history": [],
+
+  "scores": {
+    "stale_rule_days": 7,
+    "rescore_schedule": {"owned": "weekly", "radar": "on_demand", "next_due": null, "overdue": false},
+    "system_note": "Dual rating: CS (Conviction, 1-100) + MS (Momentum/Setup, 1-100). Live CS/MS per owned name live on each `positions` entry; snapshots archived in history[].",
+    "history": []
+  },
+
+  "thesis": [],
+
+  "reviews": {
+    "trigger_rules": "WIN +40% / LOSS -20% / any full exit. Open reviews carry as TODO.",
+    "entries": [],
+    "patterns": [],
+    "open_todo": null
+  },
+
+  "watchlist": {
+    "tiers": {
+      "T1_radar": [],
+      "T2_radar": [],
+      "watch": [],
+      "spec": [],
+      "skip": [],
+      "post_sell_monitor": []
+    },
+    "canonical_tiers_named": {
+      "_note": "Rename/repopulate these buckets for your own universe.",
+      "Foundation": [],
+      "HighConviction": [],
+      "Growth": [],
+      "Infra": [],
+      "Energy": [],
+      "Materials": [],
+      "Space": []
+    },
+    "adjacent_map": {},
+    "gameplan": {"remaining_entries": [], "conditional_entries": [], "owned_adds": []}
+  },
+
+  "macro": {
+    "as_of": null,
+    "market_structure": {"tape": null, "vix": null, "credit": null, "rates": null, "note": null},
+    "read_through_map": {},
+    "regulatory_themes": [],
+    "macro_feeds": ["FOMC", "CPI/PCE", "jobs", "10Y yield", "GDP"],
+    "smart_money": [],
+    "scaffolding_note": "The engine scans adjacents + read-through + smart-money each session, materiality-scores for the book, and diffs vs last_scan."
+  },
+
+  "open_decisions": [],
+
+  "session_handoff": {"date": null, "summary": null, "open_items": [], "nav_note": null, "uploads_pending": null},
+
+  "calls_log": {"calls": []},
+
+  "news_watch": {
+    "watch_targets": ["owned tickers", "read_through tickers", "adjacents", "regulatory_themes", "macro_calendar", "smart_money filings"],
+    "results": []
+  },
+
+  "last_scan": {"as_of": null, "items": []},
+  "clusters": {"groups": []},
+  "risk": {"single_name_ceiling_pct": 20, "notes": "Trim any single name back under the ceiling % of NAV."},
+  "fundamentals": {"tickers": {}},
+  "catalysts": {
+    "auto_fire_rules": "A scenario page fires automatically when ANY is true: (a) an owned name has earnings <7 days, (b) a major catalyst on an owned name, (c) a price target is breached, (d) a live decision fork.",
+    "calendar": []
+  }
+}
