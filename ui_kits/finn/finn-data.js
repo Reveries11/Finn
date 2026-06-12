@@ -1,25 +1,25 @@
-// Finn shared data — A0 regenerated build (reconciled + current).
-// Source: canonical FINN_STATE.json (rev16, Jun 10) + live prices pulled Jun 11.
-// PRINCIPLE: every aggregate is DERIVED here (realized = Σ trades; NAV = Σ positions + cash).
-// No stored second copy can drift from its parts — the reconciliation class of bug is gone by construction.
+// Finn shared data — regenerated from canonical FINN_STATE.json rev20 + live prices (Jun 12).
+// SOURCE PIN: rev 20, sha 054ad2055e25627b… (AF-21). Aggregates DERIVED here; app load-asserts source_sha == live store sha.
+// Curated views (SCENARIOS / WATCH / BRIEF / QUEUE) are design-ref; canonical data (POS/cash/NAV/HWM/TRADES/EARNINGS) is rev20-current.
 (function () {
-  const cash = 49.47;
+  const SOURCE = { source_rev: 20, source_sha: "054ad2055e25627bef2b716c41ca91fa45e9ef651b352c9313aaf9198af9fe35", recipe: "sha256(json.dumps(obj_without_sha256, sort_keys=True, separators=(',',':'), ensure_ascii=False))" };
+  const cash = 24.05;
 
   // ----- Positions: rev16 facts + live prices (Jun 11 feed). cost/PT/zones/scores from canonical. -----
   // t, name, sector, shares, cost, live, dayPct, cs, ms, conv, ptL, ptH, dipL, dipH, trim, rec
   const POS = [
-    { t: "NVDA", n: "NVIDIA",            sec: "AI Semis",    sh: 27.727, cost: 154.66, live: 201.11, dayPct:  0.35, cs: 88, ms: 77, conv: 5, ptL: 295, ptH: 295, dipL: 200, dipH: 210, trim: 382,  rec: "hold"  },
-    { t: "AVGO", n: "Broadcom",          sec: "AI Semis",    sh: 9,      cost: 420.37, live: 376.19, dayPct:  1.10, cs: 90, ms: 71, conv: 5, ptL: 463, ptH: 582, dipL: 410, dipH: 420, trim: 602,  rec: "add"   },
-    { t: "ANET", n: "Arista Networks",   sec: "Networking",  sh: 17,     cost: 145.01, live: 152.06, dayPct:  0.20, cs: 87, ms: 75, conv: 5, ptL: 187, ptH: 187, dipL: 140, dipH: 145, trim: 235,  rec: "watch" },
-    { t: "AMAT", n: "Applied Materials", sec: "AI Semis",    sh: 6,      cost: 431.90, live: 529.10, dayPct:  6.46, cs: 87, ms: 81, conv: 4, ptL: 500, ptH: 575, dipL: 420, dipH: 425, trim: 590,  rec: "hold"  },
-    { t: "ETN",  n: "Eaton",             sec: "Power",       sh: 5,      cost: 395.19, live: 382.62, dayPct:  1.91, cs: 83, ms: 72, conv: 4, ptL: 464, ptH: 464, dipL: 395, dipH: 415, trim: 586,  rec: "add"   },
-    { t: "APH",  n: "Amphenol",          sec: "Networking",  sh: 12,     cost: 133.11, live: 149.02, dayPct: -0.14, cs: 88, ms: 79, conv: 4, ptL: 145, ptH: 182, dipL: 130, dipH: 135, trim: 237,  rec: "hold"  },
-    { t: "APLD", n: "Applied Digital",   sec: "AI Infra",    sh: 35,     cost: 26.49,  live: 39.42,  dayPct:  1.28, cs: 63, ms: 74, conv: 4, ptL: 58,  ptH: 97,  dipL: 40,  dipH: 43,  trim: 75,   rec: "hold"  },
-    { t: "MRVL", n: "Marvell",           sec: "AI Semis",    sh: 6,      cost: 194.33, live: 264.68, dayPct:  4.79, cs: 84, ms: 81, conv: 4, ptL: 340, ptH: 400, dipL: 205, dipH: 215, trim: 390,  rec: "hold"  },
-    { t: "NOW",  n: "ServiceNow",        sec: "AI Software", sh: 12,     cost: 101.68, live: 103.30, dayPct: -2.60, cs: 83, ms: 71, conv: 4, ptL: 143, ptH: 236, dipL: 115, dipH: 120, trim: 186,  rec: "add"   },
-    { t: "CRDO", n: "Credo Technology",  sec: "AI Semis",    sh: 11,     cost: 215.95, live: 257.70, dayPct:  8.42, cs: 83, ms: 82, conv: 4, ptL: 240, ptH: 300, dipL: 190, dipH: 215, trim: null, rec: "hold"  },
-    { t: "ORCL", n: "Oracle",            sec: "AI Software", sh: 5,      cost: 192.84, live: 177.37, dayPct: -11.87,cs: 76, ms: 66, conv: 3, ptL: 261, ptH: 261, dipL: 185, dipH: 190, trim: 339,  rec: "hold"  },
-    { t: "VOO",  n: "Vanguard S&P 500",  sec: "Foundation",  sh: 4,      cost: 635.56, live: 668.47, dayPct:  0.21, cs: 84, ms: 77, conv: 5, ptL: null, ptH: null, dipL: 650, dipH: 650, trim: null, rec: "hold" },
+    { t: "NVDA", n: "NVIDIA", sec: "AI Semis", sh: 27.727, cost: 154.66, live: 204.87, dayPct: 2.22, cs: 88, ms: 77, conv: 5, ptL: 295, ptH: 295, dipL: 200, dipH: 210, trim: 382, rec: "hold" },
+    { t: "AVGO", n: "Broadcom", sec: "AI Semis", sh: 9, cost: 420.37, live: 385.57, dayPct: 3.62, cs: 90, ms: 71, conv: 5, ptL: 463, ptH: 582, dipL: 410, dipH: 420, trim: 602, rec: "add" },
+    { t: "ANET", n: "Arista Networks", sec: "Networking", sh: 17, cost: 145.01, live: 156.4, dayPct: 3.06, cs: 87, ms: 75, conv: 5, ptL: 187, ptH: 187, dipL: 140, dipH: 145, trim: 235, rec: "watch" },
+    { t: "AMAT", n: "Applied Materials", sec: "AI Semis", sh: 6, cost: 431.9, live: 552.64, dayPct: 11.19, cs: 87, ms: 81, conv: 4, ptL: 500, ptH: 575, dipL: 420, dipH: 425, trim: 590, rec: "hold" },
+    { t: "ETN", n: "Eaton", sec: "Power", sh: 5, cost: 395.19, live: 393.64, dayPct: 4.84, cs: 83, ms: 72, conv: 4, ptL: 464, ptH: 464, dipL: 395, dipH: 415, trim: 586, rec: "add" },
+    { t: "APH", n: "Amphenol", sec: "Networking", sh: 12, cost: 133.11, live: 152.46, dayPct: 2.17, cs: 88, ms: 79, conv: 4, ptL: 145, ptH: 182, dipL: 130, dipH: 135, trim: 237, rec: "hold" },
+    { t: "APLD", n: "Applied Digital", sec: "AI Infra", sh: 35, cost: 26.49, live: 41.47, dayPct: 6.55, cs: 63, ms: 74, conv: 4, ptL: 58, ptH: 97, dipL: 40, dipH: 43, trim: 75, rec: "hold" },
+    { t: "MRVL", n: "Marvell", sec: "AI Semis", sh: 6, cost: 194.33, live: 280.71, dayPct: 11.13, cs: 84, ms: 81, conv: 4, ptL: 340, ptH: 400, dipL: 205, dipH: 215, trim: 390, rec: "hold" },
+    { t: "NOW", n: "ServiceNow", sec: "AI Software", sh: 12, cost: 101.68, live: 103.08, dayPct: -2.81, cs: 83, ms: 71, conv: 4, ptL: 143, ptH: 236, dipL: 115, dipH: 120, trim: 186, rec: "add" },
+    { t: "CRDO", n: "Credo Technology", sec: "AI Semis", sh: 11, cost: 215.95, live: 264.76, dayPct: 11.39, cs: 83, ms: 82, conv: 4, ptL: 240, ptH: 300, dipL: 190, dipH: 215, trim: 300, rec: "hold" },
+    { t: "ORCL", n: "Oracle", sec: "AI Software", sh: 5, cost: 192.84, live: 184.1, dayPct: -8.53, cs: 76, ms: 66, conv: 3, ptL: 261, ptH: 261, dipL: 185, dipH: 190, trim: 339, rec: "hold" },
+    { t: "VOO", n: "Vanguard S&P 500", sec: "Foundation", sh: 4, cost: 635.56, live: 678.23, dayPct: 1.68, cs: 84, ms: 77, conv: 5, ptL: null, ptH: null, dipL: 650, dipH: 650, trim: null, rec: "hold" },
   ];
 
   // Thesis-break sell triggers (every position has a defined exit; 5 new ones added Jun 11).
@@ -90,11 +90,11 @@
   const dayDollars  = POS.reduce((s, p) => s + (p.mktVal - p.mktVal / (1 + p.dayPct / 100)), 0);
 
   const NAV_EOD = 28704.58, NAV_EOD_DATE = "Jun 10";   // broker EOD anchor (rev16)
-  const HWM = 32029.95, HWM_DATE = "Jun 3", INCEPTION = 27500, GOAL = 50000;
+  const HWM = 31625.06, HWM_DATE = "Jun 2", INTRADAY_PEAK = 32029.95, INTRADAY_PEAK_DATE = "Jun 3", INCEPTION = 27500, GOAL = 50000;
 
   const PORT = {
     navEod: NAV_EOD, navEodDate: NAV_EOD_DATE,
-    navLive: +navLive.toFixed(2), navLiveTime: "Jun 11",
+    navLive: +navLive.toFixed(2), navLiveTime: "Jun 12",
     dayDollars: +dayDollars.toFixed(2),
     dayPct: +(dayDollars / (navLive - dayDollars) * 100).toFixed(2),
     hwm: HWM, hwmDate: HWM_DATE, ddFromHwm: +((NAV_EOD / HWM - 1) * 100).toFixed(1),
@@ -254,6 +254,7 @@
   POS.forEach((p) => { p.scenario = !!SCENARIOS[p.t]; });
 
   window.FINN = {
+    SOURCE,
     POS, PORT, BRIEF, QUEUE, NAVPTS, NAV_LABELS, NAV_SERIES, BENCH_SERIES, NAV_DATES,
     WATCH, TRADES, EARNINGS: null, SCENARIOS, SECTOR_COLORS, SELL_TRIGGERS,
     fmtUSD:   (n, d = 0) => "$" + n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }),
