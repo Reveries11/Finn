@@ -2,9 +2,9 @@
   "_meta": {
     "file": "FINN_STATE.json",
     "version": "1.0",
-    "rev": 23,
+    "rev": 25,
     "created": "2026-06-05",
-    "last_updated": "2026-06-11",
+    "last_updated": "2026-06-14",
     "purpose": "SINGLE consolidated state file — the canonical source of truth for all Finn portfolio data. Replaces the 10 separate JSONs (STATE_INDEX, POSITIONS_MASTER, WATCHLIST_MASTER, SCORES_SNAPSHOT, TRADE_LOG, NAV_HISTORY, MACRO_SNAPSHOT, THESIS_LEDGER, EARNINGS_CALENDAR, REVIEW_LOG). Structure files stay separate (SYSTEM_PROMPT.md, FINN_VISUAL_SYSTEM_v3_3.html, FINN_DASH_TEMPLATE_v3_2.html, FINN_SESSION_HANDOFF_TEMPLATE.md).",
     "read_first": "This file is the GMF read-first manifest. Anchors (below) are ground truth; every section + render must agree. memory = thin pointer + session deltas only.",
     "sections": [
@@ -95,7 +95,7 @@
       "_meta.sections rebuilt as authoritative enumeration (25 sections incl. params)",
       "_meta.sha256 computed (chain start; prev_sha=null): a9ccb461aedf…"
     ],
-    "prev_sha": "e3b074f9051b36292fd5489887c635e931056e38b824797ffd22bd2975d239f7",
+    "prev_sha": "dee852b107a1294a9c6a4710f2513b978dbfef181401b0fd158bc472ddbcf06a",
     "sha_recipe": "sha256( json.dumps(obj_without_sha256, sort_keys=True, separators=(',',':'), ensure_ascii=False).encode('utf-8') )",
     "rev20_changelog": [
       "_meta.rev 19->20; schema_version 1.1->1.2",
@@ -136,7 +136,7 @@
     "rev23_changelog": [
       "session_handoff refreshed (final GNF, post Run #7 fold) — positions/scores untouched"
     ],
-    "sha256": "453368724c7a98ba4f2a7cbdf3ac30124d19ec7bf6b91c1e51fd2befd6dd471e"
+    "sha256": "988f58e6bde446700cb3d776cd991842f3d3ae856f93c6a82f3976a5973c1bdd"
   },
   "anchors": {
     "open_positions": 12,
@@ -333,8 +333,8 @@
     "tracking_since": "2026-05-29",
     "realized_pnl_total": 2528.29,
     "capital_budget": "Minimal cash (see portfolio.cash); ~half the NVDA-funded AVGO add slot held dry for a post-FOMC/QCOM entry.",
-    "cash": 24.05,
-    "cash_note": "Broker cash $24.05 ($16.62 + $7.45 Jun8 NVDA dividend; 2-cent broker rounding). Dividend = income, not in realized. Realized P&L is the anchor value (do not restate here)."
+    "cash": 49.47,
+    "cash_note": "$49.47 broker-confirmed (corrected Jun13 — prior $24.05 entry was erroneous)."
   },
   "positions": [
     {
@@ -2300,21 +2300,22 @@
     }
   ],
   "session_handoff": {
-    "date": "2026-06-11",
-    "summary": "Fable review program COMPLETE: Runs 1-7 all triaged + folded. State rev18->23; prompt at v4.2 (scoring/sizing spec + engine patches v4.0/v4.1 + R4 architecture + voice/microcopy). Run #7 (voice/microcopy) produced FINN_VOICE_SPEC + FINN_MICROCOPY_STYLE_SHEET (the label registry) and a v4.2 cut: the `Do this:` closer + null move, placement doctrine, banned hedges, canonical ALERT TOKEN table; killed the residual silent-rescore line and the CONFIRMED-on-consensus tags (consensus = STREET); canonicalized surface names. No portfolio/score change from #7. Anchors: cash $24.05, realized $2,528.29, HWM Jun2 EOD $31,625.06 / drawdown -9.2% (intraday peak $32,029.95 a separate stat), last verified broker EOD Jun10 $28,704.58.",
-    "nav_note": "Last verified broker EOD = Jun10 $28,704.58 (57.4% to $50K / +4.4% inception off that anchor). Jun11 + Jun12 EOD uncaptured. Live FMP mark ~$29,865 (cash-corrected). Don't reopen a settled NAV without a real broker discrepancy.",
+    "date": "2026-06-14",
+    "summary": "Claude Design build session + a data-integrity fix. (1) CASH CORRECTED $24.05->$49.47 across memory, FINN_STATE.json (rev23->24), and finn-data.js — the $24.05 was an erroneous entry (its 'NVDA dividend' breakdown didn't reconcile); live FMP mark now ~$29,964. (2) finn-data.js REGENERATED from stale rev20 -> rev24/25: Fri-Jun-12-close prices baked, curated BRIEF/QUEUE/SCENARIOS refreshed to current reality (APLD +61%, MRVL +44% back in win-review, CRDO downgrade), source-pinned + node-validated (NAV reconciles, realized $2,528.29). (3) CLAUDE DESIGN: major surface progress — Book/Positions (7 changes incl. filter bar replacing in-dip toggle, within-tier weight order, news dating; sector kept signal-only/glyph, not color), Position Detail rebuilt into a real deep-dive (economics block, true-scale price ladder, scores breakdown, scenario strip; de-duplicated main-vs-rail; 4 tabs Overview/Scenario/Timeline/News), Calibration/Decision-Quality Loop hardened (neutral CONF bars, WATCH tile, all tiles+best/worst derived from one journal, stepped perfect-calibration line, since-call % normalized), Scores (FIT column + CS×MS map; fill re-encoded to conviction trend not P&L/day-move; Core-cluster labels + relative-crosshair note). (4) TOOLING: adopting Obsidian (knowledge layer over repo) + Vercel (Phase-3 host/KV store) + Cursor (Phase-3 build); skipped Notion/Linear/Figma/Warp. (5) Phase 3 PARKED until Design done. No trades, no score changes.",
+    "nav_note": "No trades this session. Cash corrected to $49.47 -> live FMP mark ~$29,964 (was ~$29,939 at the wrong $24.05). Last verified broker EOD still Jun10 $28,704.58 (57.4% to $50K / +4.4% inception off that anchor). Jun11 + Jun12 EOD still UNCAPTURED -> recon UNANCHORED; Jun12 close is now available (weekend), capture both at next GMF. Don't reopen a settled NAV without a real broker discrepancy.",
     "open_items": [
-      "CAPTURE Jun 11 + Jun 12 broker EOD closes at next GMF (still uncaptured) -> append nav_history broker_eod points; recon tile is UNANCHORED until then.",
-      "Upload/commit this session's final artifacts: FINN_SYSTEM_PROMPT v4.2 (Project + repo), FINN_VOICE_SPEC + FINN_MICROCOPY_STYLE_SHEET (repo), rev23 (Project + repo).",
-      "Repo backlog (non-blocking): engine patches v4.0/v4.1, R4 architecture amendments, scoring/sizing spec, DATA_SPEC v1.1 redline.",
-      "Regenerate finn-data.js from rev23 before the Saturday build (currently pinned to rev20).",
-      "Apply the DATA_SPEC v1.1 redline at surface A2; re-letter the surface namespace S0-S11 (V-M18) before per-surface certification.",
-      "Optional operator data: NVDA per-lot buy history (only for FIFO-exact reviews; blended is locked otherwise)."
+      "OPEN spot-check: confirm AVGO's red dot on the Scores CS×MS map is a real CS week-over-week DECLINE (90 vs prior scoring), NOT its -9% P&L re-coloring the fill. If CS is flat/rising, the trend fill reverted and needs the corrective.",
+      "Confirm the Scores table sort = FIT-descending is intentional + make it an explicit sortable column (active-sort marked).",
+      "CAPTURE Jun 11 + Jun 12 broker EOD at next GMF -> append nav_history; recon UNANCHORED until then.",
+      "PER-LOT COST BASIS (entry price + shares) for the 7 historical trims (MRVL/AMD/HOOD/MU/DRAM/CEG/NU) — calibration journal renders '—' for their since-call % without it; DATA fix, wire when finn-data.js / Phase-3 store carries per-lot data (NVDA lot already has basis).",
+      "Optional now: muted footnote/hover on the '—' calibration TRIM rows ('% pending lot cost basis') so a graded row reading '—' doesn't look broken.",
+      "COMMIT the advancing Claude Design build to the repo when at a good stopping point (Book/Detail/Calibration/Scores reworked; exports so far were for review).",
+      "Repo backlog (non-blocking): FINN_SYSTEM_PROMPT v4.2, FINN_VOICE_SPEC + FINN_MICROCOPY_STYLE_SHEET, engine patches v4.0/v4.1, R4 amendments, scoring/sizing spec, DATA_SPEC v1.1 redline."
     ],
     "design_artifacts_location": "All in /outputs (recommend committing to repo): FINN_COLOR_SYSTEM_v4, FINN_NAV_STRUCTURE, FINN_INTELLIGENCE_WEB, FINN_DISCRETE_FIXES, FINN_ARCHITECTURE, FINN_MOBILE_SPEC, FINN_SPEC_AMENDMENTS, FINN_CLAUDE_DESIGN_QUEUE, finn-data.js (A0), FINN_FABLE_REVIEW, FINN_SPEC_REVIEW_PACKAGE, FINN_FABLE_ENGINE_REDTEAM, FINN_SETUP, FINN_STATE.seed/blank.",
-    "uploads_pending": "rev18 (this handoff) -> Project + Repo. rev17 (NAV + sell-triggers) already posted.",
-    "as_of": "2026-06-12 (GNF — Fable program complete)",
-    "next_session": "GMF -> rev-confirm rev23 -> pull FMP feed -> capture Jun11/Jun12 EOD -> Saturday canvas build in order: A0 verify -> A1 color -> A2 consolidation(+v1.1 redline) -> A3 wayfinding -> A11(+A10) trust layer -> A8 exit/tables -> A4 cash -> A5 observatory -> A6 intelligence-web -> A9 performance -> A7 process. (Surface S0-S11 rename pending.)"
+    "uploads_pending": "rev25 (Project + repo) + finn-data.js rev25 (repo ui_kits/finn) — both produced this session. Plus the Claude Design build export -> repo when ready.",
+    "as_of": "2026-06-14 (Sun) — GNF, weekend Claude Design build session",
+    "next_session": "Continue the Claude Design pass: finish remaining surfaces + the Position Detail Scenario/Timeline/News tab CONTENTS (Overview built), close the AVGO map-trend spot-check + the Scores sort confirm. THEN Phase 3 in a FRESH dedicated session — first answer the 3 gating questions (store = Vercel KV blob? · post-parity chat+app share the ONE hosted store via API? · auth = single-password/Vercel gate?), then produce CLAUDE.md + the typed FINN_STATE schema, build state-contract+derived-selectors first. Obsidian setup pending (scaffold ready, say 'scaffold vault')."
   },
   "calls_log": [
     {
