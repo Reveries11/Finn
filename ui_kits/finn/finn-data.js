@@ -1,25 +1,25 @@
-// Finn shared data — regenerated from canonical FINN_STATE.json rev20 + live prices (Jun 12).
-// SOURCE PIN: rev 20, sha 054ad2055e25627b… (AF-21). Aggregates DERIVED here; app load-asserts source_sha == live store sha.
-// Curated views (SCENARIOS / WATCH / BRIEF / QUEUE) are design-ref; canonical data (POS/cash/NAV/HWM/TRADES/EARNINGS) is rev20-current.
+// Finn shared data — regenerated from canonical FINN_STATE.json rev25 + Jun-12-close prices (built Sat Jun 13 for the Claude Design canvas; cash corrected 24.05->49.47).
+// SOURCE PIN: rev 25, sha 988f58e6bde44670… Aggregates DERIVED here; app load-asserts source_sha == live store sha.
+// Curated views (SCENARIOS / WATCH / BRIEF / QUEUE) are design-ref; canonical data (POS/cash/NAV/HWM/TRADES/EARNINGS) is rev25-current. WATCH radar prices are last-seen (non-owned).
 (function () {
-  const SOURCE = { source_rev: 20, source_sha: "054ad2055e25627bef2b716c41ca91fa45e9ef651b352c9313aaf9198af9fe35", recipe: "sha256(json.dumps(obj_without_sha256, sort_keys=True, separators=(',',':'), ensure_ascii=False))" };
-  const cash = 24.05;
+  const SOURCE = { source_rev: 25, source_sha: "988f58e6bde446700cb3d776cd991842f3d3ae856f93c6a82f3976a5973c1bdd", recipe: "sha256(json.dumps(obj_without_sha256, sort_keys=True, separators=(',',':'), ensure_ascii=False))" };
+  const cash = 49.47;
 
-  // ----- Positions: rev16 facts + live prices (Jun 11 feed). cost/PT/zones/scores from canonical. -----
+  // ----- Positions: rev23 facts + Jun-12-close prices. cost/PT/zones/scores from canonical. -----
   // t, name, sector, shares, cost, live, dayPct, cs, ms, conv, ptL, ptH, dipL, dipH, trim, rec
   const POS = [
-    { t: "NVDA", n: "NVIDIA", sec: "AI Semis", sh: 27.727, cost: 154.66, live: 204.87, dayPct: 2.22, cs: 88, ms: 77, conv: 5, ptL: 295, ptH: 295, dipL: 200, dipH: 210, trim: 382, rec: "hold" },
-    { t: "AVGO", n: "Broadcom", sec: "AI Semis", sh: 9, cost: 420.37, live: 385.57, dayPct: 3.62, cs: 90, ms: 71, conv: 5, ptL: 463, ptH: 582, dipL: 410, dipH: 420, trim: 602, rec: "add" },
-    { t: "ANET", n: "Arista Networks", sec: "Networking", sh: 17, cost: 145.01, live: 156.4, dayPct: 3.06, cs: 87, ms: 75, conv: 5, ptL: 187, ptH: 187, dipL: 140, dipH: 145, trim: 235, rec: "watch" },
-    { t: "AMAT", n: "Applied Materials", sec: "AI Semis", sh: 6, cost: 431.9, live: 552.64, dayPct: 11.19, cs: 87, ms: 81, conv: 4, ptL: 500, ptH: 575, dipL: 420, dipH: 425, trim: 590, rec: "hold" },
-    { t: "ETN", n: "Eaton", sec: "Power", sh: 5, cost: 395.19, live: 393.64, dayPct: 4.84, cs: 83, ms: 72, conv: 4, ptL: 464, ptH: 464, dipL: 395, dipH: 415, trim: 586, rec: "add" },
-    { t: "APH", n: "Amphenol", sec: "Networking", sh: 12, cost: 133.11, live: 152.46, dayPct: 2.17, cs: 88, ms: 79, conv: 4, ptL: 145, ptH: 182, dipL: 130, dipH: 135, trim: 237, rec: "hold" },
-    { t: "APLD", n: "Applied Digital", sec: "AI Infra", sh: 35, cost: 26.49, live: 41.47, dayPct: 6.55, cs: 63, ms: 74, conv: 4, ptL: 58, ptH: 97, dipL: 40, dipH: 43, trim: 75, rec: "hold" },
-    { t: "MRVL", n: "Marvell", sec: "AI Semis", sh: 6, cost: 194.33, live: 280.71, dayPct: 11.13, cs: 84, ms: 81, conv: 4, ptL: 340, ptH: 400, dipL: 205, dipH: 215, trim: 390, rec: "hold" },
-    { t: "NOW", n: "ServiceNow", sec: "AI Software", sh: 12, cost: 101.68, live: 103.08, dayPct: -2.81, cs: 83, ms: 71, conv: 4, ptL: 143, ptH: 236, dipL: 115, dipH: 120, trim: 186, rec: "add" },
-    { t: "CRDO", n: "Credo Technology", sec: "AI Semis", sh: 11, cost: 215.95, live: 264.76, dayPct: 11.39, cs: 83, ms: 82, conv: 4, ptL: 240, ptH: 300, dipL: 190, dipH: 215, trim: 300, rec: "hold" },
-    { t: "ORCL", n: "Oracle", sec: "AI Software", sh: 5, cost: 192.84, live: 184.1, dayPct: -8.53, cs: 76, ms: 66, conv: 3, ptL: 261, ptH: 261, dipL: 185, dipH: 190, trim: 339, rec: "hold" },
-    { t: "VOO", n: "Vanguard S&P 500", sec: "Foundation", sh: 4, cost: 635.56, live: 678.23, dayPct: 1.68, cs: 84, ms: 77, conv: 5, ptL: null, ptH: null, dipL: 650, dipH: 650, trim: null, rec: "hold" },
+    { t: "NVDA", n: "NVIDIA", sec: "AI Semis", sh: 27.727, cost: 154.66, live: 205.19, dayPct: 0.16, cs: 88, ms: 77, conv: 5, ptL: 295, ptH: 295, dipL: 200, dipH: 210, trim: 382, rec: "hold" },
+    { t: "AVGO", n: "Broadcom", sec: "AI Semis", sh: 9, cost: 420.37, live: 382.07, dayPct: -0.91, cs: 90, ms: 71, conv: 5, ptL: 463, ptH: 582, dipL: 410, dipH: 420, trim: 602, rec: "add" },
+    { t: "ANET", n: "Arista Networks", sec: "Networking", sh: 17, cost: 145.01, live: 163.24, dayPct: 4.37, cs: 87, ms: 75, conv: 5, ptL: 187, ptH: 187, dipL: 140, dipH: 145, trim: 235, rec: "watch" },
+    { t: "AMAT", n: "Applied Materials", sec: "AI Semis", sh: 6, cost: 431.9, live: 567.25, dayPct: 2.64, cs: 87, ms: 81, conv: 4, ptL: 500, ptH: 575, dipL: 420, dipH: 425, trim: 590, rec: "hold" },
+    { t: "ETN", n: "Eaton", sec: "Power", sh: 5, cost: 395.19, live: 391.39, dayPct: -0.57, cs: 83, ms: 72, conv: 4, ptL: 464, ptH: 464, dipL: 395, dipH: 415, trim: 586, rec: "add" },
+    { t: "APH", n: "Amphenol", sec: "Networking", sh: 12, cost: 133.11, live: 153.80, dayPct: 0.88, cs: 88, ms: 79, conv: 4, ptL: 145, ptH: 182, dipL: 130, dipH: 135, trim: 237, rec: "hold" },
+    { t: "APLD", n: "Applied Digital", sec: "AI Infra", sh: 35, cost: 26.49, live: 42.70, dayPct: 2.97, cs: 63, ms: 74, conv: 4, ptL: 58, ptH: 97, dipL: 40, dipH: 43, trim: 75, rec: "hold" },
+    { t: "MRVL", n: "Marvell", sec: "AI Semis", sh: 6, cost: 194.33, live: 279.70, dayPct: -0.36, cs: 84, ms: 81, conv: 4, ptL: 340, ptH: 400, dipL: 205, dipH: 215, trim: 390, rec: "hold" },
+    { t: "NOW", n: "ServiceNow", sec: "AI Software", sh: 12, cost: 101.68, live: 102.15, dayPct: -0.90, cs: 83, ms: 71, conv: 4, ptL: 143, ptH: 236, dipL: 115, dipH: 120, trim: 186, rec: "add" },
+    { t: "CRDO", n: "Credo Technology", sec: "AI Semis", sh: 11, cost: 215.95, live: 250.81, dayPct: -5.27, cs: 83, ms: 82, conv: 4, ptL: 240, ptH: 300, dipL: 190, dipH: 215, trim: 300, rec: "hold" },
+    { t: "ORCL", n: "Oracle", sec: "AI Software", sh: 5, cost: 192.84, live: 184.13, dayPct: 0.02, cs: 76, ms: 66, conv: 3, ptL: 261, ptH: 261, dipL: 185, dipH: 190, trim: 339, rec: "hold" },
+    { t: "VOO", n: "Vanguard S&P 500", sec: "Foundation", sh: 4, cost: 635.56, live: 681.95, dayPct: 0.55, cs: 84, ms: 77, conv: 5, ptL: null, ptH: null, dipL: 650, dipH: 650, trim: null, rec: "hold" },
   ];
 
   // Thesis-break sell triggers (every position has a defined exit; 5 new ones added Jun 11).
@@ -94,7 +94,7 @@
 
   const PORT = {
     navEod: NAV_EOD, navEodDate: NAV_EOD_DATE,
-    navLive: +navLive.toFixed(2), navLiveTime: "Jun 12",
+    navLive: +navLive.toFixed(2), navLiveTime: "Jun 12 close",
     dayDollars: +dayDollars.toFixed(2),
     dayPct: +(dayDollars / (navLive - dayDollars) * 100).toFixed(2),
     hwm: HWM, hwmDate: HWM_DATE, ddFromHwm: +((NAV_EOD / HWM - 1) * 100).toFixed(1),
@@ -109,47 +109,47 @@
 
   // ----- Market brief (current — Jun 11, from the live feed) -----
   const BRIEF = {
-    date: "Thursday, June 11, 2026", edition: "Morning Edition",
+    date: "Friday, June 12, 2026", edition: "Weekly Close",
     tape: {
-      headline: "AI-semis rebound; the Jun-9 custom-silicon scare reverses",
-      body: "Risk-on snapback — QQQ leads SPY as the chip complex rebounds hard off Monday's ByteDance–QCOM scare. PPI ran hot this morning and the tape shrugged it. VIX ~22, credit calm. Overhang: the Jun 16–17 FOMC dot plot.",
+      headline: "Broad risk-on into the close; custom-silicon splits as CRDO is downgraded",
+      body: "A volatile week ends green \u2014 SPY and QQQ both up ~0.5% with networking and semicap names bid (ANET, AMAT, APLD) while custom-silicon lags. CRDO \u22125% on a sell-side downgrade to Hold; AVGO and MRVL soft. VIX ~20, credit calm. The Jun 16\u201317 FOMC dot plot is the next regime test.",
       stats: [
-        { k: "QQQ", v: "+0.9%", d: "leads", dir: "up" },
-        { k: "SPY", v: "+0.2%", d: "—", dir: "flat" },
-        { k: "VIX", v: "~22", d: "-0.7%", dir: "flat" },
-        { k: "Next macro", v: "FOMC", d: "Jun 16–17", dir: "flat" },
+        { k: "SPY", v: "+0.5%", d: "\u2014", dir: "up" },
+        { k: "QQQ", v: "+0.6%", d: "leads", dir: "up" },
+        { k: "VIX", v: "~20", d: "as-of", dir: "flat" },
+        { k: "Next macro", v: "FOMC", d: "Jun 16\u201317", dir: "flat" },
       ],
     },
     finding: {
-      ticker: "AVGO", title: "Highest-conviction name still below cost post-print",
-      body: "AVGO carries the book's top CS (90) and trades at $376 — below your $420.37 cost and the $410–420 dip zone after its Jun-3 print (−12.6% reaction). Half the NVDA-funded slot is still dry, held for the FOMC / QCOM (Jun 24) window.",
+      ticker: "AVGO", title: "Highest-conviction name still below cost & dip zone",
+      body: "AVGO carries the book's top CS (90) and trades at $382 \u2014 below your $420.37 cost and the $410\u2013420 dip zone after its Jun-3 print. Half the NVDA-funded slot stays dry, held for the FOMC / QCOM (Jun 24) window; a second add needs a NVDA trim.",
     },
     headlines: [
-      { tag: "EARNINGS", txt: "ORCL reported Jun 10 — worst day since Jan '25 (−12%) on a $40B debt raise + FY27 capex guide, despite the beat. Isolated to ORCL.", live: true },
-      { tag: "TAPE", txt: "Custom-silicon names ripping: CRDO +8%, AMAT +6%, MRVL +5% — the Jun-9 dislocation fully reversed." },
-      { tag: "STRUCTURAL", txt: "MRVL joins the S&P 500 effective Jun 22 — forced index buying." },
-      { tag: "PORTFOLIO", txt: "APLD (+49%) win-review still open — log, don't trim. MRVL slipped to +36% (out of win-review range)." },
+      { tag: "ANALYST", txt: "CRDO downgraded to Hold (valuation) \u2014 the \u22125% move today. Thesis intact: optical/AEC ramp + FY27 growth unchanged.", live: true },
+      { tag: "MANAGEMENT", txt: "MRVL names Dan Durn (ex-Adobe) CFO, effective Jun 15 \u2014 and joins the S&P 500 on Jun 22 (forced index buying)." },
+      { tag: "EARNINGS", txt: "AVGO reaffirms its >$100B FY27 AI-revenue target post-print; the selloff was multiple/margin sentiment, not the thesis." },
+      { tag: "PORTFOLIO", txt: "Two win reviews open: APLD (+61%) and MRVL (+44%, back above the +40% trigger) \u2014 log, don't trim." },
     ],
     calls: [
-      { action: "HOLD",  ticker: "ORCL", conf: 78, txt: "Don't chase the −12%. Record RPO means the thesis strengthened; the selloff is FCF sentiment. Hold the 5 shares.", why: "post-print · thesis intact" },
-      { action: "HOLD",  ticker: "AVGO", conf: 65, txt: "Hold the dry half-slot through FOMC / QCOM. No add at $376 — a second add needs a NVDA trim.", why: "below cost & dip zone · FOMC-gated" },
-      { action: "WATCH", ticker: "ANET", conf: 72, txt: "Add ~5 sh on a dip to $140–145. At $152 — above zone, don't chase.", why: "alert armed $140–145" },
+      { action: "HOLD",  ticker: "ORCL", conf: 80, txt: "Post-print call graded correct \u2014 record RPO, thesis intact; the selloff was FCF sentiment. Hold the 5 shares.", why: "graded \u00b7 thesis intact" },
+      { action: "HOLD",  ticker: "AVGO", conf: 70, txt: "Hold the dry half-slot through FOMC / QCOM. No add at $382 \u2014 a second add needs a NVDA trim.", why: "below cost & dip zone \u00b7 FOMC-gated" },
+      { action: "WATCH", ticker: "ANET", conf: 72, txt: "Add ~5 sh on a dip to $140\u2013145. At $163 \u2014 above zone, don't chase.", why: "alert armed $140\u2013145" },
     ],
     watch: [
-      { k: "FOMC + dot plot", d: "Jun 16–17", note: "the regime test" },
-      { k: "MRVL → S&P 500",  d: "Jun 22",    note: "forced index buying" },
-      { k: "QCOM Investor Day", d: "Jun 24",  note: "custom-silicon readthrough · AVGO add gate" },
-      { k: "APLD win review", d: "open",       note: "+49% · log, don't trim" },
+      { k: "FOMC + dot plot", d: "Jun 16\u201317", note: "the regime test" },
+      { k: "MRVL \u2192 S&P 500",  d: "Jun 22",    note: "forced index buying" },
+      { k: "QCOM Investor Day", d: "Jun 24",  note: "custom-silicon readthrough \u00b7 AVGO add gate" },
+      { k: "NOW earnings",   d: "Jul 22",     note: "next owned print" },
     ],
   };
 
   // ----- Home action queue (current open items) -----
   const QUEUE = [
-    { kind: "hold",   pri: "high", ticker: "ORCL", txt: "Post-print −12% — hold, don't chase the dip", meta: "conf 78" },
-    { kind: "review", pri: "med",  ticker: "APLD", txt: "Win review open — log, don't trim", meta: "+49%" },
-    { kind: "watch",  pri: "med",  ticker: "ANET", txt: "Alert armed — add ~5 sh on a dip", meta: "$140–145" },
-    { kind: "add",    pri: "low",  ticker: "NOW",  txt: "Undersized vs conviction — best next dollar", meta: "$25 to PT" },
-    { kind: "add",    pri: "low",  ticker: "AVGO", txt: "Half slot dry — gated on FOMC / QCOM", meta: "$376 · CS 90" },
+    { kind: "review", pri: "high", ticker: "APLD", txt: "Win review open \u2014 log, don't trim", meta: "+61%" },
+    { kind: "review", pri: "med",  ticker: "MRVL", txt: "Back above +40% \u2014 log a win review", meta: "+44%" },
+    { kind: "watch",  pri: "med",  ticker: "ANET", txt: "Alert armed \u2014 add ~5 sh on a dip", meta: "$140\u2013145" },
+    { kind: "add",    pri: "low",  ticker: "NOW",  txt: "Undersized vs conviction \u2014 best next dollar", meta: "below dip zone" },
+    { kind: "add",    pri: "low",  ticker: "AVGO", txt: "Half slot dry \u2014 gated on FOMC / QCOM", meta: "$382 \u00b7 CS 90" },
   ];
 
   // ----- NAV curve: real EOD closes (rev16) + the live point -----
@@ -190,12 +190,12 @@
   // ----- Scenario decision views (current prices; corrected post-print) -----
   const SCENARIOS = {
     AVGO: {
-      t: "AVGO", n: "Broadcom", live: 376.19, cost: 420.37, sh: 9, conv: 5, cs: 90, ms: 71,
+      t: "AVGO", n: "Broadcom", live: 382.07, cost: 420.37, sh: 9, conv: 5, cs: 90, ms: 71,
       verdict: "HOLD", verdictNote: "Reported Jun 3 (−12.6%). Below cost & dip zone, but the second half of the slot stays dry until the FOMC / QCOM (Jun 24) window. A further add needs a NVDA trim.",
       cases: [
-        { kind: "bull", label: "Bull", prob: 35, target: 582, note: "Custom-silicon (XPU) ramp re-accelerates; VMware margins compound; multiple re-rates.", impact: 1854, impactPct: 54.7 },
-        { kind: "base", label: "Base", prob: 50, target: 463, note: "AI networking + software carry; compute digestion caps the multiple near term.", impact: 781, impactPct: 23.1 },
-        { kind: "bear", label: "Bear", prob: 15, target: 320, note: "Hyperscaler capex pause + rate shock; custom-silicon timeline slips a quarter.", impact: -505, impactPct: -14.9 },
+        { kind: "bull", label: "Bull", prob: 35, target: 582, note: "Custom-silicon (XPU) ramp re-accelerates; VMware margins compound; multiple re-rates.", impact: 1799, impactPct: 52.3 },
+        { kind: "base", label: "Base", prob: 50, target: 463, note: "AI networking + software carry; compute digestion caps the multiple near term.", impact: 728, impactPct: 21.2 },
+        { kind: "bear", label: "Bear", prob: 15, target: 320, note: "Hyperscaler capex pause + rate shock; custom-silicon timeline slips a quarter.", impact: -559, impactPct: -16.2 },
       ],
       checklist: [
         { txt: "FOMC dot plot Jun 16–17 before adding size", done: false },
@@ -205,12 +205,12 @@
       ],
     },
     NVDA: {
-      t: "NVDA", n: "NVIDIA", live: 201.11, cost: 154.66, sh: 27.727, conv: 5, cs: 88, ms: 77,
+      t: "NVDA", n: "NVIDIA", live: 205.19, cost: 154.66, sh: 27.727, conv: 5, cs: 88, ms: 77,
       verdict: "HOLD", verdictNote: "Core compute. Trimmed 2 sh Jun 9 to fund AVGO; hold the rest — don't add near the 20% ceiling, trim only above $382.",
       cases: [
-        { kind: "bull", label: "Bull", prob: 40, target: 295, note: "Datacenter GPU stays supply-constrained; Rubin extends the lead.", impact: 2604, impactPct: 46.7 },
-        { kind: "base", label: "Base", prob: 45, target: 250, note: "Growth durable but digestion caps the multiple; still the book's anchor.", impact: 1356, impactPct: 24.3 },
-        { kind: "bear", label: "Bear", prob: 15, target: 165, note: "Capex pause + a credible CUDA-class rival; the complex de-rates.", impact: -1001, impactPct: -17.9 },
+        { kind: "bull", label: "Bull", prob: 40, target: 295, note: "Datacenter GPU stays supply-constrained; Rubin extends the lead.", impact: 2490, impactPct: 43.8 },
+        { kind: "base", label: "Base", prob: 45, target: 250, note: "Growth durable but digestion caps the multiple; still the book's anchor.", impact: 1243, impactPct: 21.8 },
+        { kind: "bear", label: "Bear", prob: 15, target: 165, note: "Capex pause + a credible CUDA-class rival; the complex de-rates.", impact: -1114, impactPct: -19.6 },
       ],
       checklist: [
         { txt: "Hyperscaler capex commentary stays firm", done: true },
@@ -220,12 +220,12 @@
       ],
     },
     MRVL: {
-      t: "MRVL", n: "Marvell", live: 264.68, cost: 194.33, sh: 6, conv: 4, cs: 84, ms: 81,
-      verdict: "HOLD", verdictNote: "+36% (slipped below the +40% win-review trigger). Hold into the S&P 500 add (Jun 22). The Finn PT ($340–400) sits above the street — that gap is the risk.",
+      t: "MRVL", n: "Marvell", live: 279.70, cost: 194.33, sh: 6, conv: 4, cs: 84, ms: 81,
+      verdict: "HOLD", verdictNote: "+44% (back above the +40% win-review trigger \u2014 log it). Hold into the S&P 500 add (Jun 22). The Finn PT ($340–400) sits above the street — that gap is the risk.",
       cases: [
-        { kind: "bull", label: "Bull", prob: 35, target: 400, note: "Custom silicon ramps with multiple Tier-1s; connectivity compounds; street catches up.", impact: 812, impactPct: 51.1 },
-        { kind: "base", label: "Base", prob: 45, target: 340, note: "DC revenue grows into the multiple; S&P inclusion adds forced buying.", impact: 452, impactPct: 28.5 },
-        { kind: "bear", label: "Bear", prob: 20, target: 215, note: "A Tier-1 program slips; ASIC sentiment takes share. Back to the dip zone.", impact: -298, impactPct: -18.8 },
+        { kind: "bull", label: "Bull", prob: 35, target: 400, note: "Custom silicon ramps with multiple Tier-1s; connectivity compounds; street catches up.", impact: 722, impactPct: 43.0 },
+        { kind: "base", label: "Base", prob: 45, target: 340, note: "DC revenue grows into the multiple; S&P inclusion adds forced buying.", impact: 362, impactPct: 21.6 },
+        { kind: "bear", label: "Bear", prob: 20, target: 215, note: "A Tier-1 program slips; ASIC sentiment takes share. Back to the dip zone.", impact: -388, impactPct: -23.1 },
       ],
       checklist: [
         { txt: "S&P 500 inclusion Jun 22 — forced index buying", done: false },
@@ -235,12 +235,12 @@
       ],
     },
     ORCL: {
-      t: "ORCL", n: "Oracle", live: 177.37, cost: 192.84, sh: 5, conv: 3, cs: 76, ms: 66,
-      verdict: "HOLD", verdictNote: "Reported Jun 10 — worst day since Jan '25 (−12%) on a $40B debt raise + FY27 capex guide ($90B vs ~$62B Street), despite the beat. Record RPO = thesis intact; the selloff is FCF sentiment. Don't chase.",
+      t: "ORCL", n: "Oracle", live: 184.13, cost: 192.84, sh: 5, conv: 3, cs: 76, ms: 66,
+      verdict: "HOLD", verdictNote: "Call graded correct. Reported Jun 10 — worst day since Jan '25 (−12%) on a $40B debt raise + FY27 capex guide ($90B vs ~$62B Street), despite the beat. Record RPO = thesis intact; the selloff is FCF sentiment. Don't chase.",
       cases: [
-        { kind: "bull", label: "Bull", prob: 35, target: 261, note: "OCI/RPO growth proves out; the debt funds a backlog that compounds.", impact: 418, impactPct: 47.1 },
-        { kind: "base", label: "Base", prob: 40, target: 215, note: "OCI grows but capex + the raise weigh on FCF; multiple stays range-bound.", impact: 188, impactPct: 21.2 },
-        { kind: "bear", label: "Bear", prob: 25, target: 150, note: "RPO leans on OpenAI; an anchor-commitment cut or margin compression de-rates the levered balance sheet.", impact: -137, impactPct: -15.5 },
+        { kind: "bull", label: "Bull", prob: 35, target: 261, note: "OCI/RPO growth proves out; the debt funds a backlog that compounds.", impact: 384, impactPct: 41.8 },
+        { kind: "base", label: "Base", prob: 40, target: 215, note: "OCI grows but capex + the raise weigh on FCF; multiple stays range-bound.", impact: 154, impactPct: 16.8 },
+        { kind: "bear", label: "Bear", prob: 25, target: 150, note: "RPO leans on OpenAI; an anchor-commitment cut or margin compression de-rates the levered balance sheet.", impact: -171, impactPct: -18.5 },
       ],
       checklist: [
         { txt: "OCI revenue growth on the next print", done: false },
