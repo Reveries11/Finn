@@ -1,8 +1,8 @@
-// Finn shared data — regenerated from canonical FINN_STATE.json rev25 + Jun-12-close prices (built Sat Jun 13 for the Claude Design canvas; cash corrected 24.05->49.47).
+// Finn shared data — regenerated from canonical FINN_STATE.json rev26 + Jun-12-close prices (Jun 14: +REVIEWS/NEWS/SMART_MONEY slices, BRIEF.also+tldr, SPY tape sub "S&P 500", NOW dip zone 115-120 -> 96-100).
 // SOURCE PIN: rev 25, sha 988f58e6bde44670… Aggregates DERIVED here; app load-asserts source_sha == live store sha.
 // Curated views (SCENARIOS / WATCH / BRIEF / QUEUE) are design-ref; canonical data (POS/cash/NAV/HWM/TRADES/EARNINGS) is rev25-current. WATCH radar prices are last-seen (non-owned).
 (function () {
-  const SOURCE = { source_rev: 25, source_sha: "988f58e6bde446700cb3d776cd991842f3d3ae856f93c6a82f3976a5973c1bdd", recipe: "sha256(json.dumps(obj_without_sha256, sort_keys=True, separators=(',',':'), ensure_ascii=False))" };
+  const SOURCE = { source_rev: 26, source_sha: "926036bcd150a54bf36fefa9484363774af988fc9306a215af89fa5c304d1048", recipe: "sha256(json.dumps(obj_without_sha256, sort_keys=True, separators=(',',':'), ensure_ascii=False))" };
   const cash = 49.47;
 
   // ----- Positions: rev23 facts + Jun-12-close prices. cost/PT/zones/scores from canonical. -----
@@ -16,7 +16,7 @@
     { t: "APH", n: "Amphenol", sec: "Networking", sh: 12, cost: 133.11, live: 153.80, dayPct: 0.88, cs: 88, ms: 79, conv: 4, ptL: 145, ptH: 182, dipL: 130, dipH: 135, trim: 237, rec: "hold" },
     { t: "APLD", n: "Applied Digital", sec: "AI Infra", sh: 35, cost: 26.49, live: 42.70, dayPct: 2.97, cs: 63, ms: 74, conv: 4, ptL: 58, ptH: 97, dipL: 40, dipH: 43, trim: 75, rec: "hold" },
     { t: "MRVL", n: "Marvell", sec: "AI Semis", sh: 6, cost: 194.33, live: 279.70, dayPct: -0.36, cs: 84, ms: 81, conv: 4, ptL: 340, ptH: 400, dipL: 205, dipH: 215, trim: 390, rec: "hold" },
-    { t: "NOW", n: "ServiceNow", sec: "AI Software", sh: 12, cost: 101.68, live: 102.15, dayPct: -0.90, cs: 83, ms: 71, conv: 4, ptL: 143, ptH: 236, dipL: 115, dipH: 120, trim: 186, rec: "add" },
+    { t: "NOW", n: "ServiceNow", sec: "AI Software", sh: 12, cost: 101.68, live: 102.15, dayPct: -0.90, cs: 83, ms: 71, conv: 4, ptL: 143, ptH: 236, dipL: 96, dipH: 100, trim: 186, rec: "add" },
     { t: "CRDO", n: "Credo Technology", sec: "AI Semis", sh: 11, cost: 215.95, live: 250.81, dayPct: -5.27, cs: 83, ms: 82, conv: 4, ptL: 240, ptH: 300, dipL: 190, dipH: 215, trim: 300, rec: "hold" },
     { t: "ORCL", n: "Oracle", sec: "AI Software", sh: 5, cost: 192.84, live: 184.13, dayPct: 0.02, cs: 76, ms: 66, conv: 3, ptL: 261, ptH: 261, dipL: 185, dipH: 190, trim: 339, rec: "hold" },
     { t: "VOO", n: "Vanguard S&P 500", sec: "Foundation", sh: 4, cost: 635.56, live: 681.95, dayPct: 0.55, cs: 84, ms: 77, conv: 5, ptL: null, ptH: null, dipL: 650, dipH: 650, trim: null, rec: "hold" },
@@ -114,7 +114,7 @@
       headline: "Broad risk-on into the close; custom-silicon splits as CRDO is downgraded",
       body: "A volatile week ends green \u2014 SPY and QQQ both up ~0.5% with networking and semicap names bid (ANET, AMAT, APLD) while custom-silicon lags. CRDO \u22125% on a sell-side downgrade to Hold; AVGO and MRVL soft. VIX ~20, credit calm. The Jun 16\u201317 FOMC dot plot is the next regime test.",
       stats: [
-        { k: "SPY", v: "+0.5%", d: "\u2014", dir: "up" },
+        { k: "SPY", v: "+0.5%", d: "S&P 500", dir: "up" },
         { k: "QQQ", v: "+0.6%", d: "leads", dir: "up" },
         { k: "VIX", v: "~20", d: "as-of", dir: "flat" },
         { k: "Next macro", v: "FOMC", d: "Jun 16\u201317", dir: "flat" },
@@ -141,6 +141,12 @@
       { k: "QCOM Investor Day", d: "Jun 24",  note: "custom-silicon readthrough \u00b7 AVGO add gate" },
       { k: "NOW earnings",   d: "Jul 22",     note: "next owned print" },
     ],
+    also: [
+      { tag: "WATCHLIST", txt: "AMD radar \u2014 post-sell re-entry zone $430\u2013440, monitor through Jul 3; not in range yet. VRT (liquid cooling) pairs ETN on the power theme." },
+      { tag: "SMART MONEY", txt: "AVGO 13G: two funds opened 13G-scale positions on the Jun-3 \u221212.6% print \u2014 institutions accumulating into your HOLD." },
+      { tag: "FLAG", txt: "ORCL last printed 18m before the close \u2014 quote lag noted; the mark is unaffected." },
+    ],
+    tldr: "Risk-on close; CRDO downgraded (thesis intact); AVGO still below cost & dip zone, gated on the Jun 16\u201317 FOMC.",
   };
 
   // ----- Home action queue (current open items) -----
@@ -151,6 +157,63 @@
     { kind: "add",    pri: "low",  ticker: "NOW",  txt: "Undersized vs conviction \u2014 best next dollar", meta: "below dip zone" },
     { kind: "add",    pri: "low",  ticker: "AVGO", txt: "Half slot dry \u2014 gated on FOMC / QCOM", meta: "$382 \u00b7 CS 90" },
   ];
+
+  // ----- Win/loss reviews (mirror of FINN_STATE.reviews) -> Performance lessons. Open reviews shown = entries(OPEN) + QUEUE(kind:review). -----
+  const REVIEWS = {
+    entries: [
+      { id: 1, date: "2026-06-03", ticker: "AMD",  type: "EXIT", outcome: "WIN", realized: 268.28, lesson: "Trimming the weakest-conviction name in a crowded sub-sector (semis) is a clean source of funds \u2014 not a thesis reversal. Re-entry $430-440, monitor to Jul3." },
+      { id: 2, date: "2026-06-03", ticker: "DRAM", type: "EXIT", outcome: "WIN", realized: 104.87, lesson: "Small thematic sleeves fine to harvest + re-buy lower \u2014 HBM thesis intact, entry resets ($55-57)." },
+      { id: 3, date: "2026-06-02", ticker: "MRVL", type: "TRIM", outcome: "WIN", realized: 196.19, lesson: "Trim into euphoric spikes (Jensen call) while retaining the core." },
+      { id: 4, date: null, ticker: "APLD", type: "WIN_REVIEW", outcome: "OPEN", pct: 61, context: "+61% (peaked +67.8%) on the $31B contracted-revenue re-rate; multiple pre-May29 trims (+$718.92 across 35sh).", questions: ["What signal preceded the re-rate?", "Was sizing right at conviction 4 / CS62?", "Trim discipline \u2014 too early or right?"] },
+    ],
+    patterns: [
+      "Trim-into-strength works repeatedly (NVDA/MRVL/APLD) \u2014 formalize a trim ladder above PT.",
+      "Lower-conviction names recycled for capital \u2014 conviction-based sizing working.",
+    ],
+    lossNote: "No loss reviews logged yet \u2014 the \u221220% trigger hasn't fired.",
+    openTodo: "Write APLD win review (id4). Add a LOSS-review template.",
+  };
+
+  // ----- News feed (impact-tiered; live FMP pull in the app, curated samples here). lastViewed gates "new since". -----
+  const NEWS = {
+    pulledAt: "2m ago", source: "FMP", lastViewed: "Jun 12 09:30", liveCount: 2, sampleCount: 4,
+    items: [
+      { tag: "ANALYST",    tier: "moves",   materiality: "high", sentiment: "bear",    ticker: "CRDO", reaction: -5.27, live: true,  isNew: true,  when: "Jun 12", age: "2h", txt: "CRDO downgraded to Hold on valuation \u2014 the \u22125% move today. Thesis intact: optical/AEC ramp + FY27 growth unchanged.", related: ["CRDO"], routes: ["risk"] },
+      { tag: "M&A",        tier: "moves",   materiality: "med",  sentiment: "bull",    ticker: "MRVL", reaction: -0.36, live: true,  isNew: true,  when: "Jun 12", age: "4h", txt: "ByteDance\u2013Qualcomm custom-silicon deal reported \u2014 read-through to merchant custom silicon (MRVL, AVGO) and connectivity (CRDO).", related: ["MRVL","AVGO","CRDO"], routes: ["scenario(MRVL)","risk"] },
+      { tag: "MANAGEMENT", tier: "moves",   materiality: "med",  sentiment: "bull",    ticker: "MRVL", reaction: -0.36, live: false, isNew: true,  when: "Jun 11", age: null, txt: "MRVL names Dan Durn (ex-Adobe) CFO, effective Jun 15 \u2014 and joins the S&P 500 on Jun 22 (forced index buying).", related: ["MRVL"], routes: ["scenario(MRVL)","risk"] },
+      { tag: "EARNINGS",   tier: "moves",   materiality: "med",  sentiment: "bull",    ticker: "AVGO", reaction: -0.91, live: false, isNew: false, when: "Jun 10", age: null, txt: "AVGO reaffirms its >$100B FY27 AI-revenue target post-print; the selloff was multiple/margin sentiment, not the thesis.", related: ["AVGO"], routes: ["scenario(AVGO)","risk"] },
+      { tag: "PORTFOLIO",  tier: "context", materiality: "low",  sentiment: "neutral", ticker: null,   reaction: null,  live: false, isNew: true,  when: "Jun 12", age: "1h", txt: "Two win reviews open: APLD (+61%) and MRVL (+44%, back above the +40% trigger) \u2014 log, don't trim.", related: ["APLD","MRVL"], routes: ["scenario(MRVL)","risk"] },
+      { tag: "MACRO",      tier: "context", materiality: "low",  sentiment: "neutral", ticker: null,   reaction: null,  live: false, isNew: false, when: "Jun 12", age: null, txt: "FOMC + dot plot Jun 16\u201317 is the regime test \u2014 a rate surprise hits the long-duration software/RPO names first.", related: ["AVGO","NOW","ORCL"], routes: ["scenario(AVGO)","risk"] },
+    ],
+  };
+
+  // ----- Smart money (13F/insider/street vs your stance; live FMP in the app, curated samples here). 13G = passive >5%. -----
+  const SMART_MONEY = {
+    accumulating: 7, total: 11, divergingCount: 3, streetDriftNet: 7, feedConfirm: 4, feedChallenge: 3, convergenceCount: 3,
+    finding: "Smart money mostly confirms the book \u2014 8 of 11 names aligned. 3 diverge (APLD, CRDO, ORCL); none breaks a thesis, each is a watch: insiders selling APLD into the run, the CRDO downgrade, and funds trimming after ORCL's debt raise.",
+    posture: [
+      { t: "NVDA", inst: "accumulating", funds: ["Druckenmiller","Tiger Global"], insider: null,      streetUp: 4, streetDown: 0, read: "aligned" },
+      { t: "AVGO", inst: "accumulating", funds: ["Tepper","Coatue"],              insider: null,      streetUp: 1, streetDown: 2, read: "aligned" },
+      { t: "ANET", inst: "accumulating", funds: [],                               insider: null,      streetUp: 2, streetDown: 0, read: "aligned" },
+      { t: "ETN",  inst: "accumulating", funds: ["TCI","Point72"],                insider: "buying",  streetUp: 1, streetDown: 0, read: "aligned" },
+      { t: "APH",  inst: "accumulating", funds: [],                               insider: null,      streetUp: 1, streetDown: 0, read: "aligned" },
+      { t: "MRVL", inst: "accumulating", funds: [],                               insider: null,      streetUp: 2, streetDown: 0, read: "aligned" },
+      { t: "AMAT", inst: "steady",       funds: [],                               insider: null,      streetUp: 1, streetDown: 0, read: "aligned" },
+      { t: "NOW",  inst: "steady",       funds: [],                               insider: null,      streetUp: 0, streetDown: 1, read: "aligned" },
+      { t: "APLD", inst: "accumulating", funds: [],                               insider: "selling", streetUp: 1, streetDown: 0, read: "diverging" },
+      { t: "CRDO", inst: "steady",       funds: [],                               insider: null,      streetUp: 0, streetDown: 1, read: "diverging" },
+      { t: "ORCL", inst: "distributing", funds: [],                               insider: null,      streetUp: 0, streetDown: 2, read: "diverging" },
+    ],
+    feed: [
+      { cls: "analyst",       t: "CRDO", stance: "challenges", source: "sample", when: "Jun 12", txt: "Sell-side downgrade to Hold on valuation \u2014 the \u22125% move. Coverage steps aside; the optical/AEC ramp is unchanged.", routes: ["CRDO detail","news"] },
+      { cls: "institutional", t: "AVGO", stance: "confirms",   source: "broker", when: "Jun 11", txt: "Two funds opened 13G-scale positions buying the Jun-3 \u221212.6% print \u2014 the weakness you hold the dry half-slot for.", routes: ["AVGO detail","scenario","news"] },
+      { cls: "insider",       t: "APLD", stance: "challenges", source: "broker", when: "Jun 9",  txt: "Insider / early-holder sells into the +61% run. Common for a high-beta neocloud, but it lands on an open win-review.", routes: ["APLD detail","news"] },
+      { cls: "institutional", t: "MRVL", stance: "confirms",   source: "sample", when: "Jun 9",  txt: "S&P 500 inclusion Jun 22 forces index-fund buying at the close \u2014 mechanical accumulation into the +44% winner.", routes: ["MRVL detail","scenario","news"] },
+      { cls: "analyst",       t: "ORCL", stance: "challenges", source: "sample", when: "Jun 10", txt: "Multiple PT cuts after the $40B raise + FY27 capex guide; funds trimming. You're holding for the OCI/RPO inflection.", routes: ["ORCL detail","scenario","news"] },
+      { cls: "analyst",       t: "MRVL", stance: "confirms",   source: "sample", when: "Jun 6",  txt: "Custom-silicon PT raises ahead of inclusion \u2014 street creeping toward your $340\u2013400 PT.", routes: ["MRVL detail","scenario","news"] },
+      { cls: "insider",       t: "ETN",  stance: "confirms",   source: "broker", when: "Jun 6",  txt: "Director open-market buy (~$0.5M) into the dip zone you're adding a share against.", routes: ["ETN detail","news"] },
+    ],
+  };
 
   // ----- NAV curve: real EOD closes (rev16) + the live point -----
   const NAVPTS = [28555.66, 29496.86, 29465.69, 28704.58, +navLive.toFixed(2)]; // Jun 5,8,9,10, live
@@ -255,7 +318,7 @@
 
   window.FINN = {
     SOURCE,
-    POS, PORT, BRIEF, QUEUE, NAVPTS, NAV_LABELS, NAV_SERIES, BENCH_SERIES, NAV_DATES,
+    POS, PORT, BRIEF, QUEUE, REVIEWS, NEWS, SMART_MONEY, NAVPTS, NAV_LABELS, NAV_SERIES, BENCH_SERIES, NAV_DATES,
     WATCH, TRADES, EARNINGS: null, SCENARIOS, SECTOR_COLORS, SELL_TRIGGERS,
     fmtUSD:   (n, d = 0) => "$" + n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d }),
     fmtPct:   (n, d = 1) => (n >= 0 ? "+" : "") + n.toFixed(d) + "%",
