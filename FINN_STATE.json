@@ -2,9 +2,9 @@
  "_meta": {
   "file": "FINN_STATE.json",
   "version": "1.0",
-  "rev": 26,
+  "rev": 27,
   "created": "2026-06-05",
-  "last_updated": "2026-06-14",
+  "last_updated": "2026-06-18",
   "purpose": "SINGLE consolidated state file — the canonical source of truth for all Finn portfolio data. Replaces the 10 separate JSONs (STATE_INDEX, POSITIONS_MASTER, WATCHLIST_MASTER, SCORES_SNAPSHOT, TRADE_LOG, NAV_HISTORY, MACRO_SNAPSHOT, THESIS_LEDGER, EARNINGS_CALENDAR, REVIEW_LOG). Structure files stay separate (SYSTEM_PROMPT.md, FINN_VISUAL_SYSTEM_v3_3.html, FINN_DASH_TEMPLATE_v3_2.html, FINN_SESSION_HANDOFF_TEMPLATE.md).",
   "read_first": "This file is the GMF read-first manifest. Anchors (below) are ground truth; every section + render must agree. memory = thin pointer + session deltas only.",
   "sections": [
@@ -95,7 +95,7 @@
    "_meta.sections rebuilt as authoritative enumeration (25 sections incl. params)",
    "_meta.sha256 computed (chain start; prev_sha=null): a9ccb461aedf…"
   ],
-  "prev_sha": "988f58e6bde446700cb3d776cd991842f3d3ae856f93c6a82f3976a5973c1bdd",
+  "prev_sha": "926036bcd150a54bf36fefa9484363774af988fc9306a215af89fa5c304d1048",
   "sha_recipe": "sha256( json.dumps(obj_without_sha256, sort_keys=True, separators=(',',':'), ensure_ascii=False).encode('utf-8') )",
   "rev20_changelog": [
    "_meta.rev 19->20; schema_version 1.1->1.2",
@@ -136,7 +136,20 @@
   "rev23_changelog": [
    "session_handoff refreshed (final GNF, post Run #7 fold) — positions/scores untouched"
   ],
-  "sha256": "926036bcd150a54bf36fefa9484363774af988fc9306a215af89fa5c304d1048"
+  "sha256": "08a72e38dbb7aef77b77ab7903f91b2a67764b14b9c3cedaddd5038fe2045611",
+  "rev27_changelog": [
+   "_meta.rev 26->27; last_updated 2026-06-18",
+   "positions cs -> v4.2 forward-basis: NVDA 88->97, AVGO 90->91, ANET 87 hold, AMAT 87->77, ETN 83->66, APH 88->82, APLD 63->40, MRVL 84->88, NOW 83->84, CRDO 83->80, ORCL 76->72; VOO 84 (foundation)",
+   "positions ms -> Jun15 re-read: ANET 75->78, AMAT 81->83, MRVL 81->84, APLD 74->77, NOW 71->68, ORCL 66->65; rest held",
+   "positions scores_date -> 2026-06-15",
+   "nav_history += Jun11 29877.85 (broker_eod), Jun12 29962.61 (broker_eod) -- recon ANCHORED",
+   "nav_history += Jun17 30466.37 (computed, auto -- new GNF default); append_rule rewritten for auto-compute",
+   "anchors: nav_last_eod_close->29962.61 (Jun12 broker); nav_latest->30466.37 (Jun17 computed); progress_to_50k_pct->60.9; drawdown_from_hwm_pct->-3.7; nav_note rewritten",
+   "scores.history += Jun15 v4.2 calibration + forward-basis run; rescore next_due->2026-06-22",
+   "fundamentals: AVGO cs->91 + fwd; APLD cs->40; seeded 9 rows (NVDA/ANET/AMAT/ETN/APH/MRVL/NOW/CRDO/ORCL) -> STALE-INPUT cleared",
+   "sync: SYSTEM_PROMPT->v4.2, DATA_SPEC->v1.1; sections positions/scores/nav_history/fundamentals dirty",
+   "_meta.sha256 recomputed via canonical recipe"
+  ]
  },
  "anchors": {
   "open_positions": 12,
@@ -158,34 +171,40 @@
   "last_trade_date": "2026-06-09",
   "scores_date": "2026-06-08",
   "scores_next_due": "2026-06-15",
-  "nav_last_eod_close": 28704.58,
-  "nav_last_eod_close_date": "2026-06-10",
+  "nav_last_eod_close": 29962.61,
+  "nav_last_eod_close_date": "2026-06-12",
   "nav_jun4_broker": 30636.78,
   "hwm": 31625.06,
   "hwm_date": "2026-06-02",
-  "drawdown_from_hwm_pct": -9.2,
-  "progress_to_50k_pct": 57.4,
+  "drawdown_from_hwm_pct": -3.7,
+  "progress_to_50k_pct": 60.9,
   "return_from_inception_pct": 4.4,
-  "nav_note": "Jun10 broker EOD close $28,704.58 confirmed (4th EOD-close point) -- -2.58% vs Jun9 ($29,465.69); the midday risk-off the Jun10 handoff flagged. Curve: Jun5 28,555.66 -> Jun8 29,496.86 -> Jun9 29,465.69 -> Jun10 28,704.58. Jun11 EOD uncaptured — see tri-state recon.",
+  "nav_note": "Curve: Jun5 28,555.66 -> Jun8 29,496.86 -> Jun9 29,465.69 -> Jun10 28,704.58 -> Jun11 29,877.85 -> Jun12 29,962.61 (all broker_eod; recon ANCHORED through Jun12) -> Jun17 30466.37 (computed, auto, post-FOMC). Jun12 broker matched Fri live within $1.78.",
   "hwm_basis": "broker_eod",
   "drawdown_basis": "broker_eod",
   "intraday_peak": 32029.95,
   "intraday_peak_date": "2026-06-03",
-  "intraday_peak_note": "Jun3 intraday spike; NOT the drawdown basis (EOD-vs-EOD per AF-14)."
+  "intraday_peak_note": "Jun3 intraday spike; NOT the drawdown basis (EOD-vs-EOD per AF-14).",
+  "nav_last_eod_close_basis": "broker_eod",
+  "nav_latest": 30466.37,
+  "nav_latest_date": "2026-06-17",
+  "nav_latest_basis": "computed",
+  "progress_basis": "latest computed (Jun17); last broker-confirmed Jun12 = 29962.61 / 59.9%"
  },
  "sync": {
   "protocol": "See SYSTEM_PROMPT §SYNC. Single-file model: track per-SECTION dirty flags here instead of per-file. GMF runs SYNC CHECK (anchors vs sections); GNF = one upload of this file + any touched structure file, then GNF UPLOAD VERIFICATION.",
-  "this_file_status": "rev18 -- Jun11 GNF: session_handoff written (Fable design-review workstream + rev17 recap). Re-upload to BOTH Project + GitHub.",
+  "this_file_status": "rev27 -- Jun18 GNF: v4.2 CS book + Jun15 MS re-read; Jun11/12 broker NAV + Jun17 auto-computed NAV; fundamentals seeded book-wide; scores.history += v4.2 calibration. Re-upload to BOTH Project + GitHub.",
   "structure_files_separate": {
-   "FINN_SYSTEM_PROMPT.md": "v4.1 (lean core + inlined skills + Phase 2 section + Jun8 corrections block)",
+   "FINN_SYSTEM_PROMPT.md": "v4.2 (SCORING: momentum out of CS, cash-aware margins, softer growth/PEG curves; Growth=fwd NTM)",
    "FINN_VISUAL_SYSTEM_v3_3.html": "v3.3 — master component library",
    "FINN_DASH_TEMPLATE_v3_2.html": "v3.2 — backfill to v3.3 (Track 1 P3)",
-   "FINN_SESSION_HANDOFF_TEMPLATE.md": "v1.0"
+   "FINN_SESSION_HANDOFF_TEMPLATE.md": "v1.0",
+   "FINN_DATA_SPEC.md": "v1.1 (D21 days-to-event; C.23 refine; A.5 no-dup-derivation; C.17 source-tiering; C.9 NAV auto-compute + nav_basis)"
   },
   "sections": {
    "positions": {
-    "rev": 3,
-    "dirty": false,
+    "rev": 4,
+    "dirty": true,
     "stale_rule": "warn>=14d",
     "note": "NOW dip zone refreshed 115-120 -> 96-100 (+deeper 88-92), last_side->above (Jun14)"
    },
@@ -196,13 +215,13 @@
     "stale_rule": "warn>=14d"
    },
    "scores": {
-    "rev": 1,
-    "dirty": false,
+    "rev": 2,
+    "dirty": true,
     "next_due": "2026-06-08",
     "stale_rule": "warn>=14d"
    },
    "nav_history": {
-    "rev": 7,
+    "rev": 8,
     "dirty": true,
     "note": "Jun9 EOD $29,465.69 logged (3rd EOD-close point)",
     "stale_rule": "warn>=14d"
@@ -266,7 +285,7 @@
     "stale_rule": "warn>=14d"
    },
    "fundamentals": {
-    "rev": 11,
+    "rev": 12,
     "dirty": true,
     "note": "A4: AVGO+APLD seeded; rest on refresh",
     "stale_rule": "warn>=14d"
@@ -347,7 +366,7 @@
    "sector": "Foundation",
    "cs": 84,
    "ms": 77,
-   "scores_date": "2026-06-08",
+   "scores_date": "2026-06-15",
    "dip_zone_low": 650,
    "dip_zone_high": 650,
    "trim_trigger": null,
@@ -364,9 +383,9 @@
    "cost_per_share": 154.66,
    "conviction": 5,
    "sector": "AI Semis",
-   "cs": 88,
+   "cs": 97,
    "ms": 77,
-   "scores_date": "2026-06-08",
+   "scores_date": "2026-06-15",
    "dip_zone_low": 200,
    "dip_zone_high": 210,
    "trim_trigger": 382,
@@ -388,9 +407,9 @@
    "cost_per_share": 420.37,
    "conviction": 5,
    "sector": "AI Semis",
-   "cs": 90,
+   "cs": 91,
    "ms": 71,
-   "scores_date": "2026-06-08",
+   "scores_date": "2026-06-15",
    "lots": [
     {
      "shares": 6,
@@ -434,8 +453,8 @@
    "conviction": 5,
    "sector": "AI Infra/Networking",
    "cs": 87,
-   "ms": 75,
-   "scores_date": "2026-06-08",
+   "ms": 78,
+   "scores_date": "2026-06-15",
    "dip_zone_low": 140,
    "dip_zone_high": 145,
    "trim_trigger": 235,
@@ -456,9 +475,9 @@
    "cost_per_share": 431.9,
    "conviction": 4,
    "sector": "AI Semis",
-   "cs": 87,
-   "ms": 81,
-   "scores_date": "2026-06-08",
+   "cs": 77,
+   "ms": 83,
+   "scores_date": "2026-06-15",
    "dip_zone_low": 420,
    "dip_zone_high": 425,
    "trim_trigger": 590,
@@ -479,9 +498,9 @@
    "cost_per_share": 395.19,
    "conviction": 4,
    "sector": "Power/Energy",
-   "cs": 83,
+   "cs": 66,
    "ms": 72,
-   "scores_date": "2026-06-08",
+   "scores_date": "2026-06-15",
    "dip_zone_low": 395,
    "dip_zone_high": 415,
    "trim_trigger": 586,
@@ -502,9 +521,9 @@
    "cost_per_share": 133.11,
    "conviction": 4,
    "sector": "AI Infra/Networking",
-   "cs": 88,
+   "cs": 82,
    "ms": 79,
-   "scores_date": "2026-06-08",
+   "scores_date": "2026-06-15",
    "lots": [
     {
      "shares": 4,
@@ -549,9 +568,9 @@
    "cost_per_share": 26.49,
    "conviction": 4,
    "sector": "AI Infra/Networking",
-   "cs": 63,
-   "ms": 74,
-   "scores_date": "2026-06-08",
+   "cs": 40,
+   "ms": 77,
+   "scores_date": "2026-06-15",
    "dip_zone_low": 40,
    "dip_zone_high": 43,
    "trim_trigger": 75,
@@ -572,9 +591,9 @@
    "cost_per_share": 194.33,
    "conviction": 4,
    "sector": "AI Semis",
-   "cs": 84,
-   "ms": 81,
-   "scores_date": "2026-06-08",
+   "cs": 88,
+   "ms": 84,
+   "scores_date": "2026-06-15",
    "dip_zone_low": 205,
    "dip_zone_high": 215,
    "trim_trigger": 390,
@@ -595,9 +614,9 @@
    "cost_per_share": 101.68,
    "conviction": 4,
    "sector": "AI Software",
-   "cs": 83,
-   "ms": 71,
-   "scores_date": "2026-06-08",
+   "cs": 84,
+   "ms": 68,
+   "scores_date": "2026-06-15",
    "dip_zone_low": 96,
    "dip_zone_high": 100,
    "trim_trigger": 186,
@@ -620,9 +639,9 @@
    "cost_per_share": 215.95,
    "conviction": 4,
    "sector": "AI Semis",
-   "cs": 83,
+   "cs": 80,
    "ms": 82,
-   "scores_date": "2026-06-08",
+   "scores_date": "2026-06-15",
    "lots": [
     {
      "shares": 1,
@@ -668,9 +687,9 @@
    "cost_per_share": 192.84,
    "conviction": 3,
    "sector": "AI Software",
-   "cs": 76,
-   "ms": 66,
-   "scores_date": "2026-06-08",
+   "cs": 72,
+   "ms": 65,
+   "scores_date": "2026-06-15",
    "dip_zone_low": 185,
    "dip_zone_high": 190,
    "trim_trigger": 339,
@@ -947,7 +966,7 @@
  },
  "nav_history": {
   "measure_note": "EOD-close measure ADOPTED Jun5. Legacy May29-Jun3 rows = intraday PEAK; Jun4 = current intraday; Jun5 onward = EOD close. De-mix by backfilling EOD closes if available.",
-  "append_rule": "GNF appends one verified NAV per session {date, nav, type, realized_pnl_cum}. Broker total only — never estimated.",
+  "append_rule": "GNF auto-computes EOD NAV = Sum(shares x historical-price-eod-light close)+cash, basis='computed'. A pasted broker total overwrites and re-tags basis='broker_eod'/verified=true. Small deltas log; large gap flags reconcile.",
   "snapshots": [
    {
     "date": "2026-05-29",
@@ -1057,6 +1076,33 @@
     "verified": true,
     "note": "broker EOD close; -2.58% vs Jun9 / -10.4% off HWM; midday risk-off into the close. 4th EOD-close point.",
     "basis": "broker_eod"
+   },
+   {
+    "date": "2026-06-11",
+    "nav": 29877.85,
+    "type": "eod_close",
+    "realized_pnl_cum": 2528.29,
+    "verified": true,
+    "basis": "broker_eod",
+    "note": "broker EOD; +4.09% vs Jun10; rebound. 5th EOD-close point."
+   },
+   {
+    "date": "2026-06-12",
+    "nav": 29962.61,
+    "type": "eod_close",
+    "realized_pnl_cum": 2528.29,
+    "verified": true,
+    "basis": "broker_eod",
+    "note": "broker EOD; +0.28% vs Jun11; matches Fri live marks within $1.78. 6th EOD-close point. RECON ANCHORED."
+   },
+   {
+    "date": "2026-06-17",
+    "nav": 30466.37,
+    "type": "eod_close",
+    "realized_pnl_cum": 2528.29,
+    "verified": false,
+    "basis": "computed",
+    "note": "AUTO-COMPUTED (new GNF default): Sum(sh x Jun17 close)+cash. Post-FOMC. Not broker-confirmed; overwrite if broker EOD pasted."
    }
   ]
  },
@@ -1064,10 +1110,10 @@
   "rescore_schedule": {
    "owned": "weekly",
    "radar": "on_demand",
-   "next_due": "2026-06-15",
+   "next_due": "2026-06-22",
    "overdue": false
   },
-  "current_note": "Live CS/MS per owned name live in `positions` (scores_date Jun8). History archived below.",
+  "current_note": "Live CS/MS in `positions` (scores_date Jun15). CS = rubric v4.2 forward-basis; MS = Jun15 momentum re-read. History below.",
   "history": [
    {
     "date": "2026-05-27",
@@ -1305,6 +1351,72 @@
       "tk": "ORCL",
       "cs": 76,
       "ms": 66
+     }
+    ]
+   },
+   {
+    "date": "2026-06-15",
+    "note": "Rubric v4.2 calibration: momentum OUT of CS (Fund42/Moat30/Growth20/Val8), cash-aware margins (best of OM/EBITDA/FCF), softer growth+PEG curves. Growth uses forward NTM consensus (AMAT/ORCL/ETN cyclical-or-inflecting repriced; high/steady growers unchanged). Fundamentals pulled book-wide -> STALE-INPUT cleared. AMAT divergence-flag CLEARED at 77 (forward); ETN(66)/APLD(40) carry tier-review flags, conviction held C4 by operator.",
+    "scores": [
+     {
+      "tk": "NVDA",
+      "cs": 97,
+      "ms": 77
+     },
+     {
+      "tk": "AVGO",
+      "cs": 91,
+      "ms": 71
+     },
+     {
+      "tk": "MRVL",
+      "cs": 88,
+      "ms": 84
+     },
+     {
+      "tk": "ANET",
+      "cs": 87,
+      "ms": 78
+     },
+     {
+      "tk": "NOW",
+      "cs": 84,
+      "ms": 68
+     },
+     {
+      "tk": "APH",
+      "cs": 82,
+      "ms": 79
+     },
+     {
+      "tk": "CRDO",
+      "cs": 80,
+      "ms": 82
+     },
+     {
+      "tk": "AMAT",
+      "cs": 77,
+      "ms": 83
+     },
+     {
+      "tk": "ORCL",
+      "cs": 72,
+      "ms": 65
+     },
+     {
+      "tk": "ETN",
+      "cs": 66,
+      "ms": 72
+     },
+     {
+      "tk": "APLD",
+      "cs": 40,
+      "ms": 77
+     },
+     {
+      "tk": "VOO",
+      "cs": 84,
+      "ms": 77
      }
     ]
    }
@@ -2655,7 +2767,7 @@
   "note": "Risk audit every session (mirrors the zone audit). Spec: skills/risk."
  },
  "fundamentals": {
-  "refresh": "weekly + at earnings (FMP metrics-ratios-ttm + income-statement-growth; annual on Starter, quarterly Premium). Seeded AVGO+APLD Jun9; rest populate on refresh.",
+  "refresh": "weekly + at earnings (FMP metrics-ratios-ttm + income-statement-growth; forward via analyst financial-estimates page-walk). Full book seeded Jun15 (v4.2). Growth=fwd NTM consensus.",
   "AVGO": {
    "as_of": "2026-06-09",
    "fy": "FY2025",
@@ -2677,8 +2789,16 @@
    "peg_ttm": 0.5,
    "peg_fwd": 0.93,
    "valuation_read": "rich absolute (P/E 63, EV/EBITDA 46) but PEG ~0.5-0.9 -> growth-justified",
-   "cs": 90,
-   "cs_support": "CONFIRMS CS 90 -- elite margins + operating leverage (+45% EBITDA on +24% rev) + ~44% FCF margin + clean balance sheet + minimal dilution; the multiple is the only caution"
+   "cs": 91,
+   "cs_support": "v4.2: 67% GM / 44% OM / 43% FCF margin, +24% trailing rev, fwd +36-71%, PEG 0.94. CS 91 -- #2 quality behind NVDA.",
+   "fwd_rev_growth": {
+    "fy26e_pct": 64.6,
+    "range_pct": [
+     36,
+     71
+    ],
+    "note": "avg high in range; AI-ASIC ramp"
+   }
   },
   "APLD": {
    "as_of": "2026-06-09",
@@ -2698,8 +2818,157 @@
    "ps": 33.7,
    "peg_fwd": 0.95,
    "valuation_read": "P/S 34 on losses; no earnings/FCF to anchor -- prices in a big turnaround",
-   "cs": 63,
-   "cs_support": "JUSTIFIES the capped CS 63 -- fast top-line (+58%) but unprofitable (-52% net margin), cash-burning (-$6.67/sh FCF), levered (D/E 1.8, can't cover interest), +76% share dilution. A buildout story, not a compounder."
+   "cs": 40,
+   "cs_support": "v4.2: pre-profit (-25% OM), FCF-negative, D/E 1.8, +76% dilution. Fundamentals 25, Growth backlog-capped 60. CS 40. Buildout bet; conviction held C4 by operator."
+  },
+  "NVDA": {
+   "as_of": "2026-06-15",
+   "fy": "FY2026",
+   "rev_growth_yoy": 65.5,
+   "gross_margin": 74.1,
+   "op_margin": 64.0,
+   "net_margin": 63.0,
+   "fcf_margin_est": 47,
+   "debt_to_equity": 0.07,
+   "interest_coverage": 544,
+   "ps": 20.0,
+   "pe_ttm": 31.9,
+   "peg_fwd": 0.8,
+   "cs": 97,
+   "cs_support": "v4.2: 74% GM / 64% OM / 47% FCF, fortress B/S, fwd PEG 0.80, CUDA moat. The genuine quality leader; only name strict rubric raised."
+  },
+  "ANET": {
+   "as_of": "2026-06-15",
+   "fy": "FY2025",
+   "rev_growth_yoy": 28.6,
+   "gross_margin": 63.5,
+   "op_margin": 42.8,
+   "fcf_margin_est": 54,
+   "debt_to_equity": 0.0,
+   "ps": 21.6,
+   "pe_ttm": 56.2,
+   "peg_fwd": 2.49,
+   "cs": 87,
+   "cs_support": "v4.2: no debt, 54% FCF margin, +29% rev. PEG 2.5 the only drag. C5-quality."
+  },
+  "AMAT": {
+   "as_of": "2026-06-15",
+   "fy": "FY2025",
+   "rev_growth_yoy": 4.4,
+   "gross_margin": 49.0,
+   "op_margin": 29.5,
+   "fcf_margin_est": 20.6,
+   "debt_to_equity": 0.27,
+   "interest_coverage": 31,
+   "ps": 16.2,
+   "peg_fwd": 1.61,
+   "cs": 77,
+   "fwd_rev_growth": {
+    "fy26e_pct": 17.5,
+    "fy27e_pct": 26.8,
+    "note": "trailing 4.4% was the cycle trough; consensus reaccelerates"
+   },
+   "cs_support": "v4.2 forward-basis: trailing +4.4% = trough; fwd +17.5%/+26.8% (WFE upcycle). Growth 80 on forward lifts CS 65->77; trailing fundamentals still trough-level. Divergence flag CLEARED; riding the cycle, not trailing."
+  },
+  "ETN": {
+   "as_of": "2026-06-15",
+   "fy": "FY2025",
+   "rev_growth_yoy": 10.3,
+   "gross_margin": 36.9,
+   "op_margin": 18.1,
+   "fcf_margin_est": 16.5,
+   "debt_to_equity": 1.1,
+   "interest_coverage": 16.5,
+   "ps": 5.55,
+   "peg_fwd": 2.27,
+   "cs": 66,
+   "fwd_rev_growth": {
+    "fy26e_pct": 17.0,
+    "fy27e_pct": 10.4,
+    "note": "FY26 +17% M&A-aided (Boyd Thermal); ~8-10% organic"
+   },
+   "cs_support": "v4.2: quality-industrial. +10% organic, 18% OM, D/E 1.1, PEG 2.3. CS 66 -- below C4 floor; hold, not press-on-dips. Conviction held C4 by operator."
+  },
+  "APH": {
+   "as_of": "2026-06-15",
+   "fy": "FY2025",
+   "rev_growth_yoy": 51.7,
+   "gross_margin": 37.3,
+   "op_margin": 26.0,
+   "fcf_margin_est": 17.9,
+   "debt_to_equity": 1.34,
+   "interest_coverage": 13.5,
+   "ps": 7.5,
+   "peg_fwd": 2.47,
+   "cs": 82,
+   "cs_support": "v4.2: +52% rev (M&A-boosted), 37% GM caps margin sub, D/E 1.34, PEG 2.5. Strong compounder. CS 82."
+  },
+  "MRVL": {
+   "as_of": "2026-06-15",
+   "fy": "FY2026",
+   "rev_growth_yoy": 42.1,
+   "gross_margin": 50.6,
+   "op_margin": 16.2,
+   "ebitda_margin": 53,
+   "fcf_margin_est": 19.1,
+   "debt_to_equity": 0.29,
+   "interest_coverage": 6.7,
+   "ps": 29.4,
+   "pe_ttm": 102,
+   "peg_fwd": 1.96,
+   "cs": 88,
+   "cs_support": "v4.2: +42% rev, GM +23pts YoY; thin 16% OM but 53% EBITDA (cash-aware margin lifts it), PEG 2.0. CS 88 -- growth justifies the run."
+  },
+  "NOW": {
+   "as_of": "2026-06-15",
+   "fy": "FY2025",
+   "rev_growth_yoy": 20.9,
+   "gross_margin": 76.6,
+   "op_margin": 13.4,
+   "fcf_margin_est": 33.2,
+   "debt_to_equity": 0.21,
+   "interest_coverage": 156,
+   "ps": 7.77,
+   "peg_fwd": 2.84,
+   "cs": 84,
+   "fwd_rev_growth": {
+    "fy26e_pct": 22.0
+   },
+   "cs_support": "v4.2: elite SaaS -- 77% GM, 33% FCF margin (cash-aware margin rescues 13% GAAP OM), +21% rev / fwd +22%. PEG 2.8 the drag. CS 84 (was 64 strict)."
+  },
+  "CRDO": {
+   "as_of": "2026-06-15",
+   "fy": "FY2026",
+   "rev_growth_yoy": 205.7,
+   "gross_margin": 68.0,
+   "op_margin": 33.3,
+   "fcf_margin_est": 21.3,
+   "debt_to_equity": 0.01,
+   "ps": 34.5,
+   "pe_ttm": 98,
+   "peg_fwd": 2.28,
+   "cs": 80,
+   "cs_support": "v4.2: +206% rev, 68% GM, ~no debt. PEG 2.3 + customer-concentration moat (62) cap it. CS 80."
+  },
+  "ORCL": {
+   "as_of": "2026-06-15",
+   "fy": "FY2026",
+   "rev_growth_yoy": 17.4,
+   "gross_margin": 65.8,
+   "op_margin": 30.8,
+   "fcf_margin_est": "negative",
+   "fcf_per_share": -8.23,
+   "debt_to_equity": 3.6,
+   "interest_coverage": 4.5,
+   "ps": 8.18,
+   "pe_ttm": 32.3,
+   "peg_fwd": 0.92,
+   "cs": 72,
+   "fwd_rev_growth": {
+    "fy27e_pct": 32.5,
+    "note": "OCI/RPO ramp"
+   },
+   "cs_support": "v4.2 forward-basis: fwd +32.5% (OCI/$600B+ RPO) lifts CS 64->72, but Fundamentals stay 51 -- FCF-NEGATIVE (AI capex), D/E 3.6, GM compressing. Growth real but debt-financed; the risk is the B/S. Conviction held C3."
   }
  },
  "catalysts": {
